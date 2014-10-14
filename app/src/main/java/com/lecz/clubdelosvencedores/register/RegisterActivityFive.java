@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.lecz.clubdelosvencedores.MainActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.general.HomeActivity;
 import com.lecz.clubdelosvencedores.objects.Contact;
@@ -107,7 +108,7 @@ public class RegisterActivityFive extends Activity {
 
                 friends.commit();
 
-                Intent myIntent = new Intent(getApplication(), HomeActivity.class);
+                Intent myIntent = new Intent(getApplication(), MainActivity.class);
                 startActivity(myIntent);
             }
         });

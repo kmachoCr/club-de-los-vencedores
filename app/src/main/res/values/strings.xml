@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Club de los Vencedores</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="register_name">Nombre</string>
+    <string name="register_age">Edad</string>
+    <string name="register_genre">Género</string>
+    <string name="register_status">¿Cuál es su status actual de fumado?</string>
+    <string name="register_how_many_cigarettes">¿Cuántos cigarrillos al día fumaba?</string>
+    <string name="register_how_long_no_smoking">¿Hace cuánto dejó de fumar?</string>
+    <string name="register_how_long_smoking">¿Cuánto tiempo fumó?</string>
+    <string name="register_how_many_cigarettes_p">¿Cuántos cigarrillos fuma al día?</string>
+    <string name="register_how_long_smoking_p">¿Cuánto tiempo ha fumado?</string>
+    <string name="register_how_plan_type">Seleccione un plan para dejar de fumar (las opciones de mas de una semana, crearan un plan para dejar de fumar progresivamente)</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="register_habits_ask1">¿Cuál es la hora del día en que más fuma?</string>
+    <string name="register_habits_ask2">¿Cuales son los días de la semana que más fuma?</string>
+    <string name="register_habits_tomorrow">Mañana</string>
+    <string name="register_habits_afternoon">Tarde</string>
+    <string name="register_habits_night">Noche</string>
+    <string name="register_habits_weekday">Entre semana</string>
+    <string name="register_habits_weekend">Fin de senmana</string>
+    <string name="register_motivations_ask">¿Cuales son sus motivaciones para dejar de fumar?</string>
+    <string name="register_motivations_money">Ahorrar dinero</string>
+    <string name="register_motivations_aesthetic">Estética</string>
+    <string name="register_motivations_family">Por mi familia</string>
+    <string name="register_motivations_health">Salud</string>
+    <string name="save_and_next">Guardar y continuar</string>
+    <string name="save">Guardar</string>
+
+    <string-array name="plan_type">
+        <item>Desde ya</item>
+        <item>Mañana</item>
+        <item>1 semana.</item>
+        <item>2 semanas.</item>
+        <item>4 semanas</item>
+    </string-array>
+
+    <string name="title_activity_register_activity_one">RegisterActivityOne</string>
+    <string name="title_activity_register_activity_two">RegisterActivityTwo</string>
+    <string name="title_activity_register_activity_three">RegisterActivityThree</string>
+    <string name="title_activity_register_activity_four">RegisterActivityFour</string>
+    <string name="title_activity_register_activity_five">RegisterActivityFive</string>
+
+</resources>

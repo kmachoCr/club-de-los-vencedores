@@ -4,6 +4,7 @@ package com.lecz.clubdelosvencedores.objects;
  * Created by Luis on 9/29/2014.
  */
 public class PlanDetail {
+    private int id;
     private int number_day;
     private int total_cigarettes;
     private int used_cigarettes;
@@ -43,6 +44,14 @@ public class PlanDetail {
 
     public void setUsed_cigarettes(int used_cigarrettes) {
         this.used_cigarettes = used_cigarrettes;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public boolean isApproved() {

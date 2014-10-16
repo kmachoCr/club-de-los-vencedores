@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.lecz.clubdelosvencedores.R;
-import com.lecz.clubdelosvencedores.general.UserDataSource;
+import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
 import com.lecz.clubdelosvencedores.objects.User;
 
 import java.util.ArrayList;

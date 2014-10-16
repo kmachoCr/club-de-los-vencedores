@@ -3,7 +3,6 @@ package com.lecz.clubdelosvencedores.register;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -21,11 +20,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.lecz.clubdelosvencedores.MainActivity;
+import com.lecz.clubdelosvencedores.general.MainActivity;
 import com.lecz.clubdelosvencedores.R;
-import com.lecz.clubdelosvencedores.general.HomeActivity;
 import com.lecz.clubdelosvencedores.objects.Contact;
-import com.lecz.clubdelosvencedores.register.ContactsAdapter;
 
 import java.util.ArrayList;
 

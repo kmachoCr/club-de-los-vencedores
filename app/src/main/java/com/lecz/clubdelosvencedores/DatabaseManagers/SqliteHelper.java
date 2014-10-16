@@ -1,4 +1,4 @@
-package com.lecz.clubdelosvencedores.general;
+package com.lecz.clubdelosvencedores.DatabaseManagers;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,7 +25,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + "cigarettes_day numeric not null"
             + ");";
 
-    private static final String DATATABLE_PLAN_DETAIL = "create table Plan_detail ( "
+    private static final String DATATABLE_PLAN_DETAIL = "create table PlanDetail ( id integer primary key autoincrement, "
             + "number_day numeric not null, "
             + "total_cigarettes numeric not null, "
             + "used_cigarettes numeric not null,"
@@ -49,6 +49,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS User");
+        db.execSQL("DROP TABLE IF EXISTS PlanDetail");
         onCreate(db);
     }
 

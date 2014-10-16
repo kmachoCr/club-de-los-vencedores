@@ -45,7 +45,6 @@ public class HomeFragment_1 extends Fragment {
 
         cursor.close();
 
-        Log.i("Numero", phones.get(0));
         return rootView;
     }
 

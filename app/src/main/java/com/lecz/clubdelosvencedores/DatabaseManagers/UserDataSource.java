@@ -1,4 +1,4 @@
-package com.lecz.clubdelosvencedores.general;
+package com.lecz.clubdelosvencedores.DatabaseManagers;
 
 
         import java.util.ArrayList;
@@ -7,8 +7,6 @@ package com.lecz.clubdelosvencedores.general;
         import android.database.Cursor;
         import android.database.SQLException;
         import android.database.sqlite.SQLiteDatabase;
-        import android.util.Log;
-        import android.widget.Toast;
 
         import com.lecz.clubdelosvencedores.objects.User;
 

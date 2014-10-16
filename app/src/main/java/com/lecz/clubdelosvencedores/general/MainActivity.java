@@ -1,6 +1,7 @@
 package com.lecz.clubdelosvencedores.general;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -26,7 +27,6 @@ import java.util.Calendar;
 public class MainActivity extends Activity {
 
     ViewPager viewPager, viewPager2;
-    Chronometer chrono;
     TextView textView, textView2;
     PagerAdapter adapter;
     String[] rank;
@@ -64,7 +64,6 @@ public class MainActivity extends Activity {
         viewPager2 = (ViewPager) findViewById(R.id.as);
         textView = (TextView) findViewById(R.id.textView);
         textView2 = (TextView) findViewById(R.id.textView2);
-        chrono = (Chronometer) findViewById(R.id.chronometer);
         adapter = new ViewPagerAdapter(MainActivity.this, rank, country, population, flag);
 
         // Binds the Adapter to the ViewPager
@@ -117,15 +116,18 @@ public class MainActivity extends Activity {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 20);
-        calendar.set(Calendar.AM_PM, Calendar.PM);
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 45);
+        calendar.set(Calendar.AM_PM, Calendar.AM);
 
         Intent myIntent = new Intent(MainActivity.this, BroadcastService.class);
         pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent,0);
 
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 1000 * 60 * 10, 1000 * 60 * 10, pendingIntent);
+        if(!isMyServiceRunning(BroadcastService.class)){
+            AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 5, pendingIntent);
+        }
+
         textView.setText(asas.size()+"");
         textView2.setText(asas.get(0).getNumber_day()+"");
     }
@@ -136,6 +138,16 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

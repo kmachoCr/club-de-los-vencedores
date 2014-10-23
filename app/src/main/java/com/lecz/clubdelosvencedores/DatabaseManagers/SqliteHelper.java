@@ -30,7 +30,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + "total_cigarettes numeric not null, "
             + "used_cigarettes numeric not null,"
             + "approved numeric not null,"
-            + "current numeric not null"
+            + "current numeric not null,"
+            + "date numeric not null,"
+            + "completed numeric not null"
             + ");";
 
     public SqliteHelper(Context context) {

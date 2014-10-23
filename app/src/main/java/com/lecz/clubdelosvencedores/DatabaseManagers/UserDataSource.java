@@ -92,19 +92,18 @@ public class UserDataSource {
         return users;
     }
 
-    public User getUser(int id) {
+    public User getUser() {
+        User user = null;
         Cursor cursor = database.query("User",
-                allColumns, "id = " + id, null,
+                allColumns, "id = 1", null,
                 null, null, null);
-        if(cursor.getCount() > 0){
-
-            User user = cursorToComment(cursor);
-            cursor.close();
-
-            return user;
-        }else{
-            return null;
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            user = cursorToComment(cursor);
+            cursor.moveToNext();
         }
+        cursor.close();
+        return user;
 
 
     }

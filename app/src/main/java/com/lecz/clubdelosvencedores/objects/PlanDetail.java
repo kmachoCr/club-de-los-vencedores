@@ -1,5 +1,7 @@
 package com.lecz.clubdelosvencedores.objects;
 
+import java.util.Date;
+
 /**
  * Created by Luis on 9/29/2014.
  */
@@ -10,16 +12,20 @@ public class PlanDetail {
     private int used_cigarettes;
     private boolean approved;
     private boolean current;
+    private boolean completed;
+    private Long date;
 
     public PlanDetail() {
     }
 
-    public PlanDetail(int number_day, int total_cigarrettes, int used_cigarrettes, boolean approved, boolean current) {
+    public PlanDetail(int number_day, int total_cigarrettes, int used_cigarrettes, boolean approved, boolean current, Long date, boolean completed) {
         this.number_day = number_day;
         this.total_cigarettes = total_cigarrettes;
         this.used_cigarettes = used_cigarrettes;
         this.approved = approved;
         this.current = current;
+        this.date = date;
+        this.completed = completed;
     }
 
     public int getNumber_day() {
@@ -68,6 +74,22 @@ public class PlanDetail {
 
     public void setCurrent(boolean current) {
         this.current = current;
+    }
+
+    public Long getDate() {
+        return date;
+    }
+
+    public void setDate(Long date) {
+        this.date = date;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }
 

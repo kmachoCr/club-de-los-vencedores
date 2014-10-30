@@ -21,12 +21,9 @@ public class ViewPagerAdapter extends PagerAdapter {
     int[] flag;
     LayoutInflater inflater;
 
-    public ViewPagerAdapter(Context context, String[] rank, String[] country,
-                            String[] population, int[] flag) {
+    public ViewPagerAdapter(Context context, String[] rank, int[] flag) {
         this.context = context;
         this.rank = rank;
-        this.country = country;
-        this.population = population;
         this.flag = flag;
     }
 

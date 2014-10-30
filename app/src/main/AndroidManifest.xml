@@ -13,6 +13,11 @@
         <activity
             android:name=".register.RegisterActivityOne"
             android:label="@string/title_activity_register_activity_one" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".register.RegisterActivityTwo"
@@ -33,11 +38,7 @@
         <activity
             android:name=".general.MainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <receiver android:name=".general.BroadcastService" >
@@ -45,11 +46,25 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".general.NotificationService"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name" >
         </service>
+
+        <activity
+            android:name=".general.PanicActivity"
+            android:label="@string/title_activity_panic" >
+        </activity>
+        <activity
+            android:name=".Game.Game"
+            android:label="@string/title_activity_panic" >
+        </activity>
+        <activity
+            android:name=".MyActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

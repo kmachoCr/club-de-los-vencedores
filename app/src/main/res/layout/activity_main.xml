@@ -1,3 +1,6 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -55,8 +58,27 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="0 / 10"
                 android:id="@+id/textView4"
-                android:layout_alignParentBottom="true"
+                android:layout_alignBottom="@+id/add_cigarette"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/textView3"
+                android:layout_below="@+id/textView"
                 android:layout_alignParentStart="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fumé"
+                android:id="@+id/add_cigarette"
+                android:layout_toEndOf="@+id/textView4"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="49dp" />
 
         </RelativeLayout>
 
@@ -64,20 +86,21 @@
 
     <view
         android:layout_width="fill_parent"
-        android:layout_height="140dp"
+        android:layout_height="200dp"
         class="android.support.v4.view.ViewPager"
         android:id="@+id/as"
-        android:layout_above="@+id/pager"
-        android:layout_alignParentStart="true" />
-
-    <view
-        android:layout_width="fill_parent"
-        android:layout_height="140dp"
-        class="android.support.v4.view.ViewPager"
-        android:id="@+id/pager"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 
 
+    </RelativeLayout>
 
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/add_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/add_button_margin"
+        android:src="@android:drawable/ic_input_add"/>
+
+</FrameLayout>

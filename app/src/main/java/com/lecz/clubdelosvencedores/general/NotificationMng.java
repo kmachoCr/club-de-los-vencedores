@@ -14,10 +14,10 @@ import java.util.Random;
 /**
  * Created by Luis on 10/21/2014.
  */
-public class NotifictionManager {
+public class NotificationMng {
     NotificationManager mNotificationManager;
 
-    public NotifictionManager(Context context){
+    public NotificationMng(Context context){
         mNotificationManager = (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 

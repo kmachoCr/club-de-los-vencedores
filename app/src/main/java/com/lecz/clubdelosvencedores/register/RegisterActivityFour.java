@@ -17,7 +17,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import com.lecz.clubdelosvencedores.DatabaseManagers.AchievementDataSource;
+import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.R;
+import com.lecz.clubdelosvencedores.objects.Achievement;
 
 
 public class RegisterActivityFour extends Activity {
@@ -37,7 +40,7 @@ public class RegisterActivityFour extends Activity {
 
         button = (Button) findViewById(R.id.savennext4);
         uploadimage = (Button) findViewById(R.id.uploadimage);
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.as);
         imageView = (ImageView) findViewById(R.id.imageView);
         money = (CheckBox) findViewById(R.id.register_motivations_money);
         aesthetic = (CheckBox) findViewById(R.id.register_motivations_aesthetic);
@@ -68,7 +71,18 @@ public class RegisterActivityFour extends Activity {
 
                 habits.commit();
 
-                Intent myIntent = new Intent(getApplication(), RegisterActivityFive.class);
+                AchievementDataSource dsa = new AchievementDataSource(getApplicationContext());
+
+                dsa.open();
+                dsa.createAchievement(new Achievement("premio 1", "time", new Long(1000 * 60 * 60 * 2), false));
+                dsa.createAchievement(new Achievement("premio 2", "time", new Long(1000 * 60 * 60 * 4), false));
+                dsa.createAchievement(new Achievement("premio 3", "time", new Long(1000 * 60 * 60 * 8), false));
+                dsa.createAchievement(new Achievement("premio 4", "time", new Long(1000 * 60 * 60 * 12), false));
+                dsa.createAchievement(new Achievement("premio 5", "time", new Long(1000 * 60 * 60 * 24), false));
+                dsa.createAchievement(new Achievement("premio 6", "money", new Long(2000), false));
+                dsa.close();
+
+                Intent myIntent = new Intent(getApplication(), MyActivity.class);
                 startActivity(myIntent);
             }
         });

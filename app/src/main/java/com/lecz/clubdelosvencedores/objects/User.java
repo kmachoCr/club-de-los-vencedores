@@ -11,12 +11,13 @@ public class User {
     private int age;
     private boolean genre;
     private boolean smoking;
-    private int days_without_smoking;
+    private Double days_without_smoking;
     private int cigarettes_per_day;
-    private int days_without_smoking_count;
+    private Double days_without_smoking_count;
     private int plan_type;
     private int cigarettes_no_smoked;
     private int money_saved;
+    private Long last_cigarette;
 
     public User(){}
 
@@ -24,8 +25,8 @@ public class User {
         this.name = name;
         this.age = age;
         this.genre = genre;
-        this.days_without_smoking = 0;
-        this.days_without_smoking_count = 0;
+        this.days_without_smoking = 0.0;
+        this.days_without_smoking_count = 0.0;
         this.plan_type = plan_type;
         this.cigarettes_no_smoked = 0;
         this.money_saved = 0;
@@ -37,6 +38,14 @@ public class User {
 
     public void setCigarettes_per_day(int cigarettes_per_day) {
         this.cigarettes_per_day = cigarettes_per_day;
+    }
+
+    public Long getLast_cigarette() {
+        return last_cigarette;
+    }
+
+    public void setLast_cigarette(Long last_cigarette) {
+        this.last_cigarette = last_cigarette;
     }
 
     public boolean getSmoking() {
@@ -79,19 +88,19 @@ public class User {
         this.genre = genre;
     }
 
-    public int getDays_without_smoking() {
+    public Double getDays_without_smoking() {
         return days_without_smoking;
     }
 
-    public void setDays_without_smoking(int days_without_smoking) {
+    public void setDays_without_smoking(Double days_without_smoking) {
         this.days_without_smoking = days_without_smoking;
     }
 
-    public int getDays_without_smoking_count() {
+    public Double getDays_without_smoking_count() {
         return days_without_smoking_count;
     }
 
-    public void setDays_without_smoking_count(int days_without_smoking_count) {
+    public void setDays_without_smoking_count(Double days_without_smoking_count) {
         this.days_without_smoking_count = days_without_smoking_count;
     }
 

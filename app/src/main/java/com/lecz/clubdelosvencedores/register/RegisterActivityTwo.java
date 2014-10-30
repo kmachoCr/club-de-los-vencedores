@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,11 +14,15 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.lecz.clubdelosvencedores.DatabaseManagers.PlanDetailsDataSource;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
+import com.lecz.clubdelosvencedores.objects.Achievement;
+import com.lecz.clubdelosvencedores.objects.PlanDetail;
 import com.lecz.clubdelosvencedores.objects.User;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class RegisterActivityTwo extends Activity {
@@ -30,19 +35,20 @@ public class RegisterActivityTwo extends Activity {
     private Spinner plan_type;
     private UserDataSource userds;
     ArrayList<User> users;
+    private PlanDetailsDataSource dspd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_activity_two);
 
+        dspd = new PlanDetailsDataSource(this);
         button = (Button) findViewById(R.id.savennext2);
-        viewPager = (ViewPager) findViewById(R.id.pager);
         dias_q_no_fumo = (SeekBar) findViewById(R.id.no_days_quit);
         tv_dias_q_fumo = (TextView) findViewById(R.id.tv_days_quit);
         dias_q_fumo = (SeekBar) findViewById(R.id.days_quit);
         textView4 = (TextView) findViewById(R.id.textView4);
-        textView5 = (TextView) findViewById(R.id.textView5);
+        textView5 = (TextView) findViewById(R.id.name_user);
         cigarettes_per_day = (TextView) findViewById(R.id.register_cigarettes_per_day);
         plan_type = (Spinner) findViewById(R.id.plan_type);
 
@@ -55,7 +61,8 @@ public class RegisterActivityTwo extends Activity {
         userds.close();
 
         if(!users.isEmpty()){
-            if(users.get(0).getSmoking()){
+            Log.i("Fuma?", users.get(0).getSmoking() + "");
+            if(!users.get(0).getSmoking()){
                 textView5.setVisibility(View.VISIBLE);
                 dias_q_no_fumo.setVisibility(View.VISIBLE);
                 tv_dias_q_fumo.setVisibility(View.VISIBLE);
@@ -69,6 +76,9 @@ public class RegisterActivityTwo extends Activity {
                 users = userds.getUsers();
                 userds.close();
 
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(System.currentTimeMillis());
+
                 if(!users.isEmpty()){
                     user = users.get(0);
                     user.setCigarettes_per_day(Integer.parseInt(cigarettes_per_day.getText().toString()));
@@ -76,7 +86,35 @@ public class RegisterActivityTwo extends Activity {
                     userds.open();
                     userds.updateUser(user);
                     userds.close();
-                    Intent myIntent = new Intent(getApplication(), RegisterActivityThree.class);
+
+                    dspd.open();
+                    int total = Integer.parseInt(cigarettes_per_day.getText().toString());
+                    PlanDetail plan = new PlanDetail();
+                    plan.setNumber_day(1);
+                    plan.setTotal_cigarettes(total);
+                    plan.setUsed_cigarettes(0);
+                    plan.setApproved(false);
+                    plan.setCurrent(true);
+                    plan.setCompleted(false);
+                    plan.setDate(c.getTimeInMillis());
+                    total--;
+                    dspd.createPlanDetail(plan);
+
+                    for(int i = 2; i <= Integer.parseInt(cigarettes_per_day.getText().toString()); i++){
+                        plan = new PlanDetail();
+                        plan.setNumber_day(i);
+                        plan.setTotal_cigarettes(total);
+                        plan.setUsed_cigarettes(0);
+                        plan.setApproved(false);
+                        plan.setCurrent(false);
+                        plan.setCompleted(false);
+                        c.add(Calendar.DATE, 1);
+                        plan.setDate(c.getTimeInMillis());
+                        total--;
+                        dspd.createPlanDetail(plan);
+                    }
+                    dspd.close();
+                    Intent myIntent = new Intent(getApplication(), RegisterActivityFour.class);
                     startActivity(myIntent);
                 }
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,9 +12,12 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
 import com.lecz.clubdelosvencedores.objects.User;
+
+import java.util.Calendar;
 
 
 public class RegisterActivityOne extends Activity {
@@ -28,36 +32,48 @@ public class RegisterActivityOne extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_activity_one);
 
-        button = (Button) findViewById(R.id.savennext1);
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        name = (TextView) findViewById(R.id.register_name);
-        age = (TextView) findViewById(R.id.register_age);
-        radioM = (RadioButton)findViewById(R.id.radioM);
-        smoking = (RadioButton) findViewById(R.id.smoking);
+        userds = new UserDataSource(getApplication().getApplicationContext());
+        userds.open();
+        User validateUser = userds.getUser();
+        userds.close();
 
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                userds = new UserDataSource(getApplication().getApplicationContext());
-                User user = new User();
-                user.setName(name.getText().toString());
-                user.setAge(Integer.parseInt(age.getText().toString()));
-                user.setGenre(radioM.getText().equals("1"));
-                user.setSmoking(smoking.getText().equals("1"));
-                user.setMoney_saved(0);
-                user.setCigarettes_per_day(0);
-                user.setDays_without_smoking(0);
-                user.setDays_without_smoking_count(0);
-                user.setPlan_type(0);
-                user.setCigarettes_no_smoked(0);
+        if(validateUser != null){
+            Intent myIntent = new Intent(getApplication(), MyActivity.class);
+            startActivity(myIntent);
 
-                userds.open();
-                userds.createUser(user);
-                userds.close();
+        }else {
+            button = (Button) findViewById(R.id.savennext1);
+            name = (TextView) findViewById(R.id.register_name);
+            age = (TextView) findViewById(R.id.register_age);
+            radioM = (RadioButton) findViewById(R.id.radioM);
+            smoking = (RadioButton) findViewById(R.id.smoking);
+            final Calendar s = Calendar.getInstance();
+            s.setTimeInMillis(System.currentTimeMillis());
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
 
-                Intent myIntent = new Intent(getApplication(), RegisterActivityTwo.class);
-                startActivity(myIntent);
-            }
-        });
+                    User user = new User();
+                    user.setName(name.getText().toString());
+                    user.setAge(Integer.parseInt(age.getText().toString()));
+                    user.setGenre(radioM.isChecked());
+                    user.setSmoking(smoking.isChecked());
+                    user.setMoney_saved(0);
+                    user.setCigarettes_per_day(0);
+                    user.setDays_without_smoking(0.0);
+                    user.setDays_without_smoking_count(0.0);
+                    user.setPlan_type(0);
+                    user.setCigarettes_no_smoked(0);
+                    user.setLast_cigarette(s.getTimeInMillis());
+
+                    userds.open();
+                    userds.createUser(user);
+                    userds.close();
+
+                    Intent myIntent = new Intent(getApplication(), RegisterActivityTwo.class);
+                    startActivity(myIntent);
+                }
+            });
+        }
     }
 
 

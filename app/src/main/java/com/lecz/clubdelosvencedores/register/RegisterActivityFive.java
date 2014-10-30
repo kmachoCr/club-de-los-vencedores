@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lecz.clubdelosvencedores.general.MainActivity;
@@ -48,6 +49,15 @@ public class RegisterActivityFive extends Activity {
         // Gets the ListView from the View list of the parent activity
         mContactsList = (ListView) findViewById(R.id.list);
         countf = (TextView) findViewById(R.id.count_friends);
+
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.friends);
+
+        ImageView iv = new ImageView(this);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(30, 40);
+        params.leftMargin = 50;
+        params.topMargin = 60;
+        rl.addView(iv, params);
 
         ContentResolver cr = host.getContentResolver(); //Activity/Application android.content.Context
         Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
@@ -92,7 +102,6 @@ public class RegisterActivityFive extends Activity {
 
 
         Button button = (Button) findViewById(R.id.save);
-        viewPager = (ViewPager) findViewById(R.id.pager);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

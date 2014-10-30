@@ -50,8 +50,8 @@
         android:layout_below="@+id/count_friends"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_alignEnd="@+id/textView5" />
+        android:layout_alignRight="@+id/name_user"
+        android:layout_alignEnd="@+id/name_user" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
 
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="1 año"
-        android:id="@+id/textView5"
+        android:id="@+id/name_user"
         android:layout_alignTop="@+id/no_days_quit"
         android:layout_toRightOf="@+id/no_days_quit"
         android:layout_toEndOf="@+id/no_days_quit"

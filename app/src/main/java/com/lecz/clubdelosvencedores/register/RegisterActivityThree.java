@@ -12,7 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import com.lecz.clubdelosvencedores.DatabaseManagers.AchievementDataSource;
+import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.R;
+import com.lecz.clubdelosvencedores.general.MainActivity;
+import com.lecz.clubdelosvencedores.objects.Achievement;
 
 
 public class RegisterActivityThree extends Activity {
@@ -36,7 +40,6 @@ public class RegisterActivityThree extends Activity {
         weekday = (RadioButton) findViewById(R.id.register_habits_weekday);
         weekend = (RadioButton) findViewById(R.id.register_habits_weekend);
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -62,8 +65,16 @@ public class RegisterActivityThree extends Activity {
 
                 habits.commit();
 
+                AchievementDataSource dsa = new AchievementDataSource(getApplicationContext());
 
-                Intent myIntent = new Intent(getApplication(), RegisterActivityFour.class);
+                dsa.open();
+                dsa.createAchievement(new Achievement("premio 1", "time", new Long(1000 * 60 * 60 * 2), false));
+                dsa.createAchievement(new Achievement("premio 2", "time", new Long(1000 * 60 * 60 * 4), false));
+                dsa.createAchievement(new Achievement("premio 3", "time", new Long(1000 * 60 * 60 * 8), false));
+                dsa.createAchievement(new Achievement("premio 4", "money", new Long(2000), false));
+                dsa.close();
+
+                Intent myIntent = new Intent(getApplication(), MyActivity.class);
                 startActivity(myIntent);
             }
         });

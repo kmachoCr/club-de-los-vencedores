@@ -22,7 +22,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + "cigarettes_no_smoked numeric not null, "
             + "money_saved numeric not null, "
             + "smoking numeric not null, "
-            + "cigarettes_day numeric not null"
+            + "cigarettes_day numeric not null, "
+            + "last_cigarette numeric not null"
             + ");";
 
     private static final String DATATABLE_PLAN_DETAIL = "create table PlanDetail ( id integer primary key autoincrement, "
@@ -35,6 +36,13 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + "completed numeric not null"
             + ");";
 
+    private static final String DATATABLE_ACHIEVEMENTS = "create table Achievement ( id integer primary key autoincrement, "
+            + "title text not null, "
+            + "type text not null, "
+            + "amount numeric not null, "
+            + "completed numeric not null"
+            + ");";
+
     public SqliteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -43,6 +51,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATATABLE_USER);
         database.execSQL(DATATABLE_PLAN_DETAIL);
+        database.execSQL(DATATABLE_ACHIEVEMENTS);
     }
 
     @Override
@@ -52,6 +61,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS User");
         db.execSQL("DROP TABLE IF EXISTS PlanDetail");
+        db.execSQL("DROP TABLE IF EXISTS Achievement");
         onCreate(db);
     }
 

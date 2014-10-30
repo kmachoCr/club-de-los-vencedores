@@ -98,22 +98,23 @@
         android:text="@string/register_status"
         android:layout_below="@+id/radioGroup"
         android:layout_marginBottom="10dp"
-        android:id="@+id/textView5" />
+        android:id="@+id/name_user" />
 
     <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/name_user"
         android:id="@+id/radioGroup3">
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Quiero dejar de fumar."
             android:id="@+id/smoking"
-            android:layout_below="@+id/textView5"
+            android:layout_below="@+id/name_user"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 

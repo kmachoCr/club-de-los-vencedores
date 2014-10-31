@@ -114,24 +114,26 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
             @Override
             public void onClick(View v) {
 
-                settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-                int ret = settings.getInt("count", 0);
-
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putInt("count", ret + 1);
-                editor.commit();
-
-                if(plan != null){
-                    textView4.setText(String.valueOf(ret + 1) + " / " + plan.getTotal_cigarettes());
-                    Calendar s = Calendar.getInstance();
-                    s.setTimeInMillis(System.currentTimeMillis());
-
-                    userds.open();
-                    User userR = userds.getUser();
-                    userR.setLast_cigarette(s.getTimeInMillis());
-                    userds.updateUser(userR);
-                    userds.close();
-                }
+//                settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
+//                int ret = settings.getInt("count", 0);
+//
+//                SharedPreferences.Editor editor = settings.edit();
+//                editor.putInt("count", ret + 1);
+//                editor.commit();
+//
+//                if(plan != null){
+//                    textView4.setText(String.valueOf(ret + 1) + " / " + plan.getTotal_cigarettes());
+//                    Calendar s = Calendar.getInstance();
+//                    s.setTimeInMillis(System.currentTimeMillis());
+//
+//                    userds.open();
+//                    User userR = userds.getUser();
+//                    userR.setLast_cigarette(s.getTimeInMillis());
+//                    userds.updateUser(userR);
+//                    userds.close();
+//                }
+                Log.i("1","1");
+                showConfirmationMsg();
 
             }
         });
@@ -141,14 +143,15 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
             @Override
             public void onClick(View v) {
                 if(!botonPanic){
-                    Log.i("1","1");
+
                     panic.setImageResource(R.drawable.minus_test);
                     botonPanic = true;
                 }else{
-                    Log.i("2","2");
+
                     panic.setImageResource(R.drawable.plus_test);
                     botonPanic = false;
                 }
+                Log.i("2","2");
                 toggleList();
 
 
@@ -176,6 +179,25 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
                     ).addToBackStack(null).commit();
         }
     }
+
+    private void showConfirmationMsg() {
+        Fragment f = getFragmentManager()
+                .findFragmentByTag("fragment_confirmation_msg");
+        if (f != null) {
+            getFragmentManager().popBackStack();
+        } else {
+            getFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.slide_left,
+                            R.anim.slide_right,
+                            R.anim.slide_left,
+                            R.anim.slide_right)
+                    .add(R.id.count_cigarettes_fragment, Fragment.instantiate(rootView.getContext(), fragment_confirmation_msg.class.getName()),
+                            "fragment_confirmation_msg"
+                    ).addToBackStack(null).commit();
+        }
+    }
+
+
 
     public void call_service(){
         Calendar calendar = Calendar.getInstance();

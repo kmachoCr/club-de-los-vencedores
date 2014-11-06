@@ -6,13 +6,15 @@ package com.lecz.clubdelosvencedores.Game;
 public class Block {
     private boolean isTarget;
     private int color;
+    private int image;
     private boolean clicked;
 
     public Block() {}
 
-    public Block(boolean isTarget, int color) {
+    public Block(boolean isTarget, int color, int image) {
         this.isTarget = isTarget;
         this.color = color;
+        this.image = image;
         this.clicked = false;
     }
 
@@ -38,5 +40,13 @@ public class Block {
 
     public void setTarget(boolean isTarget) {
         this.isTarget = isTarget;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 }

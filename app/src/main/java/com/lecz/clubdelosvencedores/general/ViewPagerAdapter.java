@@ -16,8 +16,6 @@ public class ViewPagerAdapter extends PagerAdapter {
     // Declare Variables
     Context context;
     String[] rank;
-    String[] country;
-    String[] population;
     int[] flag;
     LayoutInflater inflater;
 

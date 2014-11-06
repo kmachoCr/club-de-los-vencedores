@@ -167,12 +167,17 @@ public class Game extends Activity {
             reward = 30;
             max = 5000;
         }
-        if( level >= 25) {
-            reward = 30;
+        if( level >= 30 && level < 40) {
             number_blocks = 18;
+            reward = 30;
             max = 4000;
         }
 
+        if( level >= 40) {
+            reward = 40;
+            number_blocks = 18;
+            max = 4000;
+        }
 
         ct = new CountDownTimer(max, 100) {
 

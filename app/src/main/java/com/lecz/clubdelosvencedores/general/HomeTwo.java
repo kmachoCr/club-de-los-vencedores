@@ -140,19 +140,7 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
             @Override
             public void onClick(View v) {
-                if(!botonPanic){
-                    Log.i("1","1");
-                    panic.setImageResource(R.drawable.minus_test);
-                    botonPanic = true;
-                }else{
-                    Log.i("2","2");
-                    panic.setImageResource(R.drawable.plus_test);
-                    botonPanic = false;
-                }
                 toggleList();
-
-
-
             }
         });
 
@@ -161,6 +149,13 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
 
     private void toggleList() {
+        if(!botonPanic){
+            panic.setImageResource(R.drawable.minus_test);
+            botonPanic = true;
+        }else{
+            panic.setImageResource(R.drawable.plus_test);
+            botonPanic = false;
+        }
         Fragment f = getFragmentManager()
                 .findFragmentByTag(LIST_FRAGMENT_TAG);
         if (f != null) {
@@ -180,7 +175,7 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
     public void call_service(){
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
         calendar.set(Calendar.MINUTE, 10);
         calendar.set(Calendar.AM_PM, Calendar.AM);
 

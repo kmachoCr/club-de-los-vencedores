@@ -21,6 +21,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lecz.clubdelosvencedores.DatabaseManagers.ContactFriendSource;
+import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.general.MainActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.objects.Contact;
@@ -92,29 +94,23 @@ public class RegisterActivityFive extends Activity {
 
 
             } while (cursor.moveToNext());
-
-
-            adapter = new ContactsAdapter(getApplicationContext(), alContacts);
-            mContactsList.setAdapter(adapter);
-
-
         }
 
+        adapter = new ContactsAdapter(getApplicationContext(), alContacts);
+        mContactsList.setAdapter(adapter);
 
         Button button = (Button) findViewById(R.id.save);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor friends = settings.edit();
 
-                friends.putInt("friend01", listFriends.get(0).getId());
-                friends.putInt("friend02", listFriends.get(1).getId());
-                friends.putInt("friend03", listFriends.get(2).getId());
-
-                friends.commit();
-
-                Intent myIntent = new Intent(getApplication(), MainActivity.class);
+                ContactFriendSource cds = new ContactFriendSource(getApplicationContext());
+                cds.open();
+                for (int i = 0; i < listFriends.size(); i++){
+                    cds.createContact(new Contact(listFriends.get(i).getContact_id(), listFriends.get(i).getName(), listFriends.get(i).getPhone(), true));
+                }
+                cds.close();
+                Intent myIntent = new Intent(getApplication(), MyActivity.class);
                 startActivity(myIntent);
             }
         });

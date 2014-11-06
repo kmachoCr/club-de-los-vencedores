@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="4dp"
+    android:paddingRight="8dp"
+    android:paddingLeft="8dp"
+    android:paddingTop="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_shape_normal"
+        android:padding="8dp" >
+
+
+    <com.lecz.clubdelosvencedores.utilities.UrlImageView
+            android:id="@+id/userVideoThumbImageView"
+            android:layout_width="102dp"
+            android:layout_height="100dp"
+            android:contentDescription=""
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/userVideoTitleTextView"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/userVideoThumbImageView" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -12,6 +12,7 @@ import android.text.format.DateFormat;
 import com.lecz.clubdelosvencedores.DatabaseManagers.AchievementDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.PlanDetailsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
+import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.objects.Achievement;
 import com.lecz.clubdelosvencedores.objects.PlanDetail;
@@ -151,7 +152,7 @@ public class NotificationService extends Service {
                         long result = different - achievement;
                         DecimalFormat df = new DecimalFormat("#.##");
                         if(result > 0){
-                            notificationManager.createNotification(this, R.drawable.checkmark, "Achievemnt", "Felicidades",  listAchievements.get(i).getTitle() + ", " + df.format(result / 1000 / 60 / 60 * -1) +" horas", when, MainActivity.class);
+                            notificationManager.createNotification(this, R.drawable.checkmark, "Achievemnt", "Felicidades",  listAchievements.get(i).getTitle() + ", " + achievement +" horas", when, MainActivity.class);
                             listAchievements.get(i).setCompleted(true);
                             ads.open();
                             ads.updateAchievement(listAchievements.get(i));
@@ -166,7 +167,7 @@ public class NotificationService extends Service {
             }
 
 
-            notificationManager.createNotification(this, icon, "Title", dateCurrentPlan + " : " + listAchievements.size(), dateNow, when, MainActivity.class);
+            notificationManager.createNotification(this, icon, "Title", dateCurrentPlan + " : " + listAchievements.size(), dateNow, when, MyActivity.class);
 
 
         }else{

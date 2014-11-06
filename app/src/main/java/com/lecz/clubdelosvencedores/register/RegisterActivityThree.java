@@ -65,16 +65,8 @@ public class RegisterActivityThree extends Activity {
 
                 habits.commit();
 
-                AchievementDataSource dsa = new AchievementDataSource(getApplicationContext());
 
-                dsa.open();
-                dsa.createAchievement(new Achievement("premio 1", "time", new Long(1000 * 60 * 60 * 2), false));
-                dsa.createAchievement(new Achievement("premio 2", "time", new Long(1000 * 60 * 60 * 4), false));
-                dsa.createAchievement(new Achievement("premio 3", "time", new Long(1000 * 60 * 60 * 8), false));
-                dsa.createAchievement(new Achievement("premio 4", "money", new Long(2000), false));
-                dsa.close();
-
-                Intent myIntent = new Intent(getApplication(), MyActivity.class);
+                Intent myIntent = new Intent(getApplication(), RegisterActivityFive.class);
                 startActivity(myIntent);
             }
         });

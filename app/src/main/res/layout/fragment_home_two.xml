@@ -114,8 +114,8 @@
             android:id="@+id/list_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/as"
-            android:layout_below="@+id/linearLayout2" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 

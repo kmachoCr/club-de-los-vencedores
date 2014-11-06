@@ -40,7 +40,15 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + "title text not null, "
             + "type text not null, "
             + "amount numeric not null, "
-            + "completed numeric not null"
+            + "completed numeric not null,"
+            + "image numeric not null,"
+            + "description text not null"
+            + ");";
+
+    private static final String DATATABLE_CONTACTFRIEND = "create table Contact ( id integer primary key autoincrement, "
+            + "contact_id numeric not null, "
+            + "name text not null, "
+            + "phone_number text not null"
             + ");";
 
     public SqliteHelper(Context context) {
@@ -52,6 +60,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         database.execSQL(DATATABLE_USER);
         database.execSQL(DATATABLE_PLAN_DETAIL);
         database.execSQL(DATATABLE_ACHIEVEMENTS);
+        database.execSQL(DATATABLE_CONTACTFRIEND);
     }
 
     @Override
@@ -62,6 +71,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS User");
         db.execSQL("DROP TABLE IF EXISTS PlanDetail");
         db.execSQL("DROP TABLE IF EXISTS Achievement");
+        db.execSQL("DROP TABLE IF EXISTS Contact");
         onCreate(db);
     }
 

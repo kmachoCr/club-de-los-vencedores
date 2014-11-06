@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="level_game">Nivel: </string>
     <string name="app_name">Club de los Vencedores</string>
     <string name="title_section1">1</string>
@@ -50,5 +51,8 @@
     <string name="title_activity_panic">PanicActivity</string>
     <string name="title_activity_my"></string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_achievements">AchievementsActivity</string>
+    <string name="title_activity_videos">VideosActivity</string>
+    <string name="title_activity_video_player">Video Player</string>
 
 </resources>

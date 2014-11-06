@@ -19,7 +19,7 @@ public class AchievementDataSource {
     private SQLiteDatabase database;
     private SqliteHelper dbHelper;
     private String[] allColumns = {
-            "id", "title", "type", "amount", "completed"};
+            "id", "title", "type", "amount", "completed", "image", "description"};
 
     public AchievementDataSource(Context context) {
         dbHelper = new SqliteHelper(context);
@@ -39,6 +39,8 @@ public class AchievementDataSource {
         values.put("type", achievement.getType());
         values.put("amount", achievement.getAmount());
         values.put("completed", achievement.isCompleted());
+        values.put("image", achievement.getImage());
+        values.put("description", achievement.getDescription());
         long insertId = database.insert("Achievement", null,
                 values);
         Cursor cursor = database.query("Achievement",
@@ -55,6 +57,8 @@ public class AchievementDataSource {
         values.put("type", achievement.getType());
         values.put("amount", achievement.getAmount());
         values.put("completed", achievement.isCompleted());
+        values.put("image", achievement.getImage());
+        values.put("description", achievement.getDescription());
         database.update("Achievement", values, "id =" + achievement.getId(), null);
 
     }
@@ -120,6 +124,8 @@ public class AchievementDataSource {
         achievement.setType(cursor.getString(2));
         achievement.setAmount(cursor.getLong(3));
         achievement.setCompleted(cursor.getInt(4) != 0);
+        achievement.setImage(cursor.getInt(5));
+        achievement.setDescription(cursor.getString(6));
         return achievement;
     }
 }

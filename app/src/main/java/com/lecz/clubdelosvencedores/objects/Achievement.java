@@ -9,17 +9,21 @@ public class Achievement {
     private int id;
     private String title;
     private String type;
+    private String description;
     private Long amount;
+    private int image;
     private boolean completed;
 
     public Achievement() {
     }
 
-    public Achievement(String title, String type, Long amount, boolean completed) {
+    public Achievement(String title, String type, Long amount, boolean completed, int image, String description) {
         this.title = title;
         this.type = type;
         this.amount = amount;
         this.completed = completed;
+        this.image = image;
+        this.description = description;
     }
 
     public int getId() {
@@ -60,5 +64,21 @@ public class Achievement {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

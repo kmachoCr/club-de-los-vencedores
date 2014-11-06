@@ -8,6 +8,7 @@ import android.net.Uri;
  */
 public class Contact {
     private int id;
+    private int contact_id;
     private String name;
     private String phone;
     private Uri photo;
@@ -15,8 +16,16 @@ public class Contact {
 
     public Contact() {}
 
-    public Contact(int id, String name, String phone, boolean selected) {
+    public Contact(int id, String name, String phone, boolean selected, int contact_id) {
         this.id = id;
+        this.contact_id = contact_id;
+        this.name = name;
+        this.phone = phone;
+        this.selected = selected;
+    }
+
+    public Contact(int contact_id, String name, String phone, boolean selected) {
+        this.contact_id = contact_id;
         this.name = name;
         this.phone = phone;
         this.selected = selected;
@@ -60,5 +69,13 @@ public class Contact {
 
     public void setPhoto(Uri photo) {
         this.photo = photo;
+    }
+
+    public int getContact_id() {
+        return contact_id;
+    }
+
+    public void setContact_id(int contact_id) {
+        this.contact_id = contact_id;
     }
 }

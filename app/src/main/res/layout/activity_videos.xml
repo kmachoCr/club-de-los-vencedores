@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff3f3f3"
+    android:orientation="vertical">
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="getUserYouTubeFeed"
+        android:text="Get YouTube Feed for &apos;blundellp&apos;" />
+
+    <com.lecz.clubdelosvencedores.utilities.VideosListView
+        android:id="@+id/videosListView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#00000000"
+        android:cacheColorHint="#00000000"
+        android:divider="#00000000" />
+
+</LinearLayout>

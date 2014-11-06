@@ -1,6 +1,7 @@
 package com.lecz.clubdelosvencedores.general;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.ColorMatrix;
@@ -62,11 +63,6 @@ public class AchievementsActivity extends Activity {
             }
             public void onSwipeBottom() {
 
-                if(flag){
-                    toggleList();
-                    flag = false;
-                    collapse (fl);
-                }
 
             }
 
@@ -116,53 +112,7 @@ public class AchievementsActivity extends Activity {
         return drawable;
     }
 
-    public static void collapse(final FrameLayout v) {
-        final int initialHeight = v.getMeasuredHeight();
 
-        Animation a = new Animation()
-        {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if(interpolatedTime == 1){
-                    v.setVisibility(View.GONE);
-                }else{
-                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
-                    v.requestLayout();
-                }
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-
-        // 1dp/ms
-        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
-        v.startAnimation(a);
-    }
-
-    public void toggleList(){
-        Fragment f = getFragmentManager().findFragmentByTag("achievement_detail");
-        if (f != null) {
-            getFragmentManager().popBackStack();
-        } else {
-            getFragmentManager().beginTransaction()
-                    .setCustomAnimations(R.anim.slide_up,
-                            R.anim.slide_down,
-                            R.anim.slide_up,
-                            R.anim.slide_down)
-                    .add(R.id.description_achievement_container,
-                            Fragment.instantiate(
-                                    AchievementsActivity.this,
-                                    description_achievement.class.getName()
-                            ),
-                            "achievement_detail"
-                    ).addToBackStack(null).commit();
-        }
-
-
-    }
     public ArrayList<String> getData(){
         array.add(title);
         array.add(description);
@@ -223,15 +173,15 @@ public class AchievementsActivity extends Activity {
                 @Override
                 public void onClick(View v) {
 
-                    if(!flag){
-                        expand(fl);
-                        toggleList();
-                        flag = true;
+                    // 1. Instantiate an AlertDialog.Builder with its constructor
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AchievementsActivity.this);
 
-                    }
-                    title = list.get(position).getTitle();
-                    description = list.get(position).getDescription();
-                    array.clear();
+// 2. Chain together various setter methods to set the dialog characteristics
+                    builder.setMessage(arrayList.get(position).getDescription()).setTitle(arrayList.get(position).getTitle());
+
+// 3. Get the AlertDialog from create()
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
 

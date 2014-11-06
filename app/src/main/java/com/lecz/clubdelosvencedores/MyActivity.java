@@ -90,6 +90,7 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+        actionBar.setHomeAsUpIndicator(R.drawable.bangladesh);
     }
 
 
@@ -167,20 +168,18 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new HomeOne();
-                case 1:
                     return new HomeTwo();
+                case 1:
+                    return new HomeFour();
                 case 2:
                     return new HomeThree();
-                case 3:
-                    return new HomeFour();
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
         @Override
@@ -194,7 +193,7 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
                 case 2:
                     return getString(R.string.title_section3).toUpperCase(l);
                 case 3:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                    return "4";
             }
             return null;
         }

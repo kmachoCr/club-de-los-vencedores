@@ -1,8 +1,10 @@
 package com.lecz.clubdelosvencedores.general;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.ColorMatrix;
@@ -208,18 +210,18 @@ public class HomeFour extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    if(!flag){
-                        expand(fl);
-                        toggleList();
-                        flag = true;
-                    }
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-                    SharedPreferences.Editor habits = settings.edit();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());
 
-                    habits.putString("title", list.get(position).getTitle());
-                    habits.putString("description", list.get(position).getDescription());
+                    builder.setMessage(arrayList.get(position).getDescription()).setTitle(arrayList.get(position).getTitle());
 
-                    habits.commit();
+                    builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
 

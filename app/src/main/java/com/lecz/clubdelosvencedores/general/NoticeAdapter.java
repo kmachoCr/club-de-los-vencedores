@@ -1,12 +1,8 @@
 package com.lecz.clubdelosvencedores.general;
 
-
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +18,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class NoticeAdapter extends ArrayAdapter<Object> {
 	Context context;
@@ -79,10 +76,10 @@ public class NoticeAdapter extends ArrayAdapter<Object> {
 				+ noticias.get(position).getDate().getMonth());
 		placeHolder.content.setText(noticias.get(position).getSummary());
 
-
         placeHolder.picture.setImageBitmap(noticias.get(position).getImage());
 		return (convertView);
 	}
+
 
 
     public byte[] convertBitmapToByteArray(Context context, Bitmap bitmap) {
@@ -90,5 +87,6 @@ public class NoticeAdapter extends ArrayAdapter<Object> {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, buffer);
         return buffer.toByteArray();
     }
+
 
 }

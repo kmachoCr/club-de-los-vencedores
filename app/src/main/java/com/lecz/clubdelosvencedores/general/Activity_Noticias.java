@@ -1,5 +1,9 @@
 package com.lecz.clubdelosvencedores.general;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +14,8 @@ import java.util.TimeZone;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -18,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.lecz.clubdelosvencedores.objects.Notice;
@@ -45,9 +52,8 @@ public class Activity_Noticias extends Activity {
 
 	private void inicializarListView() {
 		lista = (ListView) findViewById(R.id.noticias_listview);
-
-        adapter = new NoticeAdapter(this, Array_Noticias);
-		lista.setAdapter(adapter);
+        adapter = new NoticeAdapter(Activity_Noticias.this, Array_Noticias);
+        lista.setAdapter(adapter);
 
 		lista.setOnItemClickListener(new OnItemClickListener() {
 
@@ -66,9 +72,11 @@ public class Activity_Noticias extends Activity {
 	private void rellenarNoticias() {
 		if (isOnline()) {
 			new DescargarNoticias(getBaseContext(), URL).execute();
-		}
+
+        }
 
 	}
+
 
 	private class DescargarNoticias extends AsyncTask<String, Void, Boolean> {
 
@@ -91,6 +99,7 @@ public class Activity_Noticias extends Activity {
 		protected void onPostExecute(Boolean success) {
 			if (success) {
 				try {
+                    Log.i("llego", "finalizo");
 					inicializarListView();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -103,6 +112,8 @@ public class Activity_Noticias extends Activity {
 		}
 
 	}
+
+
 
 	public boolean isOnline() {
 		ConnectivityManager cm = (ConnectivityManager) getApplication()

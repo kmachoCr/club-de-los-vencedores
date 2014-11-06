@@ -22,6 +22,7 @@ import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.util.Log;
 
+import com.lecz.clubdelosvencedores.general.Activity_Noticias;
 import com.lecz.clubdelosvencedores.objects.Notice;
 
 public class XMLParser {
@@ -76,7 +77,8 @@ public class XMLParser {
 
                             String urlpart = property.getFirstChild().getNodeValue().substring(startdelimiterImage+5);
                             int enddelimiterImage = urlpart.indexOf("\"");
-                            noticia.setImage(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage+5,startdelimiterImage+5+enddelimiterImage)));
+                            noticia.setUrl(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage));
+                            noticia.setImage(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage)));
                         }
 
                     }else if (name.equalsIgnoreCase("link")){
@@ -88,6 +90,7 @@ public class XMLParser {
 				noticias.add(noticia);
 				Log.i("Parsher", "notcia:"+i);
 			}
+
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -95,6 +98,7 @@ public class XMLParser {
 
 		return noticias;
 	}
+
 
     public Bitmap getBitmapFromURL(String src) {
         try {
@@ -112,6 +116,7 @@ public class XMLParser {
             return null;
         }
     }
+
     public CharSequence stripHtml(String s) {
         return Html.fromHtml(s).toString().replace('\n', (char) 32)
                 .replace((char) 160, (char) 32).replace((char) 65532, (char) 32).trim();

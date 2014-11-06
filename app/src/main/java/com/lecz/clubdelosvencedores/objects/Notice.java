@@ -14,20 +14,37 @@ public class Notice implements Serializable{
     private String content;
     private String summary;
     private String link;
+    private String url;
     private Bitmap image;
     private Date date;
 
-    public Notice(String title, String content, String summary, String link, Date date, Bitmap image) {
+    public Notice(String title, String content, String summary, String link, Date date, String url) {
         this.title = title;
         this.content = content;
         this.summary = summary;
         this.link = link;
         this.date = date;
-        this.image = image;
+        this.url = url;
     }
 
 
     public Notice() {
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
+    public Bitmap getImage() {
+        return this.image;
     }
 
     public String getTitle() {
@@ -60,14 +77,6 @@ public class Notice implements Serializable{
 
     public void setLink(String link) {
         this.link = link;
-    }
-
-    public Bitmap getImage() {
-        return image;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
     }
 
     public Date getDate() {

@@ -1,6 +1,7 @@
 package com.lecz.clubdelosvencedores.general;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.lecz.clubdelosvencedores.AdviceActivity;
 import com.lecz.clubdelosvencedores.Game.Game;
+import com.lecz.clubdelosvencedores.PreGameActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.VideosActivity;
 
@@ -34,7 +37,15 @@ public class fragment_slide extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent myIntent = new Intent(rootView.getContext(), Game.class);
+                SharedPreferences mPrefs = getActivity().getSharedPreferences("label", 0);
+                Boolean show = mPrefs.getBoolean("show_again", true);
+                Intent myIntent;
+                if(show){
+                    myIntent = new Intent(rootView.getContext(), PreGameActivity.class);
+                }else{
+                    myIntent = new Intent(rootView.getContext(), Game.class);
+                }
+
                 startActivity(myIntent);
             }
         });
@@ -64,7 +75,7 @@ public class fragment_slide extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent myIntent = new Intent(rootView.getContext(), Activity_Noticias.class);
+                Intent myIntent = new Intent(rootView.getContext(), AdviceActivity.class);
                 startActivity(myIntent);
             }
         });

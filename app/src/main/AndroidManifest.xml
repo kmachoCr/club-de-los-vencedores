@@ -17,7 +17,7 @@
         <activity
             android:name=".register.RegisterActivityOne"
             android:label="@string/title_activity_register_activity_one"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,27 +27,27 @@
         <activity
             android:name=".register.RegisterActivityTwo"
             android:label="@string/title_activity_register_activity_two"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".register.RegisterActivityThree"
             android:label="@string/title_activity_register_activity_three"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".register.RegisterActivityFour"
             android:label="@string/title_activity_register_activity_four"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".register.RegisterActivityFive"
             android:label="@string/title_activity_register_activity_five"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".general.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
 
         <receiver android:name=".general.BroadcastService" >
@@ -59,49 +59,67 @@
         <service
             android:name=".general.NotificationService"
             android:icon="@drawable/ic_launcher"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
         </service>
 
         <activity
             android:name=".general.CallFiendsActivity"
             android:label="@string/title_activity_panic"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".general.CallContactActivity"
+            android:label="@string/title_activity_panic"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".Game.Game"
             android:label="@string/title_activity_panic"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".MyActivity"
             android:label=""
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".general.AchievementsActivity"
             android:label="@string/title_activity_achievements"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".general.Activity_Noticias"
             android:label="@string/title_activity_achievements"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".general.Activity_Articulo"
             android:label="@string/title_activity_achievements"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".VideosActivity"
             android:label="@string/title_activity_videos"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".VideoPlayer"
             android:label="@string/title_activity_video_player"
-            android:screenOrientation="sensorLandscape">
+            android:screenOrientation="sensorLandscape" >
+        </activity>
+        <activity
+            android:name=".PreGameActivity"
+            android:label="@string/title_activity_pre_game" >
+        </activity>
+        <activity
+            android:name=".ScoreGameActivity"
+            android:label="@string/title_activity_score_game" >
+        </activity>
+        <activity
+            android:name=".AdviceActivity"
+            android:label="@string/title_activity_advice" >
         </activity>
     </application>
 

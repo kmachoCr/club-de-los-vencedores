@@ -51,8 +51,10 @@ public class Activity_Noticias extends Activity {
 	}
 
 	private void inicializarListView() {
+        View footer = getLayoutInflater().inflate(R.layout.footer_list, null);
 		lista = (ListView) findViewById(R.id.noticias_listview);
         adapter = new NoticeAdapter(Activity_Noticias.this, Array_Noticias);
+        lista.addFooterView(footer);
         lista.setAdapter(adapter);
 
 		lista.setOnItemClickListener(new OnItemClickListener() {
@@ -72,9 +74,7 @@ public class Activity_Noticias extends Activity {
 	private void rellenarNoticias() {
 		if (isOnline()) {
 			new DescargarNoticias(getBaseContext(), URL).execute();
-
         }
-
 	}
 
 
@@ -90,7 +90,7 @@ public class Activity_Noticias extends Activity {
 
 		@Override
 		protected Boolean doInBackground(final String... args) {
-			XMLParser parser = new XMLParser(feedUrl, getBaseContext());
+			XMLParser parser = new XMLParser(feedUrl, getBaseContext(), Array_Noticias.size());
 			Array_Noticias = parser.parse();
 			return true;
 		}
@@ -99,7 +99,6 @@ public class Activity_Noticias extends Activity {
 		protected void onPostExecute(Boolean success) {
 			if (success) {
 				try {
-                    Log.i("llego", "finalizo");
 					inicializarListView();
 				} catch (Exception e) {
 					e.printStackTrace();

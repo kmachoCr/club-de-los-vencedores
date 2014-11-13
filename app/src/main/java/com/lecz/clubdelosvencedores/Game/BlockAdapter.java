@@ -1,5 +1,6 @@
 package com.lecz.clubdelosvencedores.Game;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
@@ -60,7 +61,7 @@ public class BlockAdapter extends BaseAdapter {
             Block block = new Block();
 
             int min = 0;
-            int max = 7;
+            int max = colours.length - 1;
 
             Random ra = new Random();
             int i1 = ra.nextInt(max - min + 1) + min;
@@ -77,12 +78,12 @@ public class BlockAdapter extends BaseAdapter {
             Random r = new Random();
             int i1 = r.nextInt(max - min + 1) + min;
             blocks[i1].setTarget(true);
-            blocks[i1].setColor(Color.RED);
+            blocks[i1].setColor(Color.parseColor("#F46E25"));
             blocks[i1].setImage(R.drawable.minus_test);
         }
 
         return blocks;
     }
 
-    private String[] colours = {"#11aa00","#999999","#0066cc","#e6b121","#99FFFF","#3399FF","#8ad0e8", "#339955", "#99FFcc", "#aa66cc", "#9944aa"};
+    private String[] colours = {"#ADC259", "#FBB03B", "#5ACAC0"};
 }

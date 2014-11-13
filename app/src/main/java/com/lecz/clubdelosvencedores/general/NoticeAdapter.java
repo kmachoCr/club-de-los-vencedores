@@ -18,6 +18,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class NoticeAdapter extends ArrayAdapter<Object> {
@@ -71,12 +73,15 @@ public class NoticeAdapter extends ArrayAdapter<Object> {
 			placeHolder = (PlaceHolder) convertView.getTag();
 		}
 		placeHolder.title.setText(noticias.get(position).getTitle());
+        Date dat = new Date();
+        dat.setTime(noticias.get(position).getDate());
+
 		placeHolder.time.setText(""
-				+ noticias.get(position).getDate().getDate() + "/"
-				+ noticias.get(position).getDate().getMonth());
+				+ dat.getDate() + "/"
+				+ dat.getMonth());
 		placeHolder.content.setText(noticias.get(position).getSummary());
 
-        placeHolder.picture.setImageBitmap(noticias.get(position).getImage());
+        placeHolder.picture.setImageResource(R.drawable.checkmark);
 		return (convertView);
 	}
 
@@ -86,6 +91,10 @@ public class NoticeAdapter extends ArrayAdapter<Object> {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream(bitmap.getWidth() * bitmap.getHeight());
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, buffer);
         return buffer.toByteArray();
+    }
+
+    public ArrayList<Notice> getData(){
+        return noticias;
     }
 
 

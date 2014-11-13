@@ -3,10 +3,12 @@ package com.lecz.clubdelosvencedores.Game;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lecz.clubdelosvencedores.R;
+import com.lecz.clubdelosvencedores.ScoreGameActivity;
 
 
 public class Game extends Activity {
@@ -62,7 +65,8 @@ public class Game extends Activity {
                 }
                 if(!isWinner){
                     ct.cancel();
-                    showMessage();
+                    finishGame();
+
                 }
             }
         }.start();
@@ -116,29 +120,13 @@ public class Game extends Activity {
         });
     }
 
-    private void showMessage(){
+    private void finishGame(){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                setDifficulty(current_level);
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
-            }
-        });
-        builder.setMessage("Haz alcanzado el nivel: " + current_level)
-                .setTitle("Bien hecho!");
+        Intent intent = new Intent(Game.this, ScoreGameActivity.class);
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-        current_level = 1;
-        level.setText(current_level + "");
-        score = 0;
-        points.setText(score + "");
+        intent.putExtra("level", current_level+"");
+        intent.putExtra("score", score+"");
+        startActivity(intent);
     }
     private void setDifficulty(int level){
         int max = 0, number_blocks = 0;
@@ -163,6 +151,11 @@ public class Game extends Activity {
             max = 6000;
         }
         if( level >= 20 && level < 25) {
+            number_blocks = 18;
+            reward = 30;
+            max = 5000;
+        }
+        if( level >= 25 && level < 30) {
             number_blocks = 18;
             reward = 30;
             max = 5000;
@@ -199,7 +192,7 @@ public class Game extends Activity {
                 }
                 if(!isWinner){
                     ct.cancel();
-                    showMessage();
+                    finishGame();
                 }
             }
         }.start();

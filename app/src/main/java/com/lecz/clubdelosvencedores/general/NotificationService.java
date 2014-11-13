@@ -119,7 +119,7 @@ public class NotificationService extends Service {
                                     ads.updateAchievement(listAchievements.get(i));
                                     ads.close();
                                 }else{
-                                    notificationManager.createNotification(this, R.drawable.checkmark, "Achievemnt", "Ya casi", "Te faltan " + achievement + " colones", when, MainActivity.class);
+                                    notificationManager.createNotification(this, R.drawable.checkmark, "Achievemnt", "Ya casi", "Te faltan " + result + " colones", when, MainActivity.class);
                                 }
                             }else{
 

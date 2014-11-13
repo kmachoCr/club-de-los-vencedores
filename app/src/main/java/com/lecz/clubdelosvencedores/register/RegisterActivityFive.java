@@ -20,12 +20,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lecz.clubdelosvencedores.DatabaseManagers.ContactFriendSource;
+import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
 import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.general.MainActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.objects.Contact;
+import com.lecz.clubdelosvencedores.objects.User;
 
 import java.util.ArrayList;
 
@@ -40,6 +43,9 @@ public class RegisterActivityFive extends Activity {
     private TextView countf;
     private String id;
     private ArrayList<Contact> listFriends = new ArrayList<Contact>();
+    private ContactFriendSource cds;
+    private ArrayList<Contact> listContacts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,7 @@ public class RegisterActivityFive extends Activity {
         params.topMargin = 60;
         rl.addView(iv, params);
 
+        cds = new ContactFriendSource(getApplicationContext());
         ContentResolver cr = host.getContentResolver(); //Activity/Application android.content.Context
         Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
         if(cursor.moveToFirst())
@@ -96,6 +103,28 @@ public class RegisterActivityFive extends Activity {
             } while (cursor.moveToNext());
         }
 
+        UserDataSource userds = new UserDataSource(getApplication().getApplicationContext());
+        userds.open();
+        User validateUser = userds.getUser();
+        userds.close();
+
+        if(validateUser != null){
+            cds.open();
+            listContacts = cds.getContacts();
+            cds.close();
+
+            for(int i = 0; i < alContacts.size(); i++ ){
+                for(int t = 0; t < listContacts.size(); t++ ){
+                    if(listContacts.get(t).getContact_id() == alContacts.get(i).getContact_id()){
+                        alContacts.get(i).setSelected(true);
+                        listFriends.add(alContacts.get(i));
+                    }
+                }
+            }
+            countf.setText(listFriends.size() + "/3");
+        }
+
+
         adapter = new ContactsAdapter(getApplicationContext(), alContacts);
         mContactsList.setAdapter(adapter);
 
@@ -104,14 +133,33 @@ public class RegisterActivityFive extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                ContactFriendSource cds = new ContactFriendSource(getApplicationContext());
                 cds.open();
-                for (int i = 0; i < listFriends.size(); i++){
+                if(listContacts.size() > 0) {
+                    for (int i = 0; i < listContacts.size(); i++) {
+                        cds.deleteContact(listContacts.get(i));
+                    }
+                }
+
+                for (int i = 0; i < listFriends.size(); i++) {
                     cds.createContact(new Contact(listFriends.get(i).getContact_id(), listFriends.get(i).getName(), listFriends.get(i).getPhone(), true));
                 }
+
                 cds.close();
-                Intent myIntent = new Intent(getApplication(), MyActivity.class);
-                startActivity(myIntent);
+
+                SharedPreferences mPrefs = getSharedPreferences("label", 0);
+                Boolean register_completed = mPrefs.getBoolean("register_completed", false);
+
+                if(register_completed){
+                    Toast.makeText(RegisterActivityFive.this, "Cambios guardados", Toast.LENGTH_SHORT).show();
+                    Intent myIntent = new Intent(getApplication(), MyActivity.class);
+                    startActivity(myIntent);
+                }else {
+                    SharedPreferences.Editor mEditor = mPrefs.edit();
+                    mEditor.putBoolean("register_completed", true).commit();
+                    Intent myIntent = new Intent(getApplication(), MyActivity.class);
+                    startActivity(myIntent);
+                }
+
             }
         });
 

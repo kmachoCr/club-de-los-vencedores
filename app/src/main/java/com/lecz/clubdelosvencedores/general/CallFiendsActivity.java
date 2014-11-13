@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -38,66 +39,147 @@ public class CallFiendsActivity extends Activity {
     private EditText searchContacts;
     private String id;
     private ContactsFriendAdapter adapter;
+    ArrayList<Contact> list;
+    ImageButton callOne, callTwo, callThree;
+    Button callAnother;
+    TextView nameOne, nameTwo, nameThree, numberOne, numberTwo, numberThree;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call_friends);
 
-        Activity host = (Activity) this;
+        callOne = (ImageButton) findViewById(R.id.call_contact_1);
+        callTwo = (ImageButton) findViewById(R.id.call_contact_2);
+        callThree = (ImageButton) findViewById(R.id.call_contact_3);
+        nameOne = (TextView) findViewById(R.id.name_contact_1);
+        nameTwo = (TextView) findViewById(R.id.name_contact_2);
+        nameThree = (TextView) findViewById(R.id.name_contact_3);
+        numberOne = (TextView) findViewById(R.id.number_contact_1);
+        numberTwo = (TextView) findViewById(R.id.number_contact_2);
+        numberThree = (TextView) findViewById(R.id.number_contact_3);
 
-        ArrayList<Contact> listContacts = new ArrayList<Contact>();
+        callAnother = (Button) findViewById(R.id.call_another);
 
-        contactList = (ListView) findViewById(R.id.list);
-        contactFriendsList = (ListView) findViewById(R.id.listfriends);
         ContactFriendSource cds = new ContactFriendSource(getApplicationContext());
         cds.open();
-        ArrayList<Contact> list = cds.getContacts();
+        list = cds.getContacts();
         cds.close();
 
-        ContactsFriendAdapter adapter1 = new ContactsFriendAdapter(getApplicationContext(), list);
-        contactFriendsList.setAdapter(adapter1);
+        if(list.size() == 1){
+            callOne.setVisibility(View.VISIBLE);
+            nameOne.setVisibility(View.VISIBLE);
+            numberOne.setVisibility(View.VISIBLE);
 
-        ContentResolver cr = host.getContentResolver(); //Activity/Application android.content.Context
-        Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
-        if(cursor.moveToFirst())
-        {
-            listContacts = new ArrayList<Contact>();
-            do
-            {
-                id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-                if(Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0)
-                {
-                    Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",new String[]{ id }, null);
-                    while (pCur.moveToNext())
-                    {
-                        String contactNumber = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        String contactName = pCur.getString(pCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-                        int contactId = Integer.parseInt(id);
+            nameOne.setText(list.get(0).getName());
+            numberOne.setText(list.get(0).getPhone());
 
-                        Uri contactUri = ContentUris.withAppendedId(
-                                ContactsContract.Contacts.CONTENT_URI,
-                                Long.parseLong(id)
-                        );
-                        Uri displayPhotoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO);
-
-                        Contact contact = new Contact(contactId, contactName, contactNumber, false);
-                        contact.setPhoto(displayPhotoUri);
-                        listContacts.add(contact);
-                        break;
-                    }
-                    pCur.close();
+            callOne.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
+                    phoneCallIntent.setData(Uri.parse("tel:" + list.get(0).getPhone()));
+                    phoneCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(phoneCallIntent);
                 }
+            });
 
+        }else{
+            if(list.size() == 2){
+                callOne.setVisibility(View.VISIBLE);
+                nameOne.setVisibility(View.VISIBLE);
+                numberOne.setVisibility(View.VISIBLE);
+                callTwo.setVisibility(View.VISIBLE);
+                nameTwo.setVisibility(View.VISIBLE);
+                numberTwo.setVisibility(View.VISIBLE);
 
-            } while (cursor.moveToNext());
+                nameOne.setText(list.get(0).getName());
+                numberOne.setText(list.get(0).getPhone());
+
+                callOne.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
+                        phoneCallIntent.setData(Uri.parse("tel:" + list.get(0).getPhone()));
+                        phoneCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(phoneCallIntent);
+                    }
+                });
+
+                nameTwo.setText(list.get(1).getName());
+                numberTwo.setText(list.get(1).getPhone());
+
+                callTwo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
+                        phoneCallIntent.setData(Uri.parse("tel:" + list.get(1).getPhone()));
+                        phoneCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(phoneCallIntent);
+                    }
+                });
+
+            }else{
+                callOne.setVisibility(View.VISIBLE);
+                nameOne.setVisibility(View.VISIBLE);
+                numberOne.setVisibility(View.VISIBLE);
+                callTwo.setVisibility(View.VISIBLE);
+                nameTwo.setVisibility(View.VISIBLE);
+                numberTwo.setVisibility(View.VISIBLE);
+                callThree.setVisibility(View.VISIBLE);
+                nameThree.setVisibility(View.VISIBLE);
+                numberThree.setVisibility(View.VISIBLE);
+
+                nameOne.setText(list.get(0).getName());
+                numberOne.setText(list.get(0).getPhone());
+
+                callOne.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
+                        phoneCallIntent.setData(Uri.parse("tel:" + list.get(0).getPhone()));
+                        phoneCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(phoneCallIntent);
+                    }
+                });
+
+                nameTwo.setText(list.get(1).getName());
+                numberTwo.setText(list.get(1).getPhone());
+
+                callTwo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
+                        phoneCallIntent.setData(Uri.parse("tel:" + list.get(1).getPhone()));
+                        phoneCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(phoneCallIntent);
+                    }
+                });
+
+                nameThree.setText(list.get(2).getName());
+                numberThree.setText(list.get(2).getPhone());
+
+                callThree.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
+                        phoneCallIntent.setData(Uri.parse("tel:" + list.get(2).getPhone()));
+                        phoneCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(phoneCallIntent);
+                    }
+                });
+
+            }
         }
 
-        adapter = new ContactsFriendAdapter(getApplicationContext(), listContacts);
-        contactList.setAdapter(adapter);
-
+        callAnother.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CallFiendsActivity.this, CallContactActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

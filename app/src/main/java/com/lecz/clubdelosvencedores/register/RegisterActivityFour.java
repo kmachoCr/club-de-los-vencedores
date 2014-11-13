@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +19,11 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.lecz.clubdelosvencedores.DatabaseManagers.AchievementDataSource;
+import com.lecz.clubdelosvencedores.DatabaseManagers.MotivationsDataSource;
 import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.objects.Achievement;
+import com.lecz.clubdelosvencedores.objects.Motivations;
 
 
 public class RegisterActivityFour extends Activity {
@@ -29,7 +32,7 @@ public class RegisterActivityFour extends Activity {
     private ViewPager viewPager;
     private Button button, uploadimage;
     private CheckBox money, aesthetic, family, health;
-    private int motivations_money, motivations_aesthetic, motivations_health, motivations_family = 0;
+    private boolean motivations_money, motivations_aesthetic, motivations_health, motivations_family = false;
     private static final int IMAGE_PICKER_SELECT = 999;
     private String selectedImagePath;
 
@@ -52,38 +55,30 @@ public class RegisterActivityFour extends Activity {
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor habits = settings.edit();
                 if(money.isChecked()){
-                    motivations_money = 1;
+                    motivations_money = true;
                 }
                 if(aesthetic.isChecked()){
-                    motivations_aesthetic = 1;
+                    motivations_aesthetic = true;
                 }
                 if(family.isChecked()){
-                    motivations_family = 1;
+                    motivations_family = true;
                 }
                 if(health.isChecked()){
-                    motivations_health = 1;
+                    motivations_health = true;
+                }
+                MotivationsDataSource mds = new MotivationsDataSource(RegisterActivityFour.this);
+
+
+
+                mds.open();
+                Motivations m = mds.getMotivations();
+
+                if(m != null){
+                     mds.deleteMotivation(m);
                 }
 
-                habits.putString("motivations_money", motivations_money+"");
-                habits.putString("motivations_aesthetic", motivations_aesthetic+"");
-                habits.putString("motivations_family", motivations_family+"");
-                habits.putString("motivations_health", motivations_health+"");
-
-                habits.commit();
-
-                AchievementDataSource dsa = new AchievementDataSource(getApplicationContext());
-
-                dsa.open();
-                dsa.createAchievement(new Achievement("premio 1", "time", new Long(1000 * 60 * 60 * 2), false, R.drawable.checkmark, "Pasa un total de 2 horas sin fumar"));
-                dsa.createAchievement(new Achievement("premio 2", "time", new Long(1000 * 60 * 60 * 4), false, R.drawable.checkmark, "Pasa un total de 4 horas sin fumar"));
-                dsa.createAchievement(new Achievement("premio 3", "time", new Long(1000 * 60 * 60 * 8), false, R.drawable.checkmark, "Pasa un total de 8 horas sin fumar"));
-                dsa.createAchievement(new Achievement("premio 4", "time", new Long(1000 * 60 * 60 * 12), false, R.drawable.checkmark, "Pasa un total de 12 horas sin fumar"));
-                dsa.createAchievement(new Achievement("premio 5", "time", new Long(1000 * 60 * 60 * 24), false, R.drawable.checkmark, "Pasa un total de 1 día sin fumar"));
-                dsa.createAchievement(new Achievement("premio 6", "time", new Long(1000 * 60 * 60 * 48), false, R.drawable.checkmark, "Pasa un total de 2 días sin fumar"));
-                dsa.createAchievement(new Achievement("premio 7", "money", new Long(10000), false, R.drawable.checkmark, "Ahorra un total de 10000 colones"));
-                dsa.createAchievement(new Achievement("premio 8", "money", new Long(30000), false, R.drawable.checkmark, "Ahorra un total de 30000 colones"));
-                dsa.createAchievement(new Achievement("premio 9", "money", new Long(50000), false, R.drawable.checkmark, "Ahorra un total de 50000 colones"));
-                dsa.close();
+                mds.createMotivation(new Motivations(motivations_health, motivations_family, motivations_aesthetic, motivations_money));
+                mds.close();
 
                 Intent myIntent = new Intent(getApplication(),RegisterActivityFive.class);
                 startActivity(myIntent);
@@ -92,7 +87,6 @@ public class RegisterActivityFour extends Activity {
 
         uploadimage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);

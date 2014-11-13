@@ -54,5 +54,8 @@
     <string name="title_activity_achievements">AchievementsActivity</string>
     <string name="title_activity_videos">VideosActivity</string>
     <string name="title_activity_video_player">Video Player</string>
+    <string name="title_activity_pre_game">Instrucciones</string>
+    <string name="title_activity_score_game">ScoreGameActivity</string>
+    <string name="title_activity_advice">AdviceActivity</string>
 
 </resources>

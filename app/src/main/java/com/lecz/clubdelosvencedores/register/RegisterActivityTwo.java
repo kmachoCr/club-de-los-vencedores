@@ -42,6 +42,8 @@ public class RegisterActivityTwo extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_activity_two);
 
+
+
         dspd = new PlanDetailsDataSource(this);
         button = (Button) findViewById(R.id.savennext2);
         dias_q_no_fumo = (SeekBar) findViewById(R.id.no_days_quit);
@@ -52,23 +54,29 @@ public class RegisterActivityTwo extends Activity {
         cigarettes_per_day = (TextView) findViewById(R.id.register_cigarettes_per_day);
         plan_type = (Spinner) findViewById(R.id.plan_type);
 
-        dias_q_fumo.setMax(30);
-        dias_q_no_fumo.setMax(30);
         userds = new UserDataSource(getApplicationContext());
         userds.open();
         users = userds.getUsers();
-
-        userds.close();
-
         if(!users.isEmpty()){
-            Log.i("Fuma?", users.get(0).getSmoking() + "");
             if(!users.get(0).getSmoking()){
                 textView5.setVisibility(View.VISIBLE);
                 dias_q_no_fumo.setVisibility(View.VISIBLE);
                 tv_dias_q_fumo.setVisibility(View.VISIBLE);
             }
             user = users.get(0);
+
+            cigarettes_per_day.setText(user.getCigarettes_per_day()+"");
+            plan_type.setSelection(user.getPlan_type());
         }
+        userds.close();
+        dias_q_fumo.setMax(30);
+        dias_q_no_fumo.setMax(30);
+
+
+
+
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -83,11 +91,20 @@ public class RegisterActivityTwo extends Activity {
                     user = users.get(0);
                     user.setCigarettes_per_day(Integer.parseInt(cigarettes_per_day.getText().toString()));
                     user.setPlan_type(Integer.parseInt(plan_type.getSelectedItemId() + ""));
+
                     userds.open();
                     userds.updateUser(user);
                     userds.close();
 
                     dspd.open();
+                    ArrayList<PlanDetail> listPlan = dspd.getPlanDetails();
+
+                    if(listPlan.size() > 0) {
+                        for (int i = 0; i < listPlan.size(); i++) {
+                            dspd.deletePlanDetail(listPlan.get(i));
+                        }
+                    }
+
                     int total = Integer.parseInt(cigarettes_per_day.getText().toString());
                     PlanDetail plan = new PlanDetail();
                     plan.setNumber_day(1);

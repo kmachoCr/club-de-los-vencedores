@@ -8,6 +8,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -25,6 +26,7 @@ import com.lecz.clubdelosvencedores.general.HomeFour;
 import com.lecz.clubdelosvencedores.general.HomeOne;
 import com.lecz.clubdelosvencedores.general.HomeThree;
 import com.lecz.clubdelosvencedores.general.HomeTwo;
+import com.lecz.clubdelosvencedores.register.RegisterActivityOne;
 import com.lecz.clubdelosvencedores.utilities.RelativeLayoutFragment;
 
 
@@ -90,7 +92,6 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
-        actionBar.setHomeAsUpIndicator(R.drawable.bangladesh);
     }
 
 
@@ -122,9 +123,12 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.list) {
-
-            return true;
+        if (id == R.id.gotoUpdateInfo) {
+            Intent intent = new Intent(MyActivity.this, RegisterActivityOne.class);
+            Bundle b = new Bundle();
+            b.putBoolean("update", true);
+            intent.putExtras(b);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

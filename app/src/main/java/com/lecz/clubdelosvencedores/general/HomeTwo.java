@@ -1,7 +1,9 @@
 package com.lecz.clubdelosvencedores.general;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +13,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -19,7 +23,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.Transformation;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -56,6 +62,7 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
     private View rootView;
     ImageView image;
     private boolean botonPanic;
+    private Activity myContext;
 
     private static final String LIST_FRAGMENT_TAG = "fragment_slide";
 
@@ -87,7 +94,8 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
                 R.drawable.nigeria,
                 R.drawable.bangladesh,
                 R.drawable.russia,
-                R.drawable.japan };
+                R.drawable.japan
+        };
 
         adapter = new ViewPagerAdapter(rootView.getContext(), rank, flag);
 
@@ -102,36 +110,38 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
         userds.open();
         User user = userds.getUser();
+        int size = dspd.getPlanDetails().size();
         userds.close();
 
         int used_cigarettes = settings.getInt("count", 0);
 
-        update_interface(used_cigarettes, user, plan);
+        update_interface(used_cigarettes, user, plan, size);
         call_service();
 
         add_cigarette.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                toggleListConf();
 
-                settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-                int ret = settings.getInt("count", 0);
-
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putInt("count", ret + 1);
-                editor.commit();
-
-                if(plan != null){
-                    textView4.setText(String.valueOf(ret + 1) + " / " + plan.getTotal_cigarettes());
-                    Calendar s = Calendar.getInstance();
-                    s.setTimeInMillis(System.currentTimeMillis());
-
-                    userds.open();
-                    User userR = userds.getUser();
-                    userR.setLast_cigarette(s.getTimeInMillis());
-                    userds.updateUser(userR);
-                    userds.close();
-                }
+//                settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
+//                int ret = settings.getInt("count", 0);
+//
+//                SharedPreferences.Editor editor = settings.edit();
+//                editor.putInt("count", ret + 1);
+//                editor.commit();
+//
+//                if(plan != null){
+//                    textView4.setText(String.valueOf(ret + 1) + " / " + plan.getTotal_cigarettes());
+//                    Calendar s = Calendar.getInstance();
+//                    s.setTimeInMillis(System.currentTimeMillis());
+//
+//                    userds.open();
+//                    User userR = userds.getUser();
+//                    userR.setLast_cigarette(s.getTimeInMillis());
+//                    userds.updateUser(userR);
+//                    userds.close();
+//                }
 
             }
         });
@@ -147,6 +157,28 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         return rootView;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        myContext=(Activity) activity;
+        super.onAttach(activity);
+    }
+
+    private void toggleListConf() {
+        Fragment f = getFragmentManager()
+                .findFragmentByTag("fragment_confirmation");
+        if (f != null) {
+            getFragmentManager().popBackStack();
+        } else {
+            getFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.slide_left,
+                            R.anim.slide_right,
+                            R.anim.slide_left,
+                            R.anim.slide_right)
+                    .add(R.id.confirmation_fragment, Fragment.instantiate(rootView.getContext(), fragment_confirmation.class.getName()),
+                            LIST_FRAGMENT_TAG
+                    ).addToBackStack(null).commit();
+        }
+    }
 
     private void toggleList() {
         if(!botonPanic){
@@ -172,6 +204,58 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         }
     }
 
+    public static void collapse(final View v) {
+        final int initialWidth = v.getMeasuredWidth();
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if(interpolatedTime == 1){
+                    v.setVisibility(View.GONE);
+                }else{
+                    v.getLayoutParams().height = initialWidth - (int)(initialWidth * interpolatedTime);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(initialWidth / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
+
+    public static void expand(final FrameLayout v) {
+
+        v.measure(350, FrameLayout.LayoutParams.WRAP_CONTENT);
+        final int targetWidth = v.getMeasuredWidth();
+
+        v.getLayoutParams().height = 0;
+        v.setVisibility(View.VISIBLE);
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                v.getLayoutParams().width = interpolatedTime == 1 ? 350 : (int)(targetWidth * interpolatedTime);
+                v.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(targetWidth / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
+
     public void call_service(){
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -186,13 +270,13 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 10, pendingIntent);
     }
 
-    public void update_interface(int used_cigarettes, User user, PlanDetail plan){
+    public void update_interface(int used_cigarettes, User user, PlanDetail plan, int size){
         userName.setText(user.getName());
         textView.setText("$" + user.getMoney_saved());
         textView2.setText("No fumados:" + user.getCigarettes_no_smoked());
         textView4.setText(used_cigarettes + " / " + plan.getTotal_cigarettes());
         if(plan != null){
-            textView3.setText("Día actual: " + (plan.getNumber_day()));
+            textView3.setText("Día actual: " + (size - plan.getNumber_day() + 1));
         }
     }
 

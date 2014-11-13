@@ -5,9 +5,11 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
@@ -26,7 +28,9 @@ import com.lecz.clubdelosvencedores.general.HomeFour;
 import com.lecz.clubdelosvencedores.general.HomeOne;
 import com.lecz.clubdelosvencedores.general.HomeThree;
 import com.lecz.clubdelosvencedores.general.HomeTwo;
+import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 import com.lecz.clubdelosvencedores.register.RegisterActivityOne;
+import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 import com.lecz.clubdelosvencedores.utilities.RelativeLayoutFragment;
 
 
@@ -98,7 +102,8 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
     // This is where the magic happens!
     public void forceTabs() {
         try {
-            final ActionBar actionBar = getActionBar();
+            ActionBar actionBar = getActionBar();
+            actionBar.setHomeButtonEnabled(true);
             final Method setHasEmbeddedTabsMethod = actionBar.getClass()
                     .getDeclaredMethod("setHasEmbeddedTabs", boolean.class);
             setHasEmbeddedTabsMethod.setAccessible(true);
@@ -123,12 +128,35 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.gotoUpdateInfo) {
-            Intent intent = new Intent(MyActivity.this, RegisterActivityOne.class);
-            Bundle b = new Bundle();
-            b.putBoolean("update", true);
-            intent.putExtras(b);
-            startActivity(intent);
+
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(MyActivity.this, UpdateInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(MyActivity.this, RegisterActivityFive.class);
+                startActivity(intents);
+                break;
+            case R.id.gotoRestartPlan:
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyActivity.this);
+
+                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.ic_launcher)
+                        .setTitle("Reiniciar plan?");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intents = new Intent(MyActivity.this, RegisterActivityTwo.class);
+                        startActivity(intents);
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -232,6 +260,8 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_home_one, container, false);
+
+
             return rootView;
         }
     }

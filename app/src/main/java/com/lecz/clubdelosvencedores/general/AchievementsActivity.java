@@ -172,16 +172,15 @@ public class AchievementsActivity extends Activity {
             image_achievement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                // 1. Instantiate an AlertDialog.Builder with its constructor
+                AlertDialog.Builder builder = new AlertDialog.Builder(AchievementsActivity.this);
 
-                    // 1. Instantiate an AlertDialog.Builder with its constructor
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AchievementsActivity.this);
+                // 2. Chain together various setter methods to set the dialog characteristics
+                builder.setMessage(arrayList.get(position).getDescription()).setTitle(arrayList.get(position).getTitle());
 
-// 2. Chain together various setter methods to set the dialog characteristics
-                    builder.setMessage(arrayList.get(position).getDescription()).setTitle(arrayList.get(position).getTitle());
-
-// 3. Get the AlertDialog from create()
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                // 3. Get the AlertDialog from create()
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 }
             });
 

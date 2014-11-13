@@ -17,7 +17,8 @@
         <activity
             android:name=".register.RegisterActivityOne"
             android:label="@string/title_activity_register_activity_one"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -120,6 +121,10 @@
         <activity
             android:name=".AdviceActivity"
             android:label="@string/title_activity_advice" >
+        </activity>
+        <activity
+            android:name=".UpdateInfoActivity"
+            android:label="@string/title_activity_update_info" >
         </activity>
     </application>
 

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +86,8 @@ public class Game extends Activity {
                         points.setText(score + "");
                         blocks[position].setClicked(true);
                         gridview.getChildAt(position).setBackgroundColor(Color.TRANSPARENT);
+                        ImageView iv = (ImageView) v.findViewById(R.id.imageView);
+                        iv.setImageResource(android.R.color.transparent);
                         boolean isWinner = true;
                         for(int i = 0; i < blocks.length; i++){
                             if(blocks[i].isTarget()){
@@ -132,27 +135,32 @@ public class Game extends Activity {
         int max = 0, number_blocks = 0;
         if(level >= 1 && level < 5) {
             max = 10000;
+            count.setMax(10000);
             number_blocks = 13;
             reward = 20;
         }
         if(level >= 5 && level < 10) {
             max = 8000;
+            count.setMax(8000);
             reward = 20;
             number_blocks = 14;
         }
         if( level >= 10 && level < 15) {
             max = 7000;
+            count.setMax(7000);
             reward = 25;
             number_blocks = 16;
         }
         if( level >= 15 && level < 20) {
             number_blocks = 17;
             reward = 25;
+            count.setMax(6000);
             max = 6000;
         }
         if( level >= 20 && level < 25) {
             number_blocks = 18;
             reward = 30;
+            count.setMax(5000);
             max = 5000;
         }
         if( level >= 25 && level < 30) {
@@ -163,12 +171,14 @@ public class Game extends Activity {
         if( level >= 30 && level < 40) {
             number_blocks = 18;
             reward = 30;
+            count.setMax(4000);
             max = 4000;
         }
 
         if( level >= 40) {
             reward = 40;
             number_blocks = 18;
+            count.setMax(4000);
             max = 4000;
         }
 

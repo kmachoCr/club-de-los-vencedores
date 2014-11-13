@@ -5,11 +5,6 @@
     android:background="#fff3f3f3"
     android:orientation="vertical">
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="getUserYouTubeFeed"
-        android:text="Get YouTube Feed for &apos;blundellp&apos;" />
 
     <com.lecz.clubdelosvencedores.utilities.VideosListView
         android:id="@+id/videosListView"

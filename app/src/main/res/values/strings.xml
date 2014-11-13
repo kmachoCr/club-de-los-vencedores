@@ -27,6 +27,7 @@
     <string name="register_habits_weekday">Entre semana</string>
     <string name="register_habits_weekend">Fin de senmana</string>
     <string name="register_motivations_ask">¿Cuales son sus motivaciones para dejar de fumar?</string>
+    <string name="register_motivations_update">Motivaciones para dejar de fumar</string>
     <string name="register_motivations_money">Ahorrar dinero</string>
     <string name="register_motivations_aesthetic">Estética</string>
     <string name="register_motivations_family">Por mi familia</string>
@@ -57,5 +58,7 @@
     <string name="title_activity_pre_game">Instrucciones</string>
     <string name="title_activity_score_game">ScoreGameActivity</string>
     <string name="title_activity_advice">AdviceActivity</string>
+    <string name="title_activity_update_info">UpdateInfoActivity</string>
+    <string name="days_to_quit">Días para dejar de fumar</string>
 
 </resources>

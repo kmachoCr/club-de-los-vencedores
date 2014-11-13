@@ -67,8 +67,7 @@ public class NotificationService extends Service {
 
                     if(total_cigarettes >= used_cigarettes){
                         plan.setApproved(true);
-                        int cigarettes = total_cigarettes - used_cigarettes;
-                        user.setCigarettes_no_smoked(user.getCigarettes_no_smoked() + (user.getCigarettes_per_day() - cigarettes));
+                        user.setCigarettes_no_smoked(user.getCigarettes_no_smoked() + (user.getCigarettes_per_day() - used_cigarettes));
                         user.setMoney_saved(user.getCigarettes_no_smoked() * 200);
                         if(used_cigarettes == 0){
                             user.setDays_without_smoking(user.getDays_without_smoking() + 1);
@@ -78,8 +77,7 @@ public class NotificationService extends Service {
                         }
                     }else{
                         plan.setApproved(false);
-                        int cigarettes = total_cigarettes - used_cigarettes;
-                        user.setCigarettes_no_smoked(user.getCigarettes_no_smoked() + (user.getCigarettes_per_day() - cigarettes));
+                        user.setCigarettes_no_smoked(user.getCigarettes_no_smoked() + (user.getCigarettes_per_day() - used_cigarettes));
                         user.setMoney_saved(user.getCigarettes_no_smoked() * 200);
                     }
                     userds.open();
@@ -113,13 +111,13 @@ public class NotificationService extends Service {
                                 int result = money - achievement;
 
                                 if(result > 0){
-                                    notificationManager.createNotification(this, R.drawable.checkmark, "Achievemnt", "Felicidades",  listAchievements.get(i).getTitle() + ", " + "has ahorrado " + achievement + " colones", when, MainActivity.class);
+                                    notificationManager.createNotification(this, listAchievements.get(i).getImage(), "Achievemnt", "Felicidades",  listAchievements.get(i).getTitle() + ", " + "has ahorrado " + achievement + " colones", when, MyActivity.class);
                                     listAchievements.get(i).setCompleted(true);
                                     ads.open();
                                     ads.updateAchievement(listAchievements.get(i));
                                     ads.close();
                                 }else{
-                                    notificationManager.createNotification(this, R.drawable.checkmark, "Achievemnt", "Ya casi", "Te faltan " + result + " colones", when, MainActivity.class);
+                                    notificationManager.createNotification(this, listAchievements.get(i).getImage(), "Achievemnt", "Ya casi", "Te faltan " + result + " colones", when, MyActivity.class);
                                 }
                             }else{
 

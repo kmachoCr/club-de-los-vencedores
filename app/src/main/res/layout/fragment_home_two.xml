@@ -2,12 +2,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
         tools:context="com.lecz.clubdelosvencedores.general.MainActivity">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="34dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/name_user"
+            android:text="name"
+
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:context="com.lecz.clubdelosvencedores.general.MainActivity"
+        android:layout_above="@+id/add_cigarette"
+        android:layout_below="@+id/name_user">
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
@@ -16,21 +36,33 @@
 
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_above="@+id/add_cigarette"
             android:id="@+id/linearLayout2">
+
+
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="234dp"
+                android:layout_height="fill_parent"
                 android:layout_weight="4">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Large Text"
-                    android:id="@+id/textView2"
+                    android:text="days"
+                    android:id="@+id/textView3"
+                    android:gravity="center"
                     android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:text="@string/days_to_quit"
+                    android:id="@+id/textView2"
+                    android:gravity="center"
+                    android:layout_below="@+id/textView3"
                     android:layout_centerHorizontal="true" />
             </RelativeLayout>
             <RelativeLayout
@@ -42,26 +74,11 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:id="@+id/imageView4"
+                    android:textAlignment="center"
                     android:src="@drawable/ic_launcher"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/textView3" />
+                    android:layout_alignParentStart="true" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Large Text"
-                    android:id="@+id/textView3"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/name_user"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dip"
@@ -72,16 +89,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Large Text"
+                    android:text="money"
+                    android:gravity="center"
                     android:id="@+id/textView"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:text="Ahorrados"
+                    android:id="@+id/textView5"
+                    android:layout_below="@+id/textView"
+                    android:layout_centerHorizontal="true" />
 
 
             </RelativeLayout>
 
         </LinearLayout>
-
+    </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,9 +141,18 @@
             android:id="@+id/list_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/add_cigarette"
+            android:layout_alignEnd="@+id/add_cigarette"
+            android:layout_below="@+id/add_cigarette" />
 
+        <FrameLayout
+            android:id="@+id/confirmation_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_above="@+id/as"
+            android:layout_toStartOf="@+id/add_cigarette"
+            android:layout_alignEnd="@+id/add_cigarette" />
     </RelativeLayout>
 
     <ImageButton

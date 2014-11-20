@@ -3,8 +3,9 @@
 <com.lecz.clubdelosvencedores.utilities.RelativeLayoutFragment
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:customAttrs="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark">
+    android:background="@color/red_panicscreen">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,28 +38,116 @@
                     android:layout_height="0dip"
                     android:layout_weight="5">
 
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="fill_parent"
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Juego"
-                        android:id="@+id/gotoGame"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true" />
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_above="@+id/add_cigarette"
+                        android:id="@+id/linearLayosdsut3">
+                        <RelativeLayout
+                            android:layout_width="0dip"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3">
+
+
+
+
+
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dip"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="7">
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Llamar"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/telefono"
+                                android:id="@+id/gotoCall"
+                                android:layout_above="@+id/textViesw25"
+                                android:layout_centerHorizontal="true" />
+
+                            <com.lecz.clubdelosvencedores.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="LLAMAR A UN AMIGO"
+                                customAttrs:customFont="futura_heavy"
+                                android:gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="15dp"
+                                android:textColor="@android:color/white"
+                                android:id="@+id/textViesw25"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dip"
                     android:layout_weight="5">
 
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="fill_parent"
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Llamar"
-                        android:id="@+id/gotoCall"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true" />
+                        android:layout_alignParentStart="true"
+                        android:layout_above="@+id/add_cigarette"
+                        android:id="@+id/linearLayodut3">
+                        <RelativeLayout
+                            android:layout_width="0dip"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3">
+
+
+
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dip"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="7">
+
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Consejos"
+                                android:id="@+id/gotoConsejo"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/consejo"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true" />
+
+
+                            <com.lecz.clubdelosvencedores.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="RECIBIR UN CONSEJO"
+                                customAttrs:customFont="futura_heavy"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                android:id="@+id/textView24"
+                                android:layout_below="@+id/gotoConsejo"
+                                android:layout_alignParentStart="true" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
                 </RelativeLayout>
 
             </LinearLayout>
@@ -84,28 +173,116 @@
                     android:layout_height="0dip"
                     android:layout_weight="5">
 
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="fill_parent"
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Video"
-                        android:id="@+id/gotoVideo"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_above="@+id/add_cigarette"
+                        android:id="@+id/linearLaydodsut3">
+                        <RelativeLayout
+                            android:layout_width="0dip"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="7">
+
+
+
+                            <com.lecz.clubdelosvencedores.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="DISTRAETE JUGANDO"
+                                android:gravity="center"
+                                android:layout_marginTop="10dp"
+                                customAttrs:customFont="futura_heavy"
+                                android:layout_marginBottom="15dp"
+                                android:textColor="@android:color/white"
+                                android:id="@+id/textgView25"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true" />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Juego"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/juego"
+                                android:id="@+id/gotoGame"
+                                android:layout_above="@+id/textgView25"
+                                android:layout_centerHorizontal="true" />
+
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dip"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3">
+
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dip"
                     android:layout_weight="5">
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="fill_parent"
 
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Consejos"
-                        android:id="@+id/gotoConsejo"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        android:layout_above="@+id/add_cigarette"
+                        android:id="@+id/linearLayodsut3">
+                        <RelativeLayout
+                            android:layout_width="0dip"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="7">
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Video"
+                                android:id="@+id/gotoVideo"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/video"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true" />
+
+                            <com.lecz.clubdelosvencedores.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="VER UN VIDEO"
+                                android:gravity="center"
+                                customAttrs:customFont="futura_heavy"
+                                android:textColor="@android:color/white"
+                                android:id="@+id/textView25"
+                                android:layout_below="@+id/gotoVideo"
+                                android:layout_centerHorizontal="true" />
+
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dip"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3">
+
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+
                 </RelativeLayout>
 
             </LinearLayout>

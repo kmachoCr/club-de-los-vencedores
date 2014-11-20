@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.lecz.clubdelosvencedores.AdviceActivity;
 import com.lecz.clubdelosvencedores.Game.Game;
@@ -27,10 +28,10 @@ public class fragment_slide extends Fragment {
                              Bundle savedInstanceState) {
         rootView =  inflater.inflate(R.layout.fragment_slide, container, false);
 
-        Button gotoGame = (Button) rootView.findViewById(R.id.gotoGame);
-        Button gotoCall = (Button) rootView.findViewById(R.id.gotoCall);
-        Button gotoVideo = (Button) rootView.findViewById(R.id.gotoVideo);
-        Button gotoConsejo = (Button) rootView.findViewById(R.id.gotoConsejo);
+        ImageButton gotoGame = (ImageButton) rootView.findViewById(R.id.gotoGame);
+        ImageButton gotoCall = (ImageButton) rootView.findViewById(R.id.gotoCall);
+        ImageButton gotoVideo = (ImageButton) rootView.findViewById(R.id.gotoVideo);
+        ImageButton gotoConsejo = (ImageButton) rootView.findViewById(R.id.gotoConsejo);
 
         gotoGame.setOnClickListener(new View.OnClickListener() {
 

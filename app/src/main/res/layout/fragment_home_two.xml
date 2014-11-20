@@ -16,22 +16,27 @@
 
 
 
-        <TextView
+        <com.lecz.clubdelosvencedores.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="34dp"
+            android:textSize="26dp"
             android:gravity="center"
+            android:layout_marginTop="3dp"
+            customAttrs:customFont="futura_heavy"
+            android:textColor="@color/blue_title"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/name_user"
             android:text="name"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
-        <TextView
+        <com.lecz.clubdelosvencedores.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="20dp"
+            android:textColor="@color/blue_subtitle"
+            customAttrs:customFont="futura_heavy"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/level"
             android:text="Nivel: Aspirante"
@@ -52,7 +57,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_height="150dp"
+                android:layout_height="130dp"
 
                 android:layout_alignParentStart="true"
                 android:id="@+id/linearLayout2"
@@ -66,13 +71,13 @@
 
                     android:layout_weight="5">
 
-                    <com.lecz.clubdelosvencedores.OldWestTextView
+                    <com.lecz.clubdelosvencedores.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="days"
-                        android:textSize="40dp"
-                        customAttrs:customFont="roboto_thin"
+                        android:textSize="50dp"
+                        customAttrs:customFont="old_west"
                         android:textColor="@color/yellow"
                         android:id="@+id/days"
                         android:gravity="center"
@@ -109,12 +114,13 @@
                     android:layout_height="match_parent"
                     android:layout_weight="5">
 
-                    <TextView
+                    <com.lecz.clubdelosvencedores.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textSize="35dp"
                         android:text="money"
+                        customAttrs:customFont="old_west"
                         android:textColor="@color/yellow"
                         android:gravity="center"
                         android:id="@+id/money"
@@ -142,17 +148,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/listActivity"
-            android:background="#ffebebeb"
+            android:background="#fff"
             android:cacheColorHint="#00000000"
             android:divider="#00000000"
-            android:layout_below="@+id/relativeLayout2" />
-
-
+            android:layout_below="@+id/textView23" />
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:layout_below="@+id/relativeLayout"
             android:id="@+id/relativeLayout2">
 
@@ -171,44 +175,47 @@
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 android:id="@+id/add_cigarette"
-                android:layout_gravity="right|bottom"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="right|center"
                 android:src="@drawable/checkmark"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true" />
 
-            <TextView
+            <com.lecz.clubdelosvencedores.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearance"
+                android:textSize="30dp"
                 android:text="20"
+                android:textColor="@android:color/white"
+                customAttrs:customFont="old_west"
+                android:layout_marginRight="5dp"
                 android:id="@+id/textView4"
-                android:layout_marginRight="10dp"
                 android:layout_toEndOf="@+id/limite"
-                android:layout_alignTop="@+id/limite" />
+                android:layout_alignBottom="@+id/limite" />
 
-            <com.lecz.clubdelosvencedores.OldWestTextView
+            <com.lecz.clubdelosvencedores.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Límite:"
                 android:id="@+id/limite"
-                customAttrs:customFont="roboto_thin"
-                android:layout_marginBottom="24dp"
+                customAttrs:customFont="futura"
+                android:layout_marginBottom="25dp"
                 android:layout_marginLeft="60dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true" />
 
-            <com.lecz.clubdelosvencedores.OldWestTextView
+            <com.lecz.clubdelosvencedores.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Fumados"
-                android:layout_marginRight="10dp"
-                customAttrs:customFont="roboto_thin"
+                android:text="Fumados:"
+                customAttrs:customFont="futura"
                 android:id="@+id/textViews22"
-                android:layout_alignTop="@+id/textView4"
-                android:layout_toEndOf="@+id/textView4" />
+                android:layout_marginRight="5dp"
+                android:layout_toEndOf="@+id/textView4"
+                android:layout_alignBottom="@+id/textView4" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -220,35 +227,48 @@
                 android:layout_alignTop="@+id/textViews22"
                 android:layout_toStartOf="@+id/add_cigarette" />
 
-            <TextView
+            <com.lecz.clubdelosvencedores.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="30dp"
                 android:text="12"
+                customAttrs:customFont="old_west"
                 android:id="@+id/cigarettes_smoked"
-                android:layout_alignTop="@+id/textViews22"
-                android:layout_toEndOf="@+id/textViews22" />
+                android:textColor="@android:color/white"
+                android:layout_toEndOf="@+id/textViews22"
+                android:layout_alignBottom="@+id/textViews22" />
         </RelativeLayout>
+
+        <com.lecz.clubdelosvencedores.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textColor="#ff999999"
+            android:text="Mi actividad"
+            customAttrs:customFont="futura_heavy"
+            android:id="@+id/textView23"
+            android:layout_below="@+id/relativeLayout2"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/list_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/relativeLayout" />
 
     <ImageButton
         android:id="@+id/add_button"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:scaleType="centerInside"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="@dimen/add_button_margin"
-        android:src="@drawable/plus_test"/>
+        android:src="@drawable/ayuda"/>
 
 </FrameLayout>

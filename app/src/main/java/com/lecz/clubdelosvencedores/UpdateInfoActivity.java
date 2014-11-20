@@ -109,6 +109,8 @@ public class UpdateInfoActivity extends Activity {
                 userds.close();
 
                 Toast.makeText(UpdateInfoActivity.this, "Cambios guardados", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UpdateInfoActivity.this, MyActivity.class);
+                startActivity(intent);
             }
         });
     }

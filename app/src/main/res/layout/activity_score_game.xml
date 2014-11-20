@@ -14,8 +14,10 @@
         android:textSize="30dp"
         android:text="3452"
         android:id="@+id/score"
+        android:gravity="center"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,25 +26,17 @@
         android:text="TU PUNTUACIÓN"
         android:id="@+id/textView2"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="125dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:text="Nivel"
-        android:id="@+id/tv2"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        android:text="6"
+        android:text="Nivel: 6"
         android:id="@+id/level_game"
-        android:layout_below="@+id/tv2"
+        android:layout_below="@+id/score"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -58,16 +52,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        android:text="PUNTUACIÓN MAYOR"
-        android:id="@+id/textsView6"
-        android:layout_alignParentTop="true"
+        android:text="MEJOR PUNTAJE: 5670"
+        android:id="@+id/max_score"
+        android:layout_below="@+id/score_game"
         android:layout_centerHorizontal="true" />
-    <TextView
+
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:text="7864"
-        android:id="@+id/max_score"
-        android:layout_below="@+id/textsView6"
+        android:id="@+id/score_game"
+        android:src="@drawable/checkmark"
+        android:layout_below="@+id/level_game"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -86,7 +86,7 @@ public class HomeFour extends Fragment implements TabHost.OnTabChangeListener {
         list_achievements_money.setAdapter(adapter1);
         list_achievements_health.setAdapter(adapter2);
         btn_money.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT - 20;
-
+        btn_health.setCompoundDrawablesWithIntrinsicBounds
         btn_health.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

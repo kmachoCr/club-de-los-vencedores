@@ -25,5 +25,4 @@ dependencies {
     compile files('libs/svg-android-1.1.jar')
     compile 'com.android.support:support-v4:21.0.0'
     compile 'com.android.support:support-v13:21.0.0'
-    compile 'uk.co.chrisjenx:calligraphy:1.2.0'
 }

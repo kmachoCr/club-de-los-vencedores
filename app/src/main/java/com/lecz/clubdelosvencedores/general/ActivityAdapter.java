@@ -50,6 +50,7 @@ public class ActivityAdapter extends ArrayAdapter<Object> {
         TextView title;
         TextView content;
         ImageView image;
+        RelativeLayout contentMain;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = inflater.inflate(R.layout.viewpager_item, parent, false);
@@ -57,9 +58,16 @@ public class ActivityAdapter extends ArrayAdapter<Object> {
         title = (TextView) itemView.findViewById(R.id.title);
         content = (TextView) itemView.findViewById(R.id.content);
         image = (ImageView) itemView.findViewById(R.id.image);
+        contentMain = (RelativeLayout) itemView.findViewById(R.id.contentmain);
 
-        title.setText(activities.get(position).getTitle());
+        //title.setText(activities.get(position).getTitle());
         content.setText(activities.get(position).getContent());
+        if(activities.get(position).getType().equals("logro")){
+            contentMain.setBackgroundResource(R.drawable.logro_fondo);
+        }else{
+            contentMain.setBackgroundResource(R.drawable.consejo_fondo);
+        }
+
         image.setImageResource(activities.get(position).getImage());
 
         return itemView;

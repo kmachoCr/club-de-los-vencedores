@@ -3,14 +3,18 @@ package com.lecz.clubdelosvencedores;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.Game.Game;
 
 
@@ -24,13 +28,15 @@ public class ScoreGameActivity extends Activity {
         TextView leveltv = (TextView)findViewById(R.id.level_game);
         TextView scoretv = (TextView)findViewById(R.id.score);
         TextView max_scoretv = (TextView)findViewById(R.id.max_score);
+        ImageView imagev = (ImageView) findViewById(R.id.score_game);
         Button play_again = (Button)findViewById(R.id.play_again);
 
         String level = getIntent().getExtras().getString("level");
         String score = getIntent().getExtras().getString("score");
 
 
-
+        SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.pulmon_puntaje);
+        imagev.setImageDrawable(svg.createPictureDrawable());
 
         SharedPreferences mPrefs = getSharedPreferences("label", 0);
         int max_score = mPrefs.getInt("max_score", 0);

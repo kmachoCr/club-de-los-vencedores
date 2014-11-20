@@ -52,8 +52,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 /**
@@ -104,9 +102,18 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
         money.setTypeface(tf);
         days.setTypeface(tf);
+        userds = new UserDataSource(rootView.getContext());
+        userds.open();
+        User user = userds.getUser();
+        userds.close();
+        SVG svg;
+        if(user.getGenre()){
+            svg = SVGParser.getSVGFromResource(getResources(), R.raw.icn_usuariohombre);
+        }else{
+            svg = SVGParser.getSVGFromResource(getResources(), R.raw.prueba_icn_usuaria);
+        }
 
-        SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.prueba_icn_usuaria);
-        SVG svgadd = SVGParser.getSVGFromResource(getResources(), R.raw.icn_metadehoy);
+        SVG svgadd = SVGParser.getSVGFromResource(getResources(), R.raw.icn_meta_de_hoy);
         SVG addbutton = SVGParser.getSVGFromResource(getResources(), R.raw.icn_fume);
 
         Drawable drawable = svg.createPictureDrawable();
@@ -121,29 +128,25 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         ArrayList list = ads.getActivities();
         ads.close();
 
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 1", "Consejo", "Actividad 1"));
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 2", "Consejo", "Actividad 2"));
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 3", "Consejo", "Actividad 3"));
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 4", "Consejo", "Actividad 4"));
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 5", "Consejo", "Actividad 5"));
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 6", "Consejo", "Actividad 6"));
+        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 1", "consejo", "Actividad 1"));
+        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 2", "logro", "Actividad 2"));
+        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 3", "consejo", "Actividad 3"));
+        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 4", "consejo", "Actividad 4"));
+        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 5", "logro", "Actividad 5"));
+        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 6", "consejo", "Actividad 6"));
 
         adapter = new ActivityAdapter(rootView.getContext(), list);
 
         activityLog.setAdapter(adapter);
 
         dspd = new PlanDetailsDataSource(rootView.getContext());
-        userds = new UserDataSource(rootView.getContext());
+
 
         dspd.open();
         plan = dspd.getCurrentPlanDetail();
         int size = dspd.getPlanDetails().size();
         dspd.close();
-        userds.open();
-        User user = userds.getUser();
-        Log.i("SIZE", size + "");
-        Log.i("DAY", plan.getNumber_day()+"");
-        userds.close();
+
 
         int used_cigarettes = settings.getInt("count", 0);
 
@@ -209,10 +212,10 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
     private void toggleList() {
         if(!botonPanic){
-            panic.setImageResource(R.drawable.minus_test);
+            panic.setImageResource(R.drawable.salir);
             botonPanic = true;
         }else{
-            panic.setImageResource(R.drawable.plus_test);
+            panic.setImageResource(R.drawable.ayuda);
             botonPanic = false;
         }
         Fragment f = getFragmentManager()
@@ -248,7 +251,7 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
     }
 
     public void update_interface(int used_cigarettes, User user, PlanDetail plan, int size){
-        userName.setText(user.getName());
+        userName.setText(user.getName().toUpperCase());
         money.setText("¢" + user.getMoney_saved());
         textView4.setText(plan.getTotal_cigarettes()+"");
         cigarettes_smoked.setText(used_cigarettes +"");

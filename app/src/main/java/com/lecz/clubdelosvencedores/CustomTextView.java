@@ -10,14 +10,18 @@ import java.util.Locale;
 /**
  * Created by Luis on 11/19/2014.
  */
-public class OldWestTextView extends TextView {
+public class CustomTextView extends TextView {
 
     private static final String sScheme =
             "http://schemas.android.com/apk/res-auto";
     private static final String sAttribute = "customFont";
 
     static enum CustomFont {
-        ROBOTO_THIN("fonts/Go 2 Old Western.ttf");
+        OLD_WEST("fonts/Go 2 Old Western.ttf"),
+        FUTURA("fonts/FuturaStd_Book.otf"),
+        FUTURA_BOLD("fonts/FuturaStd_Bold.otf"),
+        FUTURA_CBOLD("fonts/FuturaStd_CondensedBold.otf"),
+        FUTURA_HEAVY("fonts/FuturaStd_Heavy.otf");
 
         private final String fileName;
 
@@ -34,7 +38,7 @@ public class OldWestTextView extends TextView {
         }
     }
 
-    public OldWestTextView(Context context, AttributeSet attrs) {
+    public CustomTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         if (isInEditMode()) {

@@ -66,7 +66,7 @@ public class XMLParser {
 
                 size = totaldb + 5;
 
-                for (int i = 0; i < (items.getLength() < size? items.getLength(): size); i++){
+                for (int i = totaldb; i < (items.getLength() < size? items.getLength(): size); i++){
                     noticia = new Notice();
                     Node item = items.item(i);
                     NodeList properties = item.getChildNodes();
@@ -93,6 +93,7 @@ public class XMLParser {
                                 String urlpart = property.getFirstChild().getNodeValue().substring(startdelimiterImage+5);
                                 int enddelimiterImage = urlpart.indexOf("\"");
                                 noticia.setUrl(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage));
+                                noticia.setImage(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage)));
                             }
 
                         }else if (name.equalsIgnoreCase("link")){
@@ -175,7 +176,7 @@ public class XMLParser {
                     nds.open();
                     nds.createNotice(noticia);
                     nds.close();
-                    Log.i("Parsher", "notcia:"+i);
+                    Log.i("Parsher", noticia.getUrl());
                 }
             }else{
                 return dbNotices;
@@ -189,7 +190,7 @@ public class XMLParser {
 
     public Bitmap getBitmapFromURL(String src) {
         try {
-
+            Log.i("url",src);
             URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);

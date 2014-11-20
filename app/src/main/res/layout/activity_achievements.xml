@@ -1,17 +1,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:customAttrs="http://schemas.android.com/apk/res-auto"
+    android:background="@color/gray"
     android:layout_height="match_parent">
-    <TextView
+    <com.lecz.clubdelosvencedores.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="5dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="26dp"
+        customAttrs:customFont="futura_heavy"
+        android:textColor="@color/blue_title"
         android:text="LOGROS"
         android:id="@+id/textView6"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -30,9 +36,11 @@
             android:layout_weight="5">
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Salud"
-                android:background="@color/opaque"
+                android:drawableLeft=""
+                android:background="@color/blue_health"
+                android:textColor="@android:color/white"
                 android:id="@+id/btn_health"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true" />
@@ -41,12 +49,11 @@
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="5">
-
-
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/holo_orange_light"
+                android:textColor="@android:color/white"
+                android:layout_height="match_parent"
+                android:background="@color/green_money"
                 android:text="Ahorro"
                 android:id="@+id/btn_money"
                 android:layout_alignParentBottom="true"
@@ -67,6 +74,7 @@
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="match_parent"
+           android:background="@android:color/white"
            android:id="@+id/layout_health">
            <GridView
                android:id="@+id/list_achievements_health"

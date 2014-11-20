@@ -40,7 +40,7 @@ public class RegisterActivityFour extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_activity_four);
-
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         button = (Button) findViewById(R.id.savennext4);
         uploadimage = (Button) findViewById(R.id.uploadimage);
         viewPager = (ViewPager) findViewById(R.id.as);
@@ -52,8 +52,7 @@ public class RegisterActivityFour extends Activity {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor habits = settings.edit();
+
                 if(money.isChecked()){
                     motivations_money = true;
                 }
@@ -97,6 +96,12 @@ public class RegisterActivityFour extends Activity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.right_in, R.anim.right_out);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

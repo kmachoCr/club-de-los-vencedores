@@ -85,6 +85,23 @@ public class AchievementDataSource {
         return users;
     }
 
+    public ArrayList<Achievement> getAchievementsByType(String type) {
+        ArrayList<Achievement> users = new ArrayList<Achievement>();
+        String[] args = new String[] {type};
+        Cursor cursor = database.query("Achievement",
+                allColumns, "type = ?", args, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Achievement achievement = cursorToComment(cursor);
+            users.add(achievement);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return users;
+    }
+
     public ArrayList<Achievement> getAllAchievements() {
         ArrayList<Achievement> users = new ArrayList<Achievement>();
         String[] args = new String[] {"0"};

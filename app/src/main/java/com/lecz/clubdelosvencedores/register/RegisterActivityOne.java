@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.lecz.clubdelosvencedores.MyActivity;
@@ -23,8 +25,9 @@ import java.util.Calendar;
 
 public class RegisterActivityOne extends Activity {
     private ViewPager viewPager;
-    private TextView name, age;
-    private Button button;
+    private TextView name;
+    Spinner age;
+    private ImageButton button;
     private RadioButton radioM, radioF, smoking, noSmoking;
     private UserDataSource userds;
     private User validateUser;
@@ -34,6 +37,7 @@ public class RegisterActivityOne extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_activity_one);
 
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
         SharedPreferences mPrefs = getSharedPreferences("label", 0);
         Boolean register_completed = mPrefs.getBoolean("register_completed", false);
@@ -60,9 +64,9 @@ public class RegisterActivityOne extends Activity {
         }else {
 
 
-            button = (Button) findViewById(R.id.savennext1);
+            button = (ImageButton) findViewById(R.id.savennext1);
             name = (TextView) findViewById(R.id.register_name);
-            age = (TextView) findViewById(R.id.register_age);
+            age = (Spinner) findViewById(R.id.register_age);
             radioM = (RadioButton) findViewById(R.id.radioM);
             radioF = (RadioButton) findViewById(R.id.radioF);
             smoking = (RadioButton) findViewById(R.id.smoking);
@@ -71,7 +75,6 @@ public class RegisterActivityOne extends Activity {
 
             if(validateUser != null){
                 name.setText(validateUser.getName());
-                age.setText(validateUser.getAge()+"");
 
                 radioM.setChecked(false);
                 radioF.setChecked(false);
@@ -86,7 +89,7 @@ public class RegisterActivityOne extends Activity {
 
                     if(validateUser != null){
                         validateUser.setName(name.getText().toString());
-                        validateUser.setAge(Integer.parseInt(age.getText().toString()));
+                        validateUser.setAge(Integer.parseInt(age.getSelectedItem().toString()));
                         validateUser.setGenre(radioM.isChecked());
                         validateUser.setSmoking(smoking.isChecked());
 
@@ -97,7 +100,7 @@ public class RegisterActivityOne extends Activity {
                         User user = new User();
 
                         user.setName(name.getText().toString());
-                        user.setAge(Integer.parseInt(age.getText().toString()));
+                        user.setAge(Integer.parseInt(age.getSelectedItem().toString()));
                         user.setGenre(radioM.isChecked());
                         user.setSmoking(smoking.isChecked());
                         user.setMoney_saved(0);
@@ -121,6 +124,12 @@ public class RegisterActivityOne extends Activity {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.right_in, R.anim.right_out);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

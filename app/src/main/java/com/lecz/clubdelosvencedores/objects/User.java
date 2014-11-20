@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by Luis on 9/29/2014.
  */
 public class User {
+    private int days_with_smoking;
     private int id;
     private String name;
     private int age;
@@ -20,6 +21,14 @@ public class User {
     private Long last_cigarette;
 
     public User(){}
+
+    public int getDays_with_smoking() {
+        return days_with_smoking;
+    }
+
+    public void setDays_with_smoking(int days_with_smoking) {
+        this.days_with_smoking = days_with_smoking;
+    }
 
     public User(String name, int age, boolean genre, Date register_date, int plan_type) {
         this.name = name;

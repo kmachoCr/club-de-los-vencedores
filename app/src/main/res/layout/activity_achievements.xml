@@ -1,36 +1,112 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.lecz.clubdelosvencedores.general.AchievementsActivity">
-
-    <GridView
-        android:id="@+id/list_achievements"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:columnWidth="70dp"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="3"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/textView2" />
-
-    <FrameLayout
-        android:id="@+id/description_achievement_container"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_alignParentBottom="true" />
-
+    android:layout_height="match_parent">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="5dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Tus logros!"
-        android:id="@+id/textView2"
+        android:text="LOGROS"
+        android:id="@+id/textView6"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_height="60dp"
 
-</RelativeLayout>
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/add_cigarette"
+        android:id="@+id/linearLayout4"
+        android:layout_below="@+id/textView6">
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:paddingRight="0dp"
+            android:layout_weight="5">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Salud"
+                android:background="@color/opaque"
+                android:id="@+id/btn_health"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="5">
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_orange_light"
+                android:text="Ahorro"
+                android:id="@+id/btn_money"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/list_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@+id/add_cigarette"
+        android:layout_alignEnd="@+id/add_cigarette"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/linearLayout4" >
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:id="@+id/layout_health">
+           <GridView
+               android:id="@+id/list_achievements_health"
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:columnWidth="70dp"
+               android:gravity="center"
+               android:horizontalSpacing="10dp"
+               android:numColumns="3"
+               android:stretchMode="columnWidth"
+               android:verticalSpacing="10dp"
+               android:layout_alignParentRight="true"
+               android:layout_alignParentEnd="true"
+               android:layout_below="@+id/textView2" />
+
+           </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/layout_money">
+
+            <GridView
+                android:id="@+id/list_achievements_money"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:columnWidth="70dp"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView2" />
+        </LinearLayout>
+
+
+        </FrameLayout>
+
+
+
+    </RelativeLayout>

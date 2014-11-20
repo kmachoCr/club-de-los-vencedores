@@ -26,7 +26,7 @@ import com.lecz.clubdelosvencedores.DatabaseManagers.ContactFriendSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
 import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.general.MainActivity;
-import com.lecz.clubdelosvencedores.R;
+import com.lecz.clubdelosvencedores.*;
 import com.lecz.clubdelosvencedores.objects.Contact;
 import com.lecz.clubdelosvencedores.objects.User;
 
@@ -51,7 +51,7 @@ public class RegisterActivityFive extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_activity_five);
-
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         Activity host = (Activity) this;
 
         // Gets the ListView from the View list of the parent activity
@@ -198,6 +198,12 @@ public class RegisterActivityFive extends Activity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.right_in, R.anim.right_out);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

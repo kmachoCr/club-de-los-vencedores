@@ -97,7 +97,6 @@ public class Game extends Activity {
                             }
                         }
                         if(isWinner){
-
                             Toast.makeText(Game.this, "YOU WIN", Toast.LENGTH_SHORT).show();
                             current_level++;
                             score = score + ((count.getMax() - count.getProgress()) / 1100);

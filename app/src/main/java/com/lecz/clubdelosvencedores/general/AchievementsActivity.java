@@ -8,6 +8,7 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -18,6 +19,7 @@ import android.view.animation.Transformation;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.lecz.clubdelosvencedores.DatabaseManagers.AchievementDataSource;
@@ -27,50 +29,78 @@ import com.lecz.clubdelosvencedores.utilities.OnSwipeTouchListener;
 import java.util.ArrayList;
 
 
-public class AchievementsActivity extends Activity {
-    private ArrayList<Achievement> list;
+public class AchievementsActivity extends Fragment {
+    private ArrayList<Achievement> list_money, list_time;
     private String title, description;
     private ArrayList<String> array = new ArrayList<String>();
     private FrameLayout fl;
     private GridView list_achievements;
     private boolean flag;
+    private ImageButton achievement_money01, achievement_money02, achievement_money03, achievement_money04, achievement_money05, achievement_money06;
+    private ImageButton achievement_health01, achievement_health02, achievement_health03, achievement_health04, achievement_health05, achievement_health06;
+    View rootView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_achievements);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView =  inflater.inflate(R.layout.fragment_home_four, container, false);
 
-        AchievementDataSource ads = new AchievementDataSource(getApplicationContext());
+        AchievementDataSource ads = new AchievementDataSource(rootView.getContext());
         ads.open();
-        list = ads.getAllAchievements();
+        list_money = ads.getAchievementsByType("money");
+        list_time = ads.getAchievementsByType("time");
         ads.close();
 
-        list_achievements = (GridView) findViewById(R.id.list_achievements);
-        fl = (FrameLayout) findViewById(R.id.description_achievement_container);
-        Activity host = (Activity) this;
-        AchievementsAdapter adapter = new AchievementsAdapter(getApplicationContext(), list, host);
-        list_achievements.setAdapter(adapter);
+        achievement_health01 = (ImageButton) rootView.findViewById(R.id.achievement_health01);
+        achievement_health02 = (ImageButton) rootView.findViewById(R.id.achievement_health02);
+        achievement_health03 = (ImageButton) rootView.findViewById(R.id.achievement_health03);
+        achievement_health04 = (ImageButton) rootView.findViewById(R.id.achievement_health04);
+        achievement_health05 = (ImageButton) rootView.findViewById(R.id.achievement_health05);
+        achievement_health06 = (ImageButton) rootView.findViewById(R.id.achievement_health06);
 
-        fl.setOnTouchListener(new OnSwipeTouchListener(getApplicationContext()) {
-            public void onSwipeTop() {
-                Toast.makeText(AchievementsActivity.this, "top", Toast.LENGTH_SHORT).show();
-            }
-            public void onSwipeRight() {
-                Toast.makeText(AchievementsActivity.this, "right", Toast.LENGTH_SHORT).show();
-            }
-            public void onSwipeLeft() {
-                Toast.makeText(AchievementsActivity.this, "left", Toast.LENGTH_SHORT).show();
-            }
-            public void onSwipeBottom() {
+        achievement_money01 = (ImageButton) rootView.findViewById(R.id.achievement_money01);
+        achievement_money02 = (ImageButton) rootView.findViewById(R.id.achievement_money02);
+        achievement_money03 = (ImageButton) rootView.findViewById(R.id.achievement_money03);
+        achievement_money04 = (ImageButton) rootView.findViewById(R.id.achievement_money04);
+        achievement_money05 = (ImageButton) rootView.findViewById(R.id.achievement_money05);
+        achievement_money06 = (ImageButton) rootView.findViewById(R.id.achievement_money06);
+
+        ArrayList<ImageButton> money = new ArrayList<ImageButton>();
+        ArrayList<ImageButton> health = new ArrayList<ImageButton>();
+
+        health.add(achievement_health01);
+        health.add(achievement_health02);
+        health.add(achievement_health03);
+        health.add(achievement_health04);
+        health.add(achievement_health05);
+        health.add(achievement_health06);
+
+        money.add(achievement_money01);
+        money.add(achievement_money02);
+        money.add(achievement_money03);
+        money.add(achievement_money04);
+        money.add(achievement_money05);
+        money.add(achievement_money06);
 
 
+        for(int i = 0; i < list_money.size(); i++){
+            if(list_money.get(i).isCompleted()){
+                money.get(i).setImageResource(list_money.get(i).getImage());
+            }else{
+                money.get(i).setImageResource(R.drawable.cinturon_no_ganado);
             }
+        }
 
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
+        for(int i = 0; i < list_time.size(); i++){
+            if(list_time.get(i).isCompleted()){
+                health.get(i).setImageResource(list_money.get(i).getImage());
+            }else{
+                health.get(i).setImageResource(R.drawable.cinturon_no_ganado);
             }
-        });
+        }
 
+
+    return rootView;
 
     }
 
@@ -111,84 +141,4 @@ public class AchievementsActivity extends Activity {
 
         return drawable;
     }
-
-
-    public ArrayList<String> getData(){
-        array.add(title);
-        array.add(description);
-        return  array;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.achievements, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public class AchievementsAdapter extends ArrayAdapter<Object> {
-        private Context context;
-        private Activity host;
-        private ArrayList<Achievement> arrayList;
-        ImageView image_achievement;
-        private static final String LIST_FRAGMENT_TAG = "";
-
-        public AchievementsAdapter(Context context, ArrayList<Achievement> array, Activity host) {
-            super(context, R.layout.item_achievement);
-            this.arrayList = array;
-            this.host = host;
-            this.context = context;
-        }
-
-        @Override
-        public int getCount(){
-            return arrayList.size();
-        }
-
-
-        public View getView(final int position, View convertView, ViewGroup parent){
-
-            if(convertView == null){
-                convertView = View.inflate(context, R.layout.item_achievement, null);
-                image_achievement = (ImageView) convertView.findViewById(R.id.image_achievement);
-            }else{
-                convertView.getTag();
-            }
-
-            image_achievement.setImageResource(arrayList.get(position).getImage());
-
-            image_achievement.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                // 1. Instantiate an AlertDialog.Builder with its constructor
-                AlertDialog.Builder builder = new AlertDialog.Builder(AchievementsActivity.this);
-
-                // 2. Chain together various setter methods to set the dialog characteristics
-                builder.setMessage(arrayList.get(position).getDescription()).setTitle(arrayList.get(position).getTitle());
-
-                // 3. Get the AlertDialog from create()
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                }
-            });
-
-
-            return  (convertView);
-        }
-
-    }
-
-
 }

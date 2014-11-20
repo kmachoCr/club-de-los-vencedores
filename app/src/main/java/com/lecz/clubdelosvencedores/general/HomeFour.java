@@ -1,5 +1,6 @@
 package com.lecz.clubdelosvencedores.general;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -12,6 +13,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,16 +21,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.larvalabs.svgandroid.SVG;
 import com.lecz.clubdelosvencedores.DatabaseManagers.AchievementDataSource;
 import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.objects.Achievement;
+import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 import com.lecz.clubdelosvencedores.utilities.OnSwipeTouchListener;
 
 import org.w3c.dom.Text;
@@ -42,11 +50,13 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  *
  */
-public class HomeFour extends Fragment {
-    private ArrayList<Achievement> list;
+public class HomeFour extends Fragment implements TabHost.OnTabChangeListener {
+    private ArrayList<Achievement> list_money, list_time;
     private ArrayList<String> array = new ArrayList<String>();
     private FrameLayout fl;
-    private GridView list_achievements;
+    private GridView list_achievements_money, list_achievements_health;
+    private LinearLayout layout_health, layout_money;
+    private Button btn_money, btn_health;
     private boolean flag;
     private View rootView, rrrrr;
 
@@ -57,27 +67,60 @@ public class HomeFour extends Fragment {
 
         AchievementDataSource ads = new AchievementDataSource(rootView.getContext());
         ads.open();
-        list = ads.getAllAchievements();
-        Log.i("tamano", list.size() + "");
+        list_money = ads.getAchievementsByType("money");
+        list_time = ads.getAchievementsByType("time");
+
         ads.close();
 
-        list_achievements = (GridView) rootView.findViewById(R.id.list_achievements);
-        fl = (FrameLayout) rootView.findViewById(R.id.description_achievement_container);
+        list_achievements_money = (GridView) rootView.findViewById(R.id.list_achievements_money);
+        list_achievements_health = (GridView) rootView.findViewById(R.id.list_achievements_health);
+        layout_money = (LinearLayout) rootView.findViewById(R.id.layout_money);
+        layout_health = (LinearLayout) rootView.findViewById(R.id.layout_health);
+        btn_money = (Button) rootView.findViewById(R.id.btn_money);
+        btn_health = (Button) rootView.findViewById(R.id.btn_health);
+
         Activity host = getActivity();
-        AchievementsAdapter adapter = new AchievementsAdapter(rootView.getContext(), list, host);
-        list_achievements.setAdapter(adapter);
+        AchievementsAdapter adapter1 = new AchievementsAdapter(rootView.getContext(), list_money, host);
+        AchievementsAdapter adapter2 = new AchievementsAdapter(rootView.getContext(), list_time, host);
 
-        fl.setOnTouchListener(new OnSwipeTouchListener(rootView.getContext()) {
-            public void onSwipeBottom() {
+        list_achievements_money.setAdapter(adapter1);
+        list_achievements_health.setAdapter(adapter2);
+        btn_money.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT - 20;
 
-                if(flag){
-                    toggleList();
-                    flag = false;
-                    collapse (fl);
-                }
+        btn_health.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("health", "health");
+
+                layout_money.getLayoutParams().height = 50;
+                layout_money.getLayoutParams().width = 50;
+                layout_money.setVisibility(View.INVISIBLE);
+
+                layout_health.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
+                layout_health.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+                layout_health.setVisibility(View.VISIBLE);
+                btn_money.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT - 20;
+                btn_health.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
+
             }
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
+        });
+
+        btn_money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("money", "money");
+
+
+                layout_health.getLayoutParams().height = 50;
+                layout_health.getLayoutParams().width = 50;
+                layout_health.setVisibility(View.INVISIBLE);
+
+                layout_money.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
+                layout_money.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+                layout_money.setVisibility(View.VISIBLE);
+                btn_health.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT - 20;
+                btn_money.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
+
             }
         });
 
@@ -147,25 +190,8 @@ public class HomeFour extends Fragment {
         v.startAnimation(a);
     }
 
-    public void toggleList(){
-        Fragment f = getFragmentManager().findFragmentByTag("achievement_detail");
-        if (f != null) {
-            getFragmentManager().popBackStack();
-        } else {
-            getFragmentManager().beginTransaction()
-                    .setCustomAnimations(R.anim.slide_up,
-                            R.anim.slide_down,
-                            R.anim.slide_up,
-                            R.anim.slide_down)
-                    .add(R.id.description_achievement_container,
-                            Fragment.instantiate(
-                                    rootView.getContext(),
-                                    description_achievement.class.getName()
-                            ),
-                            "achievement_detail"
-                    ).addToBackStack(null).commit();
-        }
-
+    @Override
+    public void onTabChanged(String tabId) {
 
     }
 
@@ -200,9 +226,9 @@ public class HomeFour extends Fragment {
             }
 
             if(arrayList.get(position).isCompleted()){
-                image_achievement.setImageResource(arrayList.get(position).getImage());
+                image_achievement.setImageResource(R.drawable.cinturon);
             }else{
-                image_achievement.setImageResource(R.drawable.xmark);
+                image_achievement.setImageResource(R.drawable.cinturon_no_ganado);
             }
 
 

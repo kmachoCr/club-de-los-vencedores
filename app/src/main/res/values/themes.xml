@@ -6,6 +6,12 @@
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Example</item>
     </style>
 
+    <style name="CustomActionBarThemeNoActionBar" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActiosnBar</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Example</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <!-- ActionBar styles -->
     <style name="MyActiosnBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
         <!--<item name="aandroid:background">#D85122</item>-->

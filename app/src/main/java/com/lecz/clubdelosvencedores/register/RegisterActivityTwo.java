@@ -2,6 +2,7 @@ package com.lecz.clubdelosvencedores.register;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -10,14 +11,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.lecz.clubdelosvencedores.DatabaseManagers.MotivationsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.PlanDetailsDataSource;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
 import com.lecz.clubdelosvencedores.objects.Achievement;
+import com.lecz.clubdelosvencedores.objects.Motivations;
 import com.lecz.clubdelosvencedores.objects.PlanDetail;
 import com.lecz.clubdelosvencedores.objects.User;
 
@@ -27,11 +32,12 @@ import java.util.Calendar;
 
 public class RegisterActivityTwo extends Activity {
 
-    private ViewPager viewPager;
     private User user;
-    private TextView tv_dias_q_fumo, textView5, textView4, cigarettes_per_day;
-    private SeekBar dias_q_no_fumo, dias_q_fumo;
-    private Button button;
+    private TextView count_cigarettes, textView4;
+    private SeekBar dias_q_fumo, cigarettes_per_day;
+    private ImageButton button, back;
+    private CheckBox money, aesthetic, family, health;
+    private boolean motivations_money, motivations_aesthetic, motivations_health, motivations_family = false;
     private Spinner plan_type;
     private UserDataSource userds;
     ArrayList<User> users;
@@ -43,40 +49,40 @@ public class RegisterActivityTwo extends Activity {
         setContentView(R.layout.activity_register_activity_two);
 
 
-
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         dspd = new PlanDetailsDataSource(this);
-        button = (Button) findViewById(R.id.savennext2);
-        dias_q_no_fumo = (SeekBar) findViewById(R.id.no_days_quit);
-        tv_dias_q_fumo = (TextView) findViewById(R.id.tv_days_quit);
+        back = (ImageButton) findViewById(R.id.back1);
+        button = (ImageButton) findViewById(R.id.savennext1);
         dias_q_fumo = (SeekBar) findViewById(R.id.days_quit);
         textView4 = (TextView) findViewById(R.id.textView4);
-        textView5 = (TextView) findViewById(R.id.name_user);
-        cigarettes_per_day = (TextView) findViewById(R.id.register_cigarettes_per_day);
+        count_cigarettes = (TextView) findViewById(R.id.count_cigarettes);
+        cigarettes_per_day = (SeekBar) findViewById(R.id.register_cigarettes_per_day);
         plan_type = (Spinner) findViewById(R.id.plan_type);
+        money = (CheckBox) findViewById(R.id.register_motivations_money);
+        aesthetic = (CheckBox) findViewById(R.id.register_motivations_aesthetic);
+        family = (CheckBox) findViewById(R.id.register_motivations_family);
+        health = (CheckBox) findViewById(R.id.register_motivations_health);
+
 
         userds = new UserDataSource(getApplicationContext());
         userds.open();
         users = userds.getUsers();
-        if(!users.isEmpty()){
-            if(!users.get(0).getSmoking()){
-                textView5.setVisibility(View.VISIBLE);
-                dias_q_no_fumo.setVisibility(View.VISIBLE);
-                tv_dias_q_fumo.setVisibility(View.VISIBLE);
-            }
             user = users.get(0);
 
-            cigarettes_per_day.setText(user.getCigarettes_per_day()+"");
+            cigarettes_per_day.setProgress(user.getCigarettes_per_day());
             plan_type.setSelection(user.getPlan_type());
-        }
+
         userds.close();
         dias_q_fumo.setMax(30);
-        dias_q_no_fumo.setMax(30);
+        cigarettes_per_day.setMax(30);
 
-
-
-
-
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                overridePendingTransition(R.anim.right_in, R.anim.right_out);
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -89,7 +95,7 @@ public class RegisterActivityTwo extends Activity {
 
                 if(!users.isEmpty()){
                     user = users.get(0);
-                    user.setCigarettes_per_day(Integer.parseInt(cigarettes_per_day.getText().toString()));
+                    user.setCigarettes_per_day(cigarettes_per_day.getProgress());
                     user.setPlan_type(Integer.parseInt(plan_type.getSelectedItemId() + ""));
 
                     userds.open();
@@ -105,7 +111,7 @@ public class RegisterActivityTwo extends Activity {
                         }
                     }
 
-                    int total = Integer.parseInt(cigarettes_per_day.getText().toString());
+                    int total = cigarettes_per_day.getProgress();
                     PlanDetail plan = new PlanDetail();
                     plan.setNumber_day(1);
                     plan.setTotal_cigarettes(total);
@@ -117,7 +123,7 @@ public class RegisterActivityTwo extends Activity {
                     total--;
                     dspd.createPlanDetail(plan);
 
-                    for(int i = 2; i <= Integer.parseInt(cigarettes_per_day.getText().toString()); i++){
+                    for(int i = 2; i <= cigarettes_per_day.getProgress(); i++){
                         plan = new PlanDetail();
                         plan.setNumber_day(i);
                         plan.setTotal_cigarettes(total);
@@ -131,31 +137,49 @@ public class RegisterActivityTwo extends Activity {
                         dspd.createPlanDetail(plan);
                     }
                     dspd.close();
-                    Intent myIntent = new Intent(getApplication(), RegisterActivityFour.class);
+
+                    if(money.isChecked()){
+                        motivations_money = true;
+                    }
+                    if(aesthetic.isChecked()){
+                        motivations_aesthetic = true;
+                    }
+                    if(family.isChecked()){
+                        motivations_family = true;
+                    }
+                    if(health.isChecked()){
+                        motivations_health = true;
+                    }
+                    MotivationsDataSource mds = new MotivationsDataSource(RegisterActivityTwo.this);
+
+
+
+                    mds.open();
+                    Motivations m = mds.getMotivations();
+
+                    if(m != null){
+                        mds.deleteMotivation(m);
+                    }
+
+                    mds.createMotivation(new Motivations(motivations_health, motivations_family, motivations_aesthetic, motivations_money));
+                    mds.close();
+                    Intent myIntent = new Intent(getApplication(), RegisterActivityFive.class);
                     startActivity(myIntent);
                 }
 
             }
         });
 
-        plan_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
 
         dias_q_fumo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stub
-                textView4.setText(progress + " años");
+                if(progress == 1){
+                    textView4.setText(progress + " año");
+                }else{
+                    textView4.setText(progress + " años");
+                }
             }
 
             @Override
@@ -169,11 +193,11 @@ public class RegisterActivityTwo extends Activity {
             }
         });
 
-        dias_q_no_fumo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        cigarettes_per_day.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stub
-                textView5.setText(progress + " años");
+                count_cigarettes.setText(progress+"");
             }
 
             @Override
@@ -188,6 +212,12 @@ public class RegisterActivityTwo extends Activity {
         });
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.right_in, R.anim.right_out);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

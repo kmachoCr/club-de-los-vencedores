@@ -162,6 +162,7 @@ public class XMLParser {
                                 String urlpart = property.getFirstChild().getNodeValue().substring(startdelimiterImage+5);
                                 int enddelimiterImage = urlpart.indexOf("\"");
                                 noticia.setUrl(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage));
+                                noticia.setImage(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage)));
                             }
 
                         }else if (name.equalsIgnoreCase("link")){

@@ -81,7 +81,7 @@ public class NoticeAdapter extends ArrayAdapter<Object> {
 				+ dat.getMonth());
 		placeHolder.content.setText(noticias.get(position).getSummary());
 
-        placeHolder.picture.setImageResource(R.drawable.checkmark);
+        placeHolder.picture.setImageBitmap(noticias.get(position).getImage());
 		return (convertView);
 	}
 

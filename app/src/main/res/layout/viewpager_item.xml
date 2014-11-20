@@ -2,30 +2,68 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context="com.lecz.clubdelosvencedores.general.HomeActivity" >
+android:layout_height="140dp"
+tools:context="com.lecz.clubdelosvencedores.general.HomeActivity"
+    android:paddingBottom="4dp"
+    android:paddingRight="8dp"
+    android:paddingLeft="8dp"
+    android:paddingTop="4dp">
 
 
-    <ImageView
-        android:id="@+id/imagen"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/checkmark"
-        android:padding="1dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="@drawable/card_shape_normal"
+        android:orientation="horizontal"
+        android:layout_height="fill_parent"
+
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="asasasa"
-        android:id="@+id/consejo"
-        android:layout_marginLeft="10dp"
-        android:layout_alignTop="@+id/imagen"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="37dp" />
+        android:layout_above="@+id/add_cigarette"
+        android:id="@+id/linearLayout4">
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:padding="11dp"
+            android:layout_weight="7">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="title"
+                android:id="@+id/title"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Content"
+                android:id="@+id/content"
+                android:layout_below="@+id/title"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="3">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/checkmark"
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

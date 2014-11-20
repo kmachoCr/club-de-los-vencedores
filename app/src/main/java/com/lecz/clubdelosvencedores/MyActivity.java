@@ -24,6 +24,7 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
+import com.lecz.clubdelosvencedores.general.AchievementsActivity;
 import com.lecz.clubdelosvencedores.general.HomeFour;
 import com.lecz.clubdelosvencedores.general.HomeOne;
 import com.lecz.clubdelosvencedores.general.HomeThree;

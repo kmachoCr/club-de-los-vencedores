@@ -2,8 +2,10 @@ package com.lecz.clubdelosvencedores.Game;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +14,23 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.R;
 
 import java.util.Random;
 
 public class BlockAdapter extends BaseAdapter {
-    private Block[] blocks = new Block[28];
+    private Block[] blocks = new Block[25];
     private Context mContext;
     LayoutInflater inflater;
-    public BlockAdapter(Context c) {
-        mContext = c;
+    Resources resources;
+    int size_gv;
+
+    public BlockAdapter(Context c, Resources resources, int size) {
+        this.mContext = c;
+        this.resources = resources;
+        this.size_gv = size;
     }
 
     public int getCount() {
@@ -47,7 +56,11 @@ public class BlockAdapter extends BaseAdapter {
         img = (ImageView) itemView.findViewById(R.id.imageView);
         itemView.setBackgroundColor(blocks[position].getColor());
         img.setMaxHeight(20);
-        img.setImageResource(blocks[position].getImage());
+        if(blocks[position].isTarget()){
+            SVG pulmones = SVGParser.getSVGFromResource(resources, R.raw.icn_juego_pulmones);
+            img.setImageDrawable(pulmones.createPictureDrawable());
+        }
+
 
         return itemView;
     }
@@ -79,7 +92,9 @@ public class BlockAdapter extends BaseAdapter {
             int i1 = r.nextInt(max - min + 1) + min;
             blocks[i1].setTarget(true);
             blocks[i1].setColor(Color.parseColor("#F46E25"));
-            blocks[i1].setImage(R.drawable.minus_test);
+
+
+            blocks[i1].setImage(R.raw.icn_juego_pulmones);
         }
 
         return blocks;

@@ -101,6 +101,21 @@ public class PlanDetailsDataSource {
         return planDetail;
     }
 
+    public ArrayList<PlanDetail> getNotCompletedPlanDetail() {
+        ArrayList<PlanDetail> planDetail = new ArrayList<PlanDetail>();
+
+        Cursor cursor = database.query("PlanDetail",
+                allColumns, "completed = 0", null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            planDetail.add(cursorToComment(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return planDetail;
+    }
+
     public PlanDetail getPlanDetail(int id) {
         PlanDetail planDetail = new PlanDetail();
         String[] args = new String[] {id+""};

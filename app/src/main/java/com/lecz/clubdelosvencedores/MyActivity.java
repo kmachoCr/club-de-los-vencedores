@@ -11,6 +11,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -24,6 +25,8 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.general.AchievementsActivity;
 import com.lecz.clubdelosvencedores.general.HomeFour;
 import com.lecz.clubdelosvencedores.general.HomeOne;
@@ -93,13 +96,23 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
             // the TabListener interface, as the callback (listener) for when
             // this tab is selected.
             actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
+                    actionBar.newTab().setIcon(getPageIcon(i)).setTabListener(this));
         }
     }
 
 
+    public int getPageIcon(int position) {
+        Locale l = Locale.getDefault();
+        switch (position) {
+            case 0:
+                return R.drawable.usuario;
+            case 1:
+                return  R.drawable.copa;
+            case 2:
+                return  R.drawable.articulo;
+        }
+        return R.drawable.articulo;
+    }
     // This is where the magic happens!
     public void forceTabs() {
         try {

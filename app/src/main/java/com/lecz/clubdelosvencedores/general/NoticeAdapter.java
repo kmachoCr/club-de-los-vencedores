@@ -42,7 +42,6 @@ public class NoticeAdapter extends ArrayAdapter<Object> {
 	private static class PlaceHolder {
 
 		TextView title;
-		TextView time;
 		TextView content;
 		
 		ImageView picture;
@@ -51,8 +50,6 @@ public class NoticeAdapter extends ArrayAdapter<Object> {
 			PlaceHolder placeHolder = new PlaceHolder();
 			placeHolder.title = (TextView) convertView
 					.findViewById(R.id.noticia_textview_title);
-			placeHolder.time = (TextView) convertView
-					.findViewById(R.id.noticia_textview_time);
 			placeHolder.content = (TextView) convertView
 					.findViewById(R.id.noticia_textview_content);
 			
@@ -75,10 +72,6 @@ public class NoticeAdapter extends ArrayAdapter<Object> {
 		placeHolder.title.setText(noticias.get(position).getTitle());
         Date dat = new Date();
         dat.setTime(noticias.get(position).getDate());
-
-		placeHolder.time.setText(""
-				+ dat.getDate() + "/"
-				+ dat.getMonth());
 		placeHolder.content.setText(noticias.get(position).getSummary());
 
         placeHolder.picture.setImageBitmap(noticias.get(position).getImage());

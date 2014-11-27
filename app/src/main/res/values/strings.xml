@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="level_game">Nivel: </string>
+    <string name="level_game">NIVEL: </string>
     <string name="app_name">Club de los Vencedores</string>
     <string name="title_section1">1</string>
     <string name="title_section2">2</string>
@@ -36,7 +36,7 @@
     <string name="register_motivations_health">Salud</string>
     <string name="save_and_next">Guardar y continuar</string>
     <string name="save">Guardar</string>
-    <string name="title_activity_register_activity_one">RegisterActivityOne</string>
+    <string name="title_activity_register_activity_one">Club de los Vencedores</string>
     <string name="title_activity_register_activity_two">RegisterActivityTwo</string>
     <string name="title_activity_register_activity_three">RegisterActivityThree</string>
     <string name="title_activity_register_activity_four">RegisterActivityFour</string>
@@ -56,12 +56,23 @@
     <string name="motivations">¿Qué te motiva a dejar de fumar?</string>
     <string name="motivationsv2">¿Qué te motivó a dejar de fumar?</string>
 
-    <string-array name="plan_type">
+    <string-array name="now">
         <item>Desde ya</item>
-        <item>Mañana</item>
-        <item>1 semana.</item>
-        <item>2 semanas.</item>
-        <item>4 semanas</item>
+    </string-array>
+    <string-array name="all">
+        <item>Desde ya</item>
+        <item>7 días.</item>
+        <item>15 días.</item>
+        <item>30 días.</item>
+    </string-array>
+    <string-array name="seven">
+        <item>Desde ya</item>
+        <item>7 días.</item>
+    </string-array>
+    <string-array name="fifteen">
+        <item>Desde ya</item>
+        <item>7 días.</item>
+        <item>15 días.</item>
     </string-array>
     <string-array name="ages">
         <item>18</item>
@@ -112,5 +123,6 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_inicial">InicialActivity</string>
 
 </resources>

@@ -8,19 +8,29 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
+import android.util.Log;
 
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.DatabaseManagers.AchievementDataSource;
+import com.lecz.clubdelosvencedores.DatabaseManagers.ActivityDataSource;
+import com.lecz.clubdelosvencedores.DatabaseManagers.AdviceDataSource;
+import com.lecz.clubdelosvencedores.DatabaseManagers.MotivationsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.PlanDetailsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
 import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.objects.Achievement;
+import com.lecz.clubdelosvencedores.objects.Activity;
+import com.lecz.clubdelosvencedores.objects.Advice;
+import com.lecz.clubdelosvencedores.objects.Motivations;
 import com.lecz.clubdelosvencedores.objects.PlanDetail;
 import com.lecz.clubdelosvencedores.objects.User;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by Luis on 9/8/2014.
@@ -37,6 +47,8 @@ public class NotificationService extends Service {
         UserDataSource userds = new UserDataSource(getApplication().getApplicationContext());
         NotificationMng notificationManager = new NotificationMng(this);
         AchievementDataSource ads = new AchievementDataSource(this);
+        Activity activity = new Activity();
+        ActivityDataSource acds = new ActivityDataSource(this);
 
         dspd.open();
         PlanDetail plan = dspd.getCurrentPlanDetail();
@@ -111,19 +123,44 @@ public class NotificationService extends Service {
                                 int result = money - achievement;
 
                                 if(result > 0){
-                                    notificationManager.createNotification(this, listAchievements.get(i).getImage(), "Achievemnt", "Felicidades",  listAchievements.get(i).getTitle() + ", " + "has ahorrado " + achievement + " colones", when, MyActivity.class);
+                                    notificationManager.createNotification(this, R.drawable.checkmark, listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class);
                                     listAchievements.get(i).setCompleted(true);
                                     ads.open();
                                     ads.updateAchievement(listAchievements.get(i));
                                     ads.close();
-                                }else{
-                                    notificationManager.createNotification(this, listAchievements.get(i).getImage(), "Achievemnt", "Ya casi", "Te faltan " + result + " colones", when, MyActivity.class);
-                                }
-                            }else{
 
+                                    acds.open();
+                                    acds.createActivity(new Activity(listAchievements.get(i).getImage(), System.currentTimeMillis(),listAchievements.get(i).getDescription(), "logro", listAchievements.get(i).getTitle()));
+                                    acds.close();
+                                }
+//                                else{
+//                                    notificationManager.createNotification(this, R.drawable.checkmark, "Ya casi", listAchievements.get(i).getTitle(),  listAchievements.get(i).isCompleted()+"", when, MyActivity.class);
+//                                }
                             }
                         }
                     }
+
+                    MotivationsDataSource mds = new MotivationsDataSource(this);
+                    mds.open();
+                    Motivations m = mds.getMotivations();
+                    mds.close();
+
+                    AdviceDataSource adds = new AdviceDataSource(this);
+                    adds.open();
+                    ArrayList<Advice> list = adds.getAdvices(user.getGenre() ? 1 : 0, m.isMotiv_money(), m.isMotiv_aesthetic(), m.isMotiv_family(), m.isMotiv_health());
+                    adds.close();
+
+
+                    for(int i = 0; i < list.size(); i++){
+                        Log.i("nombre", list.get(i).getType());
+                    }
+                    Random r = new Random();
+                    int i1 = r.nextInt((list.size() - 1) - 0 + 1) + 0;
+
+                    acds.open();
+                    acds.createActivity(new Activity(R.drawable.checkmark, System.currentTimeMillis(), list.get(i1).getBody(), "consejo", list.get(i1).getType()));
+                    acds.close();
+
 
                 }else{
                     contentTitle = user.getName() ;
@@ -131,8 +168,6 @@ public class NotificationService extends Service {
             }else{
                 contentTitle = "No User" ;
             }
-
-
             ads.open();
             listAchievements = ads.getAchievements();
             ads.close();
@@ -142,36 +177,35 @@ public class NotificationService extends Service {
                 for(int i = 0; i < listAchievements.size(); i++){
                     if(listAchievements.get(i).getType().equals("time")){
                         Date last_cigarette = new Date(user.getLast_cigarette());
-                        long now= System.currentTimeMillis();
+                        long now = System.currentTimeMillis();
 
-                        long different = now - last_cigarette.getTime() ;
+                        long different = (now - last_cigarette.getTime()) / 1000 / 60;
 
                         long achievement = listAchievements.get(i).getAmount();
                         long result = different - achievement;
                         DecimalFormat df = new DecimalFormat("#.##");
                         if(result > 0){
-                            notificationManager.createNotification(this, R.drawable.checkmark, "Achievemnt", "Felicidades",  listAchievements.get(i).getTitle() + ", " + achievement +" horas", when, MainActivity.class);
+                            notificationManager.createNotification(this, R.drawable.checkmark, listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class);
                             listAchievements.get(i).setCompleted(true);
                             ads.open();
                             ads.updateAchievement(listAchievements.get(i));
                             ads.close();
-                        }else{
-                            notificationManager.createNotification(this, R.drawable.checkmark, "Achievemnt", "Ya casi", "Te faltan " + df.format(result / 1000.00 / 60.00 / 60.00 * -1) +" horas", when, MainActivity.class);
+
+                            acds.open();
+                            acds.createActivity(new Activity(listAchievements.get(i).getImage(), System.currentTimeMillis(),listAchievements.get(i).getDescription(), "logro", listAchievements.get(i).getTitle()));
+                            acds.close();
                         }
-                    }else{
+                        /*else{
+                            notificationManager.createNotification(this, R.drawable.checkmark, "Ya casi", listAchievements.get(i).getTitle(),  result + " minutos", when, MyActivity.class);
+                        }*/
 
                     }
                 }
             }
-
-
-            notificationManager.createNotification(this, icon, "Title", dateCurrentPlan + " : " + listAchievements.size(), dateNow, when, MyActivity.class);
-
-
         }else{
             contentTitle = "Dia Cero" ;
         }
-
+//        notificationManager.createNotification(this, R.drawable.icn_ahorro, "Ya casi", "Bandera",  "Bandera", when, MyActivity.class);
 
         return Service.START_NOT_STICKY;
     }

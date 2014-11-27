@@ -15,6 +15,8 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
@@ -39,8 +41,7 @@ public class RegisterActivityOne extends Activity {
 
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
-        SharedPreferences mPrefs = getSharedPreferences("label", 0);
-        Boolean register_completed = mPrefs.getBoolean("register_completed", false);
+
 
 
         userds = new UserDataSource(getApplication().getApplicationContext());
@@ -54,14 +55,6 @@ public class RegisterActivityOne extends Activity {
         }else{
             value = false;
         }
-
-
-        Log.i(value+"",register_completed+"");
-        if(register_completed && !value){
-            Intent myIntent = new Intent(getApplication(), MyActivity.class);
-            startActivity(myIntent);
-
-        }else {
 
 
             button = (ImageButton) findViewById(R.id.savennext1);
@@ -84,6 +77,10 @@ public class RegisterActivityOne extends Activity {
                     radioF.setChecked(true);
                 }
             }
+
+            SVG next = SVGParser.getSVGFromResource(getResources(), R.raw.icn_pag_next);
+            button.setImageDrawable(next.createPictureDrawable());
+
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
@@ -121,7 +118,7 @@ public class RegisterActivityOne extends Activity {
                     startActivity(myIntent);
                 }
             });
-        }
+
     }
 
 

@@ -4,6 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="180dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:weightSum="1">
 
 
@@ -14,7 +16,7 @@
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/cinturon"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -22,7 +24,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
-        android:id="@+id/textView21"
+        android:gravity="center"
+        android:id="@+id/name_achievement"
         android:layout_below="@+id/image_achievement"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

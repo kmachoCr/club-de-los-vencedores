@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,10 +20,13 @@ import org.w3c.dom.NodeList;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.util.Log;
 
 import com.lecz.clubdelosvencedores.DatabaseManagers.NoticeDataSource;
+import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.general.Activity_Noticias;
 import com.lecz.clubdelosvencedores.objects.Notice;
 
@@ -66,7 +70,7 @@ public class XMLParser {
 
                 size = totaldb + 5;
 
-                for (int i = totaldb; i < (items.getLength() < size? items.getLength(): size); i++){
+                for (int i = 0; i < (items.getLength() < size? items.getLength(): size); i++){
                     noticia = new Notice();
                     Node item = items.item(i);
                     NodeList properties = item.getChildNodes();
@@ -86,16 +90,24 @@ public class XMLParser {
                             String html = property.getFirstChild().getNodeValue().substring(delimiter + 1);
                             noticia.setContent(html);
 
-
                             int startdelimiterImage = property.getFirstChild().getNodeValue().indexOf("src=");
                             if(startdelimiterImage!=-1){
 
                                 String urlpart = property.getFirstChild().getNodeValue().substring(startdelimiterImage+5);
                                 int enddelimiterImage = urlpart.indexOf("\"");
                                 noticia.setUrl(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage));
-                                noticia.setImage(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage)));
-                            }
+                                nds.open();
+                                if(nds.getNotice(noticia.getTitle()) == null){
+                                    nds.close();
+                                    if(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage)) != null){
+                                        noticia.setImage(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage)));
+                                    }else{
+                                        Drawable d = contextor.getResources().getDrawable(R.drawable.checkmark);
+                                        noticia.setImage(((BitmapDrawable) d).getBitmap());
+                                    }
+                                }
 
+                            }
                         }else if (name.equalsIgnoreCase("link")){
                             noticia.setLink(property.getFirstChild().getNodeValue());
                         }else if(name.equalsIgnoreCase("pubDate")){
@@ -194,7 +206,10 @@ public class XMLParser {
             URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
+            connection.setRequestProperty("Accept-Charset", "UTF-8");
+            connection.setRequestProperty("Content-Type", "text/plain; charset=utf-8");
             connection.connect();
+
             InputStream input = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
             return myBitmap;

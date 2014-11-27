@@ -12,6 +12,8 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.DatabaseManagers.MotivationsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.PlanDetailsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
@@ -70,6 +72,8 @@ public class RegisterActivityTwov2 extends Activity {
             }
         });
 
+        SVG next = SVGParser.getSVGFromResource(getResources(), R.raw.icn_pag_next);
+        button.setImageDrawable(next.createPictureDrawable());
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 userds.open();

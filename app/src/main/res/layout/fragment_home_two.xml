@@ -57,7 +57,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_height="130dp"
+                android:layout_height="110dp"
 
                 android:layout_alignParentStart="true"
                 android:id="@+id/linearLayout2"
@@ -81,7 +81,7 @@
                         android:textColor="@color/yellow"
                         android:id="@+id/days"
                         android:gravity="center"
-                        android:layout_centerVertical="true"
+                        android:layout_above="@+id/days_to_quit"
                         android:layout_centerHorizontal="true" />
 
                     <TextView
@@ -89,24 +89,23 @@
                         android:layout_height="wrap_content"
                         android:textSize="14dp"
                         android:text="@string/days_to_quit"
-                        android:id="@+id/asasa"
+                        android:id="@+id/days_to_quit"
                         android:gravity="center"
-                        android:layout_below="@+id/days"
-                        android:layout_centerHorizontal="true" />
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-
                     android:layout_weight="6">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/img_user_home"
-                        android:scaleType="fitEnd"
+                        android:scaleType="fitCenter"
 
-                        android:layout_centerVertical="true"
+                        android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true" />
                 </RelativeLayout>
                 <RelativeLayout
@@ -133,7 +132,7 @@
                         android:textSize="17dp"
                         android:text="Ahorrados"
                         android:id="@+id/textView5"
-                        android:layout_below="@+id/money"
+                        android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true" />
 
 
@@ -156,9 +155,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="100dp"
             android:layout_below="@+id/relativeLayout"
-            android:id="@+id/relativeLayout2">
+            android:id="@+id/beforeZeroDay">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -193,6 +192,8 @@
                 android:layout_toEndOf="@+id/limite"
                 android:layout_alignBottom="@+id/limite" />
 
+
+
             <com.lecz.clubdelosvencedores.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -200,7 +201,7 @@
                 android:text="Límite:"
                 android:id="@+id/limite"
                 customAttrs:customFont="futura"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="60dp"
                 android:layout_marginRight="5dp"
                 android:layout_alignParentBottom="true"
@@ -212,20 +213,11 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Fumados:"
                 customAttrs:customFont="futura"
-                android:id="@+id/textViews22"
+                android:id="@+id/tv_smoked"
                 android:layout_marginRight="5dp"
                 android:layout_toEndOf="@+id/textView4"
                 android:layout_alignBottom="@+id/textView4" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text"
-                android:id="@+id/textView22"
-                android:layout_toEndOf="@+id/textView22"
-                android:layout_alignTop="@+id/textViews22"
-                android:layout_toStartOf="@+id/add_cigarette" />
 
             <com.lecz.clubdelosvencedores.CustomTextView
                 android:layout_width="wrap_content"
@@ -235,9 +227,10 @@
                 customAttrs:customFont="old_west"
                 android:id="@+id/cigarettes_smoked"
                 android:textColor="@android:color/white"
-                android:layout_toEndOf="@+id/textViews22"
-                android:layout_alignBottom="@+id/textViews22" />
+                android:layout_toEndOf="@+id/tv_smoked"
+                android:layout_alignBottom="@+id/tv_smoked" />
         </RelativeLayout>
+
 
         <com.lecz.clubdelosvencedores.CustomTextView
             android:layout_width="wrap_content"
@@ -247,7 +240,7 @@
             android:text="Mi actividad"
             customAttrs:customFont="futura_heavy"
             android:id="@+id/textView23"
-            android:layout_below="@+id/relativeLayout2"
+            android:layout_below="@+id/beforeZeroDay"
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
@@ -255,7 +248,7 @@
     <FrameLayout
         android:id="@+id/list_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/relativeLayout" />

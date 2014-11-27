@@ -28,6 +28,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -56,7 +57,7 @@ public class HomeFour extends Fragment implements TabHost.OnTabChangeListener {
     private FrameLayout fl;
     private GridView list_achievements_money, list_achievements_health;
     private LinearLayout layout_health, layout_money;
-    private Button btn_money, btn_health;
+    private RelativeLayout btn_health, btn_money;
     private boolean flag;
     private View rootView, rrrrr;
 
@@ -76,8 +77,8 @@ public class HomeFour extends Fragment implements TabHost.OnTabChangeListener {
         list_achievements_health = (GridView) rootView.findViewById(R.id.list_achievements_health);
         layout_money = (LinearLayout) rootView.findViewById(R.id.layout_money);
         layout_health = (LinearLayout) rootView.findViewById(R.id.layout_health);
-        btn_money = (Button) rootView.findViewById(R.id.btn_money);
-        btn_health = (Button) rootView.findViewById(R.id.btn_health);
+        btn_money = (RelativeLayout) rootView.findViewById(R.id.btn_money);
+        btn_health = (RelativeLayout) rootView.findViewById(R.id.btn_health);
 
         Activity host = getActivity();
         AchievementsAdapter adapter1 = new AchievementsAdapter(rootView.getContext(), list_money, host);
@@ -85,8 +86,9 @@ public class HomeFour extends Fragment implements TabHost.OnTabChangeListener {
 
         list_achievements_money.setAdapter(adapter1);
         list_achievements_health.setAdapter(adapter2);
-        btn_money.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT - 20;
-        btn_health.setCompoundDrawablesWithIntrinsicBounds
+
+        btn_money.setPadding(0, 20, 0, 0);
+
         btn_health.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,8 +101,10 @@ public class HomeFour extends Fragment implements TabHost.OnTabChangeListener {
                 layout_health.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
                 layout_health.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
                 layout_health.setVisibility(View.VISIBLE);
-                btn_money.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT - 20;
-                btn_health.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
+
+                btn_money.setPadding(0, 20, 0, 0);
+
+                btn_health.setPadding(0, 0, 0, 0);
 
             }
         });
@@ -118,8 +122,10 @@ public class HomeFour extends Fragment implements TabHost.OnTabChangeListener {
                 layout_money.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
                 layout_money.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
                 layout_money.setVisibility(View.VISIBLE);
-                btn_health.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT - 20;
-                btn_money.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
+
+                btn_money.setPadding(0, 0, 0, 0);
+
+                btn_health.setPadding(0, 20, 0, 0);
 
             }
         });
@@ -201,6 +207,7 @@ public class HomeFour extends Fragment implements TabHost.OnTabChangeListener {
         private Activity host;
         private ArrayList<Achievement> arrayList;
         ImageView image_achievement;
+        TextView name_achievement;
         private static final String LIST_FRAGMENT_TAG = "";
 
         public AchievementsAdapter(Context context, ArrayList<Achievement> array, Activity host) {
@@ -221,12 +228,14 @@ public class HomeFour extends Fragment implements TabHost.OnTabChangeListener {
             if(convertView == null){
                 convertView = View.inflate(context, R.layout.item_achievement, null);
                 image_achievement = (ImageView) convertView.findViewById(R.id.image_achievement);
+                name_achievement = (TextView) convertView.findViewById(R.id.name_achievement);
             }else{
                 convertView.getTag();
             }
 
+            name_achievement.setText(arrayList.get(position).getTitle());
             if(arrayList.get(position).isCompleted()){
-                image_achievement.setImageResource(R.drawable.cinturon);
+                image_achievement.setImageResource(arrayList.get(position).getImage());
             }else{
                 image_achievement.setImageResource(R.drawable.cinturon_no_ganado);
             }

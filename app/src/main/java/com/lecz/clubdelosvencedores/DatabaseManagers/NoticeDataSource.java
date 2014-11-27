@@ -12,6 +12,8 @@ import android.util.Log;
 import com.lecz.clubdelosvencedores.objects.Notice;
 import com.lecz.clubdelosvencedores.objects.PlanDetail;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -19,12 +21,12 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class NoticeDataSource {
-
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
     // Database fields
     private SQLiteDatabase database;
     private SqliteHelper dbHelper;
     private String[] allColumns = {
-            "id","title", "content", "summary","link", "url", "date"};
+            "id","title", "content", "summary","link", "url", "date", "image"};
 
     public NoticeDataSource(Context context) {
         dbHelper = new SqliteHelper(context);
@@ -46,6 +48,7 @@ public class NoticeDataSource {
         values.put("link", notice.getLink());
         values.put("url", notice.getUrl());
         values.put("date", notice.getDate());
+        values.put("image", getBitmapAsByteArray(notice.getImage()));
         long insertId = database.insert("Notice", null,
                 values);
         Cursor cursor = database.query("Notice",
@@ -56,22 +59,14 @@ public class NoticeDataSource {
         return notice;
     }
 
-    public Bitmap getBitmapFromURL(String src) {
-        try {
 
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Exception", e.getMessage());
-            return null;
-        }
+    public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        return outputStream.toByteArray();
     }
+
+
     public void updateNotice (Notice notice){
 
         ContentValues values = new ContentValues();
@@ -148,6 +143,8 @@ public class NoticeDataSource {
         notice.setLink(cursor.getString(4));
         notice.setUrl(cursor.getString(5));
         notice.setDate(cursor.getLong(6));
+        Log.i("Photo",cursor.getBlob(7)+"");
+        notice.setImage(BitmapFactory.decodeByteArray(cursor.getBlob(7), 0, cursor.getBlob(7).length));
 
         return notice;
     }

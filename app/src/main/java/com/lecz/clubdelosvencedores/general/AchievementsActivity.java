@@ -98,8 +98,6 @@ public class AchievementsActivity extends Fragment {
                 health.get(i).setImageResource(R.drawable.cinturon_no_ganado);
             }
         }
-
-
     return rootView;
 
     }

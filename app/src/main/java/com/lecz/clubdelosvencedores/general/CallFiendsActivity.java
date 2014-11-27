@@ -21,6 +21,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.DatabaseManagers.ContactFriendSource;
 import com.lecz.clubdelosvencedores.Game.Game;
 import com.lecz.clubdelosvencedores.R;
@@ -57,6 +59,11 @@ public class CallFiendsActivity extends Activity {
         numberOne = (TextView) findViewById(R.id.number_contact_1);
         numberTwo = (TextView) findViewById(R.id.number_contact_2);
         numberThree = (TextView) findViewById(R.id.number_contact_3);
+
+        SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.icn_contactos);
+        callOne.setImageDrawable(svg.createPictureDrawable());
+        callTwo.setImageDrawable(svg.createPictureDrawable());
+        callThree.setImageDrawable(svg.createPictureDrawable());
 
         callAnother = (Button) findViewById(R.id.call_another);
 

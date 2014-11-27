@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:customAttrs="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -15,20 +16,22 @@
         android:padding="8dp" >
 
 
-    <com.lecz.clubdelosvencedores.utilities.UrlImageView
+        <com.lecz.clubdelosvencedores.utilities.UrlImageView
             android:id="@+id/userVideoThumbImageView"
-            android:layout_width="102dp"
+            android:layout_width="130dp"
             android:layout_height="100dp"
             android:contentDescription=""
             android:src="@drawable/ic_launcher" />
 
-        <TextView
+        <com.lecz.clubdelosvencedores.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/blue_title"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
+            customAttrs:customFont="futura_heavy"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/userVideoTitleTextView"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/userVideoThumbImageView" />

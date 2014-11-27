@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,13 +19,13 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.lecz.clubdelosvencedores.NewScoreGameActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.ScoreGameActivity;
 
 
-public class Game extends Activity {
+public class Game extends Activity{
     ProgressBar count;
     BlockAdapter bk;
     TextView level, points, chronometer;
@@ -73,7 +74,7 @@ public class Game extends Activity {
         }.start();
 
         gridview = (GridView) findViewById(R.id.gridView2);
-        bk = new BlockAdapter(this);
+        bk = new BlockAdapter(this, getResources(), gridview.getMeasuredHeight());
 
         blocks = bk.setBlocks(13);
         gridview.setAdapter(bk);
@@ -97,11 +98,10 @@ public class Game extends Activity {
                             }
                         }
                         if(isWinner){
-                            Toast.makeText(Game.this, "YOU WIN", Toast.LENGTH_SHORT).show();
                             current_level++;
                             score = score + ((count.getMax() - count.getProgress()) / 1100);
                             points.setText(score + "");
-                            level.setText(current_level + "");
+                            level.setText(" " + current_level);
                             ct.cancel();
                             setDifficulty(current_level);
                         }
@@ -124,7 +124,17 @@ public class Game extends Activity {
 
     private void finishGame(){
 
-        Intent intent = new Intent(Game.this, ScoreGameActivity.class);
+
+        SharedPreferences mPrefs = getSharedPreferences("label", 0);
+        int max_score = mPrefs.getInt("max_score", 0);
+        Intent intent;
+        if(max_score < score){
+            final SharedPreferences.Editor mEditor = mPrefs.edit();
+            mEditor.putInt("max_score", score).commit();
+            intent = new Intent(Game.this, NewScoreGameActivity.class);
+        }else{
+            intent = new Intent(Game.this, ScoreGameActivity.class);
+        }
 
         intent.putExtra("level", current_level+"");
         intent.putExtra("score", score+"");

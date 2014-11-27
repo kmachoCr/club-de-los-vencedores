@@ -59,13 +59,12 @@ import java.util.Date;
  */
 public class HomeTwo extends Fragment implements Animation.AnimationListener {
     private ListView activityLog;
-    private TextView textView, money, days, textView4, userName, cigarettes_smoked;
+    private TextView textView, money, days, textView4, userName, cigarettes_smoked, tv_smoked, limite, days_to_quit;
     private ActivityAdapter adapter;
     private String[] rank;
     private PendingIntent pendingIntent;
-    private ImageButton add_cigarette;
-    private ImageButton panic;
-    private int[] flag;
+    private ImageButton add_cigarette, panic;
+    private int used_cigarettes, notCompleted, size;
     private UserDataSource userds;
     private PlanDetailsDataSource dspd;
     private SharedPreferences settings;
@@ -85,8 +84,12 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
         rootView =  inflater.inflate(R.layout.fragment_home_two, container, false);
 
+
         activityLog = (ListView) rootView.findViewById(R.id.listActivity);
         textView = (TextView) rootView.findViewById(R.id.textView);
+        days_to_quit = (TextView) rootView.findViewById(R.id.days_to_quit);
+        limite = (TextView) rootView.findViewById(R.id.limite);
+        tv_smoked = (TextView) rootView.findViewById(R.id.tv_smoked);
         days = (TextView) rootView.findViewById(R.id.days);
         money = (TextView) rootView.findViewById(R.id.money);
         textView4 = (TextView) rootView.findViewById(R.id.textView4);
@@ -95,7 +98,6 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         add_cigarette = (ImageButton) rootView.findViewById(R.id.add_cigarette);
         panic = (ImageButton) rootView.findViewById(R.id.add_button);
         settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-
 
         String fontPath = "fonts/Go 2 Old Western.ttf";
         Typeface tf = Typeface.createFromAsset(rootView.getContext().getAssets(), fontPath);
@@ -120,20 +122,15 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         add_cigarette.setImageDrawable(addbutton.createPictureDrawable());
 
         ImageView d = (ImageView) rootView.findViewById(R.id.img_user_home);
-        ImageView sssss = (ImageView) rootView.findViewById(R.id.add_cigarette_ly);
+        ImageView add_cigarette_ly = (ImageView) rootView.findViewById(R.id.add_cigarette_ly);
+        ImageView add_slip_ly = (ImageView) rootView.findViewById(R.id.add_cigarette_ly);
         d.setImageDrawable(drawable);
-        sssss.setImageDrawable(svgadd.createPictureDrawable());
+        add_cigarette_ly.setImageDrawable(svgadd.createPictureDrawable());
+        add_slip_ly.setImageDrawable(svgadd.createPictureDrawable());
         ActivityDataSource ads = new ActivityDataSource(rootView.getContext());
         ads.open();
         ArrayList list = ads.getActivities();
         ads.close();
-
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 1", "consejo", "Actividad 1"));
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 2", "logro", "Actividad 2"));
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 3", "consejo", "Actividad 3"));
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 4", "consejo", "Actividad 4"));
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 5", "logro", "Actividad 5"));
-        list.add(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark,  System.currentTimeMillis(), "contenido 6", "consejo", "Actividad 6"));
 
         adapter = new ActivityAdapter(rootView.getContext(), list);
 
@@ -141,14 +138,31 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
         dspd = new PlanDetailsDataSource(rootView.getContext());
 
-
+        used_cigarettes = settings.getInt("count", 0);
+        Log.i("used", used_cigarettes+"");
         dspd.open();
         plan = dspd.getCurrentPlanDetail();
-        int size = dspd.getPlanDetails().size();
+        size = dspd.getPlanDetails().size();
+        notCompleted = dspd.getNotCompletedPlanDetail().size();
+        if(notCompleted == 0 && size == 0){
+            tv_smoked.setVisibility(View.INVISIBLE);
+            cigarettes_smoked.setVisibility(View.INVISIBLE);
+            limite.setText("Deslices: ");
+            textView4.setText(used_cigarettes+"");
+            days_to_quit.setText("Días sin fumar");
+            days.setText(((int)Math.round(user.getDays_without_smoking_count()))+"");
+            // RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            // params.setMargins(200, 200, 10, 0);
+            // limite.setLayoutParams(params);
+        }else{
+            textView4.setText(plan.getTotal_cigarettes()+"");
+            days.setText(""+(size - plan.getNumber_day() + 1));
+        }
+
         dspd.close();
 
 
-        int used_cigarettes = settings.getInt("count", 0);
+
 
         update_interface(used_cigarettes, user, plan, size);
         call_service();
@@ -157,30 +171,52 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
             @Override
             public void onClick(View v) {
+                Log.i("Long", Long.MAX_VALUE+"");
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("Seguro que fumó?").setTitle("Has fumado?")
+
+                String msj = "Seguro que fumó?";
+                settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
+                int ret = settings.getInt("count", 0);
+                if((ret + 1)  == (plan.getTotal_cigarettes() - 1 ) ){
+                    msj = "Seguro que fumó? Solo te quedaría un cigarrillo por fumaría";
+                }else{
+                    if((ret + 1) == plan.getTotal_cigarettes() ){
+                        msj = "Seguro que fumó? Solo te queda un cigarrillo por el día de hoy";
+                    }else{
+                        if((ret + 1) > plan.getTotal_cigarettes() ){
+                            msj = "Seguro que fumó? Ya has pado tu límite del día.";
+                        }
+                    }
+                }
+                if(notCompleted  == 0 && size == 0){
+                    msj = "Seguro que fumó?";
+                }
+
+                builder.setMessage(msj).setTitle("Has fumado?")
                         .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-                                int ret = settings.getInt("count", 0);
+
+
+                                if(notCompleted == 0 && size == 0){
+                                    textView4.setText(String.valueOf(used_cigarettes + 1));
+                                }else{
+                                    cigarettes_smoked.setText(String.valueOf(used_cigarettes + 1));
+                                }
+                                Calendar s = Calendar.getInstance();
+                                s.setTimeInMillis(System.currentTimeMillis());
+
+                                userds.open();
+                                User userR = userds.getUser();
+                                userR.setLast_cigarette(s.getTimeInMillis());
+                                userds.updateUser(userR);
+                                userds.close();
 
                                 SharedPreferences.Editor editor = settings.edit();
-                                editor.putInt("count", ret + 1);
+                                editor.putInt("count", used_cigarettes + 1);
                                 editor.commit();
-
-                                if(plan != null){
-                                    cigarettes_smoked.setText(String.valueOf(ret + 1));
-                                    Calendar s = Calendar.getInstance();
-                                    s.setTimeInMillis(System.currentTimeMillis());
-
-                                    userds.open();
-                                    User userR = userds.getUser();
-                                    userR.setLast_cigarette(s.getTimeInMillis());
-                                    userds.updateUser(userR);
-                                    userds.close();
-                                }
                             }
                         })
+
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -191,6 +227,7 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
                 dialog.show();
             }
         });
+
 
         panic.setOnClickListener(new View.OnClickListener() {
 
@@ -247,15 +284,15 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         pendingIntent = PendingIntent.getBroadcast(rootView.getContext(), 0, myIntent, 0);
 
         AlarmManager alarmManager = (AlarmManager)rootView.getContext().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 10, pendingIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 10, pendingIntent);
     }
 
     public void update_interface(int used_cigarettes, User user, PlanDetail plan, int size){
         userName.setText(user.getName().toUpperCase());
         money.setText("¢" + user.getMoney_saved());
-        textView4.setText(plan.getTotal_cigarettes()+"");
+
         cigarettes_smoked.setText(used_cigarettes +"");
-        days.setText(""+(size - plan.getNumber_day() + 1));
+
     }
 
     @Override

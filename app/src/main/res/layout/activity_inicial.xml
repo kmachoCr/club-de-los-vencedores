@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/icn_bk_inicialact"
+    tools:context="com.lecz.clubdelosvencedores.InicialActivity">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/icn_clubvencedores" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget neque et enim porta commodo. Donec ac metus hendrerit."
+        android:gravity="center|top"
+        android:textColor="@android:color/white"
+        android:id="@+id/asasasa"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+
+        android:singleLine="false"
+        android:lines="5"
+
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/logo_img"
+        android:src="@drawable/checkmark"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/btn_start"
+        android:layout_below="@+id/asasasa" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="INICIAR"
+        android:textColor="@android:color/white"
+        android:id="@+id/btn_start"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/start_game"
+        android:layout_marginBottom="97dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/logo_iafa"
+        android:src="@drawable/checkmark"
+        android:layout_alignTop="@+id/btn_start"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp" />
+</RelativeLayout>

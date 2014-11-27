@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:customAttrs="http://schemas.android.com/apk/res-auto"
-    android:background="@color/gray"
+    android:background="@color/gray_background"
     android:layout_height="match_parent">
     <com.lecz.clubdelosvencedores.CustomTextView
         android:layout_width="wrap_content"
@@ -10,7 +10,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="5dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="26dp"
+        android:textSize="26sp"
         customAttrs:customFont="futura_heavy"
         android:textColor="@color/blue_title"
         android:text="LOGROS"
@@ -22,52 +22,133 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginBottom="5dp"
         android:layout_height="60dp"
 
         android:layout_alignParentStart="true"
         android:layout_above="@+id/add_cigarette"
         android:id="@+id/linearLayout4"
         android:layout_below="@+id/textView6">
+
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="fill_parent"
-            android:paddingRight="0dp"
+            android:id="@+id/btn_health"
             android:layout_weight="5">
-            <Button
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Salud"
-                android:drawableLeft=""
+                android:orientation="horizontal"
                 android:background="@color/blue_health"
-                android:textColor="@android:color/white"
-                android:id="@+id/btn_health"
+                android:layout_height="match_parent"
+
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_alignParentStart="true">
+
+                <RelativeLayout
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="3">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icn_salud"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_weight="5">
+
+
+                    <com.lecz.clubdelosvencedores.CustomTextView
+                        android:textSize="19dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        customAttrs:customFont="futura_heavy"
+                        android:background="@android:color/transparent"
+                        android:textColor="@android:color/white"
+                        android:drawablePadding="16dp"
+                        android:gravity="center_vertical"
+                        android:text="Salud"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="fill_parent"
+            android:id="@+id/btn_money"
+
+            android:layout_alignParentBottom="true"
             android:layout_weight="5">
-            <Button
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:textColor="@android:color/white"
-                android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:background="@color/green_money"
-                android:text="Ahorro"
-                android:id="@+id/btn_money"
+                android:layout_height="match_parent"
+
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_alignParentStart="true">
+
+                <RelativeLayout
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="3">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icn_ahorro"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_weight="5">
+
+
+                    <com.lecz.clubdelosvencedores.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="19dp"
+                        customAttrs:customFont="futura_heavy"
+                        android:background="@android:color/transparent"
+                        android:textColor="@android:color/white"
+                        android:drawablePadding="16dp"
+                        android:gravity="center_vertical"
+                        android:text="Ahorro"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
         </RelativeLayout>
 
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/list_fragment_container"
+        android:id="@+id/asasasasa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toStartOf="@+id/add_cigarette"
-        android:layout_alignEnd="@+id/add_cigarette"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/linearLayout4" >
 
@@ -76,6 +157,7 @@
            android:layout_height="match_parent"
            android:background="@android:color/white"
            android:id="@+id/layout_health">
+
            <GridView
                android:id="@+id/list_achievements_health"
                android:layout_width="wrap_content"
@@ -90,11 +172,11 @@
                android:layout_alignParentEnd="true"
                android:layout_below="@+id/textView2" />
 
-           </LinearLayout>
-
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@android:color/white"
             android:id="@+id/layout_money">
 
             <GridView

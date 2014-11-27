@@ -71,7 +71,7 @@ public class CallContactActivity extends Activity {
             } while (cursor.moveToNext());
         }
 
-        adapter = new ContactsFriendAdapter(getApplicationContext(), listContacts);
+        adapter = new ContactsFriendAdapter(getApplicationContext(), listContacts, getResources());
         contactList.setAdapter(adapter);
 
 

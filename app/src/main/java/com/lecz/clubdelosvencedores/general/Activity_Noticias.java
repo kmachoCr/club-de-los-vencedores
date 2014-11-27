@@ -53,6 +53,7 @@ public class Activity_Noticias extends Activity {
 	private void inicializarListView() {
         View footer = getLayoutInflater().inflate(R.layout.footer_list, null);
 		lista = (ListView) findViewById(R.id.noticias_listview);
+        Array_Noticias.get(0).getImage();
         adapter = new NoticeAdapter(Activity_Noticias.this, Array_Noticias);
         lista.addFooterView(footer);
         lista.setAdapter(adapter);

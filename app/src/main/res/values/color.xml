@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="orange">#F46E25</color>
+    <color name="orange_club">#D95026</color>
     <color name="white">#ffffff</color>
     <color name="green_money">#ABC259</color>
     <color name="date_color">#9944aa</color>
     <color name="black">#000000</color>
-    <color name="gray">#E6E6E6</color>
+    <color name="gray_background">#F2F2F2</color>
     <color name="blue_health">#4FB3E6</color>
-    <color name="gold">#e6b121</color>
+    <color name="blue_score">#0D507A</color>
     <color name="blueback">#99FFcc</color>
     <color name="article_title">#3399FF</color>
-    <color name="blueasa">#8ad0e8</color>
+    <color name="blue_background">#0D507A</color>
     <color name="opaque">#a22073f4</color>
     <color name="yellow">#FF9F34</color>
     <color name="blue_title">#429FB7</color>
     <color name="blue_subtitle">#65BDB6</color>
     <color name="red_panicscreen">#510000</color>
+    <color name="gray_text">#706964</color>
+
 </resources>

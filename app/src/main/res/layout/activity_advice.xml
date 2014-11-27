@@ -20,7 +20,8 @@
         android:text="VIDEOS"
         android:id="@+id/type"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
 
     <com.lecz.clubdelosvencedores.CustomTextView
         android:layout_width="fill_parent"

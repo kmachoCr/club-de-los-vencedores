@@ -34,7 +34,8 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/userVideoTitleTextView"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/userVideoThumbImageView" />
+            android:layout_toEndOf="@+id/userVideoThumbImageView"
+            android:layout_toRightOf="@+id/userVideoThumbImageView"/>
 
 
     </RelativeLayout>

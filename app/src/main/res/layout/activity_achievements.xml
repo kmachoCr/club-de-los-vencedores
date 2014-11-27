@@ -16,7 +16,8 @@
         android:text="LOGROS"
         android:id="@+id/textView6"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -25,6 +26,7 @@
         android:layout_height="60dp"
 
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_above="@+id/add_cigarette"
         android:id="@+id/linearLayout4"
         android:layout_below="@+id/textView6">
@@ -43,7 +45,8 @@
                 android:layout_height="match_parent"
 
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true">
 
                 <RelativeLayout
                     android:layout_width="0dip"
@@ -55,7 +58,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/icn_salud"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"/>
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -76,7 +80,8 @@
                         android:gravity="center_vertical"
                         android:text="Salud"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"/>
 
                 </RelativeLayout>
 
@@ -100,7 +105,8 @@
                 android:layout_height="match_parent"
 
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true">
 
                 <RelativeLayout
                     android:layout_width="0dip"
@@ -112,7 +118,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/icn_ahorro"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"/>
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -133,7 +140,8 @@
                         android:gravity="center_vertical"
                         android:text="Ahorro"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"/>
 
                 </RelativeLayout>
 

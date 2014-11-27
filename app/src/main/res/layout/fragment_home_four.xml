@@ -20,6 +20,7 @@
         android:layout_height="fill_parent"
 
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_above="@+id/add_cigarette"
         android:id="@+id/linearLayout2"
         android:layout_below="@+id/tedxtView7">
@@ -35,6 +36,7 @@
                 android:layout_height="fill_parent"
 
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_above="@+id/add_cigarette"
                 android:id="@+id/linearLayout3">
                 <RelativeLayout
@@ -53,7 +55,8 @@
                         android:layout_marginBottom="5dp"
                         android:text="Ahorro"
                         android:id="@+id/textView7"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"/>
 
 
 
@@ -67,6 +70,7 @@
                         android:id="@+id/linearLayodut2"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
                         android:layout_below="@+id/textView7">
                         <RelativeLayout
                             android:layout_width="0dp"
@@ -81,6 +85,7 @@
 
                                 android:layout_alignParentTop="true"
                                 android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
                                 android:layout_above="@+id/add_cigarette"
                                 android:id="@+id/linearLaydout3">
                                 <RelativeLayout
@@ -152,6 +157,7 @@
 
                                 android:layout_alignParentTop="true"
                                 android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
                                 android:layout_above="@+id/add_cigarette"
                                 android:id="@+id/lidnearLaydoust3">
                                 <RelativeLayout
@@ -221,6 +227,7 @@
 
                                 android:layout_alignParentTop="true"
                                 android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
                                 android:layout_above="@+id/add_cigarette"
                                 android:id="@+id/linearLayoudt4">
                                 <RelativeLayout
@@ -303,6 +310,7 @@
                         android:layout_height="fill_parent"
 
                         android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
                         android:layout_above="@+id/add_cigarette"
                         android:id="@+id/linearLaydodut2"
                         android:layout_below="@+id/textViesw7">
@@ -319,6 +327,7 @@
 
                                 android:layout_alignParentTop="true"
                                 android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
                                 android:layout_above="@+id/add_cigarette"
                                 android:id="@+id/linearLdaydout3">
                                 <RelativeLayout
@@ -389,6 +398,7 @@
 
                                 android:layout_alignParentTop="true"
                                 android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
                                 android:layout_above="@+id/add_cigarette"
                                 android:id="@+id/linearLaydoust3">
                                 <RelativeLayout
@@ -458,6 +468,7 @@
 
                                 android:layout_alignParentTop="true"
                                 android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
                                 android:layout_above="@+id/add_cigarette"
                                 android:id="@+id/linearLayout4">
                                 <RelativeLayout

@@ -171,7 +171,7 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
             @Override
             public void onClick(View v) {
-                Log.i("Long", Long.MAX_VALUE+"");
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
                 String msj = "Seguro que fumó?";
@@ -196,11 +196,18 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
                         .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
+                                int ret = settings.getInt("count", 0);
 
+
+                                Log.i("Long", "ANTES");
                                 if(notCompleted == 0 && size == 0){
-                                    textView4.setText(String.valueOf(used_cigarettes + 1));
+                                    textView4.setText(String.valueOf(ret + 1));
+                                    Log.i("Long", "1");
+
                                 }else{
-                                    cigarettes_smoked.setText(String.valueOf(used_cigarettes + 1));
+                                    Log.i("Long", "2");
+
+                                    cigarettes_smoked.setText(String.valueOf(ret + 1));
                                 }
                                 Calendar s = Calendar.getInstance();
                                 s.setTimeInMillis(System.currentTimeMillis());
@@ -211,8 +218,9 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
                                 userds.updateUser(userR);
                                 userds.close();
 
+
                                 SharedPreferences.Editor editor = settings.edit();
-                                editor.putInt("count", used_cigarettes + 1);
+                                editor.putInt("count", ret + 1);
                                 editor.commit();
                             }
                         })

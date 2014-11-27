@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="110dp"
-
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/linearLayout2"
                 android:layout_alignParentTop="true">
@@ -92,7 +92,8 @@
                         android:id="@+id/days_to_quit"
                         android:gravity="center"
                         android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -165,6 +166,7 @@
                 android:id="@+id/add_cigarette_ly"
                 android:scaleType="fitCenter"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentBottom="true" />
 
             <ImageButton
@@ -178,7 +180,8 @@
                 android:layout_gravity="right|center"
                 android:src="@drawable/checkmark"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"/>
 
             <com.lecz.clubdelosvencedores.CustomTextView
                 android:layout_width="wrap_content"
@@ -190,6 +193,7 @@
                 android:layout_marginRight="5dp"
                 android:id="@+id/textView4"
                 android:layout_toEndOf="@+id/limite"
+                android:layout_toRightOf="@+id/limite"
                 android:layout_alignBottom="@+id/limite" />
 
 
@@ -205,7 +209,8 @@
                 android:layout_marginLeft="60dp"
                 android:layout_marginRight="5dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"/>
 
             <com.lecz.clubdelosvencedores.CustomTextView
                 android:layout_width="wrap_content"
@@ -216,6 +221,7 @@
                 android:id="@+id/tv_smoked"
                 android:layout_marginRight="5dp"
                 android:layout_toEndOf="@+id/textView4"
+                android:layout_toRightOf="@+id/textView4"
                 android:layout_alignBottom="@+id/textView4" />
 
 
@@ -228,6 +234,7 @@
                 android:id="@+id/cigarettes_smoked"
                 android:textColor="@android:color/white"
                 android:layout_toEndOf="@+id/tv_smoked"
+                android:layout_toRightOf="@+id/tv_smoked"
                 android:layout_alignBottom="@+id/tv_smoked" />
         </RelativeLayout>
 
@@ -251,6 +258,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_above="@+id/relativeLayout" />
 
     <ImageButton

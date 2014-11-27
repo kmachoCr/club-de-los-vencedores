@@ -280,6 +280,10 @@ public class RegisterActivityTwo extends Activity {
                     AdviceDataSource adds = new AdviceDataSource(RegisterActivityTwo.this);
                     adds.open();
                     ArrayList<Advice> list = adds.getAdvices(user.getGenre() ? 1 : 0, ms.isMotiv_money(), ms.isMotiv_aesthetic(), ms.isMotiv_family(), ms.isMotiv_health());
+                    if(list.size() == 0){
+                        list = adds.getAdvices();
+                    }
+
                     adds.close();
 
 

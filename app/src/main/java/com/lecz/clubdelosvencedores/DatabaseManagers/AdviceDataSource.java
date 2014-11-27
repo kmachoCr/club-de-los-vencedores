@@ -111,7 +111,9 @@ public class AdviceDataSource {
         if(health){
             query += "motiv_health = 1 or";
         }
-        Log.i("size", query.length()+"");
+        if(query.length() == 0){
+            return new ArrayList<Advice>();
+        }
         query = query.substring(0, query.length()-3);
         Log.i("size", query);
         Cursor cursor = database.query("Advice",

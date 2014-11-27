@@ -29,7 +29,6 @@ import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.general.AchievementsActivity;
 import com.lecz.clubdelosvencedores.general.HomeFour;
-import com.lecz.clubdelosvencedores.general.HomeOne;
 import com.lecz.clubdelosvencedores.general.HomeThree;
 import com.lecz.clubdelosvencedores.general.HomeTwo;
 import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
@@ -273,7 +272,7 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_home_one, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_home_two, container, false);
 
 
             return rootView;

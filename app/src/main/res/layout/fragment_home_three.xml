@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_background"
-    android:orientation="vertical"
-    android:id="@+id/">
+    android:orientation="vertical">
 
     <com.lecz.clubdelosvencedores.CustomTextView
         android:layout_width="wrap_content"
@@ -19,7 +18,8 @@
         android:text="ARTÍCULOS"
         android:id="@+id/textView6"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"/>
 
     <ListView
         android:id="@+id/noticias_listview"

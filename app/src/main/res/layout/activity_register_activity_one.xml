@@ -13,7 +13,9 @@
 
         android:layout_below="@+id/textView"
         android:layout_alignStart="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_alignRight="@+id/textView"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -25,7 +27,9 @@
         android:id="@+id/linearLayout4"
         android:layout_below="@+id/register_name"
         android:layout_alignStart="@+id/register_name"
-        android:layout_alignEnd="@+id/register_name">
+        android:layout_alignEnd="@+id/register_name"
+        android:layout_alignLeft="@+id/register_name"
+        android:layout_alignRight="@+id/register_name">
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="fill_parent"
@@ -37,7 +41,8 @@
                 android:entries="@array/ages"
                 android:id="@+id/register_age"
                 android:layout_below="@+id/count_friends"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -46,7 +51,7 @@
                 android:text="@string/register_age"
                 android:id="@+id/count_friends"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentLeft="true" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dip"
@@ -60,7 +65,8 @@
                 android:id="@+id/radioGroup"
                 android:layout_below="@+id/textView3"
                 android:layout_marginTop="9dp"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" >
 
                 <RadioButton android:layout_height="wrap_content"
                     android:drawableRight="@drawable/icn_hombre"
@@ -92,7 +98,8 @@
                 android:text="@string/register_genre"
                 android:id="@+id/textView3"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
 
         </RelativeLayout>
 
@@ -110,7 +117,8 @@
         android:layout_marginRight="20dp"
         android:id="@+id/textView"
         android:layout_below="@+id/relativeLayout3"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
 
 
     <TextView
@@ -120,7 +128,9 @@
         android:text="@string/register_status"
         android:id="@+id/name_user"
         android:layout_below="@+id/linearLayout4"
-        android:layout_alignStart="@+id/linearLayout4" />
+        android:layout_alignStart="@+id/linearLayout4"
+        android:layout_alignLeft="@+id/linearLayout4"
+        />
 
     <RadioGroup
         android:layout_width="fill_parent"
@@ -128,7 +138,9 @@
         android:id="@+id/radioGroup3"
         android:layout_below="@+id/name_user"
         android:layout_alignStart="@+id/name_user"
-        android:layout_alignEnd="@+id/linearLayout4">
+        android:layout_alignLeft="@+id/name_user"
+        android:layout_alignEnd="@+id/linearLayout4"
+        android:layout_alignRight="@+id/linearLayout4">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -136,7 +148,9 @@
             android:text="Ya no fumo."
             android:id="@+id/noSmoking"
             android:layout_below="@+id/smoking"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -145,7 +159,8 @@
             android:text="Quiero dejar de fumar."
             android:id="@+id/smoking"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true" />
 
     </RadioGroup>
 
@@ -157,6 +172,7 @@
         android:scaleType="fitCenter"
         android:id="@+id/savennext1"
         android:layout_toEndOf="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
         android:layout_alignBottom="@+id/textView2" />
 
     <TextView
@@ -175,6 +191,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:background="@color/orange_club"
@@ -187,8 +205,10 @@
             android:src="@drawable/entrenador_antifumado"
             android:id="@+id/textVisew2"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"/>
         </RelativeLayout>
 
 

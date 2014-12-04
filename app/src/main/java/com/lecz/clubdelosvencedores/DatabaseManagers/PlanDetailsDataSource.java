@@ -63,6 +63,7 @@ public class PlanDetailsDataSource {
         database.update("PlanDetail", values, "id =" + planDetail.getId(), null);
 
     }
+
     public void deletePlanDetail(PlanDetail planDetail) {
         long id = planDetail.getId();
         System.out.println("Comment deleted with id: " + id);
@@ -121,6 +122,21 @@ public class PlanDetailsDataSource {
         String[] args = new String[] {id+""};
         Cursor cursor = database.query("PlanDetail",
                 allColumns, "id = ?", args, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            planDetail = cursorToComment(cursor);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return planDetail;
+    }
+
+    public PlanDetail getPlanDetailByDay(int day) {
+        PlanDetail planDetail = new PlanDetail();
+        String[] args = new String[] {day+""};
+        Cursor cursor = database.query("PlanDetail",
+                allColumns, "number_day = ?", args, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

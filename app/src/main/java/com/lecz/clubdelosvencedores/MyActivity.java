@@ -53,11 +53,14 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
-
+    HomeTwo fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+
+        fragment = (HomeTwo) getFragmentManager().findFragmentById(R.id.fragment_home_two);
+
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -154,7 +157,7 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
             case R.id.gotoRestartPlan:
                 AlertDialog.Builder builder = new AlertDialog.Builder(MyActivity.this);
 
-                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.ic_launcher)
+                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
                         .setTitle("Reiniciar plan?");
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -194,7 +197,10 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-            return true;
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
 
         return super.onKeyDown(keyCode, event);

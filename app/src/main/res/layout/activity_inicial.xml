@@ -19,8 +19,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget neque et enim porta commodo. Donec ac metus hendrerit."
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="¡Bienvendid@ al Club de los Vencendores!
+¿Estás list@ para dejar fuera de combate al tabaco y vivir una vida más sana y feliz?
+Empezá con tu entrenamiento hoy. Completá el siguiente formulario y comenzá a vencer. "
         android:gravity="center|top"
         android:textColor="@android:color/white"
         android:id="@+id/asasasa"

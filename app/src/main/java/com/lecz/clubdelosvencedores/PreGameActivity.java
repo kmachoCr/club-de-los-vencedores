@@ -1,6 +1,8 @@
 package com.lecz.clubdelosvencedores;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.lecz.clubdelosvencedores.Game.Game;
+import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
+import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 
 
 public class PreGameActivity extends Activity {
@@ -19,7 +23,7 @@ public class PreGameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_game);
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         Button gotoGame = (Button) findViewById(R.id.gotoGame);
         final CheckBox no_show_again = (CheckBox) findViewById(R.id.no_show_again);
 
@@ -49,7 +53,7 @@ public class PreGameActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.pre_game, menu);
+        getMenuInflater().inflate(R.menu.my, menu);
         return true;
     }
 
@@ -59,8 +63,35 @@ public class PreGameActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(PreGameActivity.this, UpdateInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(PreGameActivity.this, RegisterActivityFive.class);
+                startActivity(intents);
+                break;
+            case R.id.gotoRestartPlan:
+                AlertDialog.Builder builder = new AlertDialog.Builder(PreGameActivity.this);
+
+                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
+                        .setTitle("Reiniciar plan?");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intents = new Intent(PreGameActivity.this, RegisterActivityTwo.class);
+                        startActivity(intents);
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

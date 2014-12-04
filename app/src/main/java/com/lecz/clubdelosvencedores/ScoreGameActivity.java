@@ -31,7 +31,7 @@ public class ScoreGameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_game);
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         TextView leveltv = (TextView)findViewById(R.id.level_game);
         TextView scoretv = (TextView)findViewById(R.id.score);
         TextView max_scoretv = (TextView)findViewById(R.id.max_score);
@@ -52,9 +52,9 @@ public class ScoreGameActivity extends Activity {
         if(max_score < Integer.parseInt(score)){
             final SharedPreferences.Editor mEditor = mPrefs.edit();
             mEditor.putInt("max_score", Integer.parseInt(score)).commit();
-            max_scoretv.setText("MEJOR PUNATAJE: " + score);
+            max_scoretv.setText("MEJOR PUNTAJE: " + score);
         }else{
-            max_scoretv.setText("MEJOR PUNATAJE: " + max_score);
+            max_scoretv.setText("MEJOR PUNTAJE: " + max_score);
         }
 
         leveltv.setText(level);

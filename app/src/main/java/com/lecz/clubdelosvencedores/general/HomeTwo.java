@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.objects.Achievement;
 import com.lecz.clubdelosvencedores.objects.PlanDetail;
 import com.lecz.clubdelosvencedores.objects.User;
+import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 import com.lecz.clubdelosvencedores.utilities.RelativeLayoutFragment;
 
 import java.util.ArrayList;
@@ -59,7 +61,7 @@ import java.util.Date;
  */
 public class HomeTwo extends Fragment implements Animation.AnimationListener {
     private ListView activityLog;
-    private TextView textView, money, days, textView4, userName, cigarettes_smoked, tv_smoked, limite, days_to_quit;
+    private TextView textView, money, days, textView4, userName, cigarettes_smoked, tv_smoked, limite, days_to_quit, level;
     private ActivityAdapter adapter;
     private String[] rank;
     private PendingIntent pendingIntent;
@@ -70,6 +72,7 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
     private SharedPreferences settings;
     private PlanDetail plan;
     private View rootView;
+    User user;
     ImageView image;
     private boolean botonPanic;
     private Activity myContext;
@@ -98,7 +101,7 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         add_cigarette = (ImageButton) rootView.findViewById(R.id.add_cigarette);
         panic = (ImageButton) rootView.findViewById(R.id.add_button);
         settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-
+        level = (TextView) rootView.findViewById(R.id.level);
         String fontPath = "fonts/Go 2 Old Western.ttf";
         Typeface tf = Typeface.createFromAsset(rootView.getContext().getAssets(), fontPath);
 
@@ -106,7 +109,7 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         days.setTypeface(tf);
         userds = new UserDataSource(rootView.getContext());
         userds.open();
-        User user = userds.getUser();
+        user = userds.getUser();
         userds.close();
         SVG svg;
         if(user.getGenre()){
@@ -134,6 +137,8 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
         adapter = new ActivityAdapter(rootView.getContext(), list);
 
+        View footer = getActivity().getLayoutInflater().inflate(R.layout.footer_actlist, null);
+        activityLog.addFooterView(footer);
         activityLog.setAdapter(adapter);
 
         dspd = new PlanDetailsDataSource(rootView.getContext());
@@ -142,21 +147,22 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         Log.i("used", used_cigarettes+"");
         dspd.open();
         plan = dspd.getCurrentPlanDetail();
+        ArrayList<PlanDetail> plans = dspd.getPlanDetails();
+        Log.i("plan: ", plans.size() + "");
         size = dspd.getPlanDetails().size();
         notCompleted = dspd.getNotCompletedPlanDetail().size();
-        if(notCompleted == 0 && size == 0){
+        if(notCompleted == 0){
             tv_smoked.setVisibility(View.INVISIBLE);
             cigarettes_smoked.setVisibility(View.INVISIBLE);
             limite.setText("Deslices: ");
             textView4.setText(used_cigarettes+"");
             days_to_quit.setText("Días sin fumar");
             days.setText(((int)Math.round(user.getDays_without_smoking_count()))+"");
-            // RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            // params.setMargins(200, 200, 10, 0);
-            // limite.setLayoutParams(params);
+            level.setText("Nivel: Vencedor");
         }else{
             textView4.setText(plan.getTotal_cigarettes()+"");
             days.setText(""+(size - plan.getNumber_day() + 1));
+
         }
 
         dspd.close();
@@ -172,49 +178,47 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
             @Override
             public void onClick(View v) {
 
+                String msj ="";
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                if(notCompleted  == 0){
 
-                String msj = "Seguro que fumó?";
-                settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-                int ret = settings.getInt("count", 0);
-                if((ret + 1)  == (plan.getTotal_cigarettes() - 1 ) ){
-                    msj = "Seguro que fumó? Solo te quedaría un cigarrillo por fumaría";
+                    msj = "No es tan grave como parece. Muchos vencedores cometen deslices durante su proceso de dejar de fumar. Mantén el buen ánimo y hacé lo posible porque no vuelva a ocurrir. ";
+
                 }else{
-                    if((ret + 1) == plan.getTotal_cigarettes() ){
-                        msj = "Seguro que fumó? Solo te queda un cigarrillo por el día de hoy";
+                    msj = "Tranquilo, todavía te encontrás dentro de tu límite para hoy. Sin embargo, recordá que entre menos cigarrillos fumés, mucho mejor.";
+                    settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
+                    int ret = settings.getInt("count", 0);
+                    if((ret) == plan.getTotal_cigarettes() - 1){
+                        msj = "Según tu plan, solamente te queda un cigarrillo más para el día de hoy. No te pasés de tu límite.";
                     }else{
-                        if((ret + 1) > plan.getTotal_cigarettes() ){
-                            msj = "Seguro que fumó? Ya has pado tu límite del día.";
+                        if((ret) == plan.getTotal_cigarettes() ){
+                            msj = "Según tu plan, no te quedan más cigarrillos para hoy. Si sentís ganas de fumar, tratá de hacer algo diferente y divertido hasta que estas pasen. No deberían durar mucho.";
+                        }else{
+                            if((ret) > plan.getTotal_cigarettes() ){
+                                msj = "Has superado tu límite de cigarrillos para hoy. Tratá de que no ocurra mañana. Si sentís que no lo vas a lograr, hacé una lista con todas tus razones para dejar de fumar y llevala siempre contigo.";
+                            }
                         }
                     }
                 }
-                if(notCompleted  == 0 && size == 0){
-                    msj = "Seguro que fumó?";
-                }
 
-                builder.setMessage(msj).setTitle("Has fumado?")
+                builder.setMessage(msj).setTitle("¿Fumaste un cigarrillo?")
                         .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
                                 int ret = settings.getInt("count", 0);
 
-
-                                Log.i("Long", "ANTES");
-                                if(notCompleted == 0 && size == 0){
+                                if (notCompleted == 0) {
                                     textView4.setText(String.valueOf(ret + 1));
-                                    Log.i("Long", "1");
-
-                                }else{
-                                    Log.i("Long", "2");
-
+                                } else {
                                     cigarettes_smoked.setText(String.valueOf(ret + 1));
                                 }
                                 Calendar s = Calendar.getInstance();
                                 s.setTimeInMillis(System.currentTimeMillis());
 
+
                                 userds.open();
                                 User userR = userds.getUser();
                                 userR.setLast_cigarette(s.getTimeInMillis());
+
                                 userds.updateUser(userR);
                                 userds.close();
 
@@ -222,6 +226,29 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
                                 SharedPreferences.Editor editor = settings.edit();
                                 editor.putInt("count", ret + 1);
                                 editor.commit();
+                                if (notCompleted == 0 && size == 0) {
+                                    if (user.getDays_with_smoking() >= 2) {
+                                        userR.setDays_with_smoking(userR.getDays_with_smoking() + 1);
+                                        String msj = "Has fumado durante tres o más días seguidos. Es probable que estés experimentando una recaída. Reflexioná sobre lo que ha salido mal y volvelo a intentar. No te rindás.";
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());
+
+                                        builder.setMessage(msj).setIcon(R.drawable.pulmones)
+                                                .setTitle("¿Fumaste un cigarrillo?");
+                                        builder.setPositiveButton("Cambiar plan (Reiniciar)", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                Intent intents = new Intent(rootView.getContext(), RegisterActivityTwo.class);
+                                                startActivity(intents);
+                                            }
+                                        });
+                                        builder.setNegativeButton("Seguir con este plan", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // User cancelled the dialog
+                                            }
+                                        });
+                                        AlertDialog diadlog = builder.create();
+                                        diadlog.show();
+                                    }
+                                }
                             }
                         })
 
@@ -248,14 +275,13 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         return rootView;
     }
 
-
     @Override
     public void onAttach(Activity activity) {
         myContext=(Activity) activity;
         super.onAttach(activity);
     }
 
-    private void toggleList() {
+    public void toggleList() {
         if(!botonPanic){
             panic.setImageResource(R.drawable.salir);
             botonPanic = true;

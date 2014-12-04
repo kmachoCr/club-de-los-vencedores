@@ -96,7 +96,6 @@ public class AdviceDataSource {
     public ArrayList<Advice> getAdvices(int genre, boolean money, boolean aesthetic, boolean family,  boolean health) {
         ArrayList<Advice> listAdvices = new ArrayList<Advice>();
 
-        String[] args = new String[] {genre+""};
         String query = "";
 
         if(money){
@@ -117,7 +116,7 @@ public class AdviceDataSource {
         query = query.substring(0, query.length()-3);
         Log.i("size", query);
         Cursor cursor = database.query("Advice",
-        allColumns, "cat_genre = ? and " + query, args, null, null, null);
+        allColumns, query, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

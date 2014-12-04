@@ -16,35 +16,24 @@
         android:theme="@style/CustomActionBarTheme" >
         <activity
             android:name="com.lecz.clubdelosvencedores.register.RegisterActivityOne"
-            android:label="@string/title_activity_register_activity_one"
+            android:label=""
             android:screenOrientation="sensorPortrait"
             android:theme="@style/CustomActionBarThemeNoActionBar" >
-
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.register.RegisterActivityTwo"
-            android:label="@string/title_activity_register_activity_two"
+            android:label=""
             android:screenOrientation="sensorPortrait"
             android:theme="@style/CustomActionBarThemeNoActionBar" >
         </activity>
         <activity
-            android:name="com.lecz.clubdelosvencedores.register.RegisterActivityThree"
-            android:label="@string/title_activity_register_activity_three"
-            android:screenOrientation="sensorPortrait" >
-        </activity>
-        <activity
-            android:name="com.lecz.clubdelosvencedores.register.RegisterActivityFour"
-            android:label="@string/title_activity_register_activity_four"
-            android:screenOrientation="sensorPortrait" >
-        </activity>
-        <activity
             android:name="com.lecz.clubdelosvencedores.register.RegisterActivityFive"
-            android:label="@string/title_activity_register_activity_five"
+            android:label=""
             android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.general.MainActivity"
-            android:label="@string/app_name"
+            android:label=""
             android:screenOrientation="sensorPortrait" >
         </activity>
 
@@ -57,25 +46,37 @@
         <service
             android:name="com.lecz.clubdelosvencedores.general.NotificationService"
             android:icon="@drawable/ic_launcher"
-            android:label="@string/app_name" >
+            android:label="" >
         </service>
 
         <activity
             android:name="com.lecz.clubdelosvencedores.general.CallFiendsActivity"
-            android:label="@string/title_activity_panic"
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.general.CallContactActivity"
-            android:label="@string/title_activity_panic"
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.Game.Game"
-            android:label="@string/title_activity_panic"
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
             android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.MyActivity"
@@ -84,48 +85,85 @@
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.general.Activity_Noticias"
-            android:label="@string/title_activity_achievements"
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
             android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.general.Activity_Articulo"
-            android:label="@string/title_activity_achievements"
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
             android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.VideosActivity"
-            android:label="@string/title_activity_videos"
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
             android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.VideoPlayer"
-            android:label="@string/title_activity_video_player"
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
             android:screenOrientation="sensorLandscape" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.PreGameActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_pre_game" >
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
+            android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.ScoreGameActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_score_game" >
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
+            android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.AdviceActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_advice" >
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
+            android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.UpdateInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_update_info" >
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
+            android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_splash"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorPortrait"
             android:theme="@style/FullscreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -135,15 +173,32 @@
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.InicialActivity"
-            android:theme="@style/CustomActionBarThemeNoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_inicial" >
+            android:label=""
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/CustomActionBarThemeNoActionBar" >
         </activity>
         <activity
             android:name="com.lecz.clubdelosvencedores.NewScoreGameActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_inicial" >
+            android:label=""
+            android:parentActivityName="com.lecz.clubdelosvencedores.MyActivity"
+            android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lecz.clubdelosvencedores.MyActivity" />
         </activity>
+
+        <service
+            android:name="com.lecz.clubdelosvencedores.utilities.AdviceNotificationService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <service
+            android:name="com.lecz.clubdelosvencedores.utilities.AdviceNotificationServiceTwo"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

@@ -12,23 +12,100 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/register_name"
+        android:layout_marginBottom="10dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/radioGroup"
-        android:layout_alignEnd="@+id/radioGroup" />
+        android:layout_alignRight="@+id/linearLayout6"
+        android:layout_alignEnd="@+id/linearLayout6" />
 
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/register_age"
-        android:layout_below="@+id/count_friends"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/register_name"
-        android:layout_alignEnd="@+id/register_name" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/linearLayout4"
+        android:layout_below="@+id/register_name"
+        android:layout_alignStart="@+id/register_name"
+        android:layout_alignEnd="@+id/register_name"
+        android:layout_alignLeft="@+id/register_name"
+        android:layout_alignRight="@+id/register_name">
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="3">
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/ages"
+                android:id="@+id/register_age"
+                android:layout_below="@+id/count_friends"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/register_age"
+                android:id="@+id/count_friends"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="5">
+
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/radioGroup"
+                android:layout_below="@+id/textView3"
+                android:layout_marginTop="9dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" >
+
+                <RadioButton android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/icn_hombre"
+                    android:layout_width="wrap_content"
+                    android:checked="true"
+                    android:text=""
+                    android:id="@+id/radioM"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"></RadioButton>
+
+                <RadioButton android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_launcher"
+                    android:drawableRight="@drawable/icn_mujer"
+                    android:layout_width="wrap_content"
+                    android:text=""
+                    android:id="@+id/radioF"
+                    android:layout_alignTop="@+id/radioM"
+                    android:layout_centerHorizontal="true"></RadioButton>
+
+
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/register_genre"
+                android:id="@+id/textView3"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,63 +121,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/register_age"
-        android:id="@+id/count_friends"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/register_name"
+        android:text="@string/register_motivations_update"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/linearLayout4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/register_genre"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/register_age"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp" />
-
-    <RadioGroup
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal"
-        android:layout_below="@+id/textView3"
-        android:id="@+id/radioGroup">
-
-        <RadioButton android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_launcher"
-            android:layout_width="wrap_content"
-            android:checked="true"
-            android:text=""
-            android:id="@+id/radioM"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"></RadioButton>
-
-        <RadioButton android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_launcher"
-            android:drawableRight="@drawable/ic_launcher"
-            android:layout_width="wrap_content"
-            android:text=""
-            android:id="@+id/radioF"
-            android:layout_alignTop="@+id/radioM"
-            android:layout_centerHorizontal="true"></RadioButton>
-
-    </RadioGroup>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/register_motivations_update"
-        android:layout_below="@+id/radioGroup"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/textView2" />
 
 
     <Button
@@ -109,6 +134,12 @@
         android:layout_height="wrap_content"
         android:text="@string/save"
         android:id="@+id/save"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:textColor="@android:color/white"
+        android:paddingBottom="10dp"
+        android:background="@drawable/start_game"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -120,7 +151,8 @@
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/savennext1">
+        android:layout_above="@+id/save"
+        android:id="@+id/linearLayout6">
 
         <RelativeLayout
             android:layout_width="0dip"

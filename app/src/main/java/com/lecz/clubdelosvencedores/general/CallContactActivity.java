@@ -1,8 +1,11 @@
 package com.lecz.clubdelosvencedores.general;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +17,10 @@ import android.widget.ListView;
 
 import com.lecz.clubdelosvencedores.DatabaseManagers.ContactFriendSource;
 import com.lecz.clubdelosvencedores.R;
+import com.lecz.clubdelosvencedores.UpdateInfoActivity;
 import com.lecz.clubdelosvencedores.objects.Contact;
+import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
+import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 
 import java.util.ArrayList;
 
@@ -32,7 +38,7 @@ public class CallContactActivity extends Activity {
         Activity host = (Activity) this;
 
         ArrayList<Contact> listContacts = new ArrayList<Contact>();
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         contactList = (ListView) findViewById(R.id.list);
 
 
@@ -81,7 +87,7 @@ public class CallContactActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.panic, menu);
+        getMenuInflater().inflate(R.menu.my, menu);
         return true;
     }
 
@@ -91,8 +97,35 @@ public class CallContactActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(getApplicationContext(), RegisterActivityFive.class);
+                startActivity(intents);
+                break;
+            case R.id.gotoRestartPlan:
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+
+                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
+                        .setTitle("Reiniciar plan?");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intents = new Intent(getApplicationContext(), RegisterActivityTwo.class);
+                        startActivity(intents);
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

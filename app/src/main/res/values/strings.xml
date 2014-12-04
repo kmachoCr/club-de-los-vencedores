@@ -35,7 +35,7 @@
     <string name="register_motivations_family">Por mi familia</string>
     <string name="register_motivations_health">Salud</string>
     <string name="save_and_next">Guardar y continuar</string>
-    <string name="save">Guardar</string>
+    <string name="save">GUARDAR</string>
     <string name="title_activity_register_activity_one">Club de los Vencedores</string>
     <string name="title_activity_register_activity_two">RegisterActivityTwo</string>
     <string name="title_activity_register_activity_three">RegisterActivityThree</string>

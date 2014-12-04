@@ -41,7 +41,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet tincidunt magna. Morbi."
+        android:text="Oprimí todos los botones que contengan la silueta del entrenador antifumado antes de que se acabe el tiempo. Evitá tocar cualquier otro botón o perderás puntos. ¡Mucha suerte!"
         android:id="@+id/textView2"
         customAttrs:customFont="futura_heavy"
         android:textColor="@android:color/white"

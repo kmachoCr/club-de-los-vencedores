@@ -21,7 +21,7 @@ public class VideoPlayer extends YouTubeBaseActivity implements YouTubePlayer.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         url = getIntent().getExtras().getString("url");
         YouTubePlayerView yt = (YouTubePlayerView) findViewById(R.id.player);
         yt.initialize(DeveloperKey.DEVELOPER_KEY, (YouTubePlayer.OnInitializedListener) this);

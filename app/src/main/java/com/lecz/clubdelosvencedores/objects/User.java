@@ -22,13 +22,7 @@ public class User {
 
     public User(){}
 
-    public int getDays_with_smoking() {
-        return days_with_smoking;
-    }
 
-    public void setDays_with_smoking(int days_with_smoking) {
-        this.days_with_smoking = days_with_smoking;
-    }
 
     public User(String name, int age, boolean genre, Date register_date, int plan_type) {
         this.name = name;
@@ -47,6 +41,13 @@ public class User {
 
     public void setCigarettes_per_day(int cigarettes_per_day) {
         this.cigarettes_per_day = cigarettes_per_day;
+    }
+    public int getDays_with_smoking() {
+        return days_with_smoking;
+    }
+
+    public void setDays_with_smoking(int days_with_smoking) {
+        this.days_with_smoking = days_with_smoking;
     }
 
     public Long getLast_cigarette() {

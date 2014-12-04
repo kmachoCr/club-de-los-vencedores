@@ -1,6 +1,8 @@
 package com.lecz.clubdelosvencedores;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,12 +19,15 @@ import com.lecz.clubdelosvencedores.DatabaseManagers.MotivationsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
 import com.lecz.clubdelosvencedores.objects.Motivations;
 import com.lecz.clubdelosvencedores.objects.User;
+import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
+import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 
 import java.util.Calendar;
 
 
 public class UpdateInfoActivity extends Activity {
-    private TextView name, age;
+    private TextView name;
+    private Spinner age;
     private Button button;
     private RadioButton radioM, radioF;
     private boolean motivations_money, motivations_aesthetic, motivations_health, motivations_family = false;
@@ -34,7 +40,7 @@ public class UpdateInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_info);
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         userds = new UserDataSource(getApplication().getApplicationContext());
         userds.open();
         validateUser = userds.getUser();
@@ -47,7 +53,7 @@ public class UpdateInfoActivity extends Activity {
 
         button = (Button) findViewById(R.id.save);
         name = (TextView) findViewById(R.id.register_name);
-        age = (TextView) findViewById(R.id.register_age);
+        age = (Spinner) findViewById(R.id.register_age);
         radioM = (RadioButton) findViewById(R.id.radioM);
         radioF = (RadioButton) findViewById(R.id.radioF);
         money = (CheckBox) findViewById(R.id.register_motivations_money);
@@ -58,7 +64,7 @@ public class UpdateInfoActivity extends Activity {
         s.setTimeInMillis(System.currentTimeMillis());
 
         name.setText(validateUser.getName());
-        age.setText(validateUser.getAge()+"");
+        age.setSelection(validateUser.getAge() - 18);
 
         if(validateUser.getGenre()){
             radioM.setChecked(true);
@@ -83,7 +89,7 @@ public class UpdateInfoActivity extends Activity {
             public void onClick(View v) {
 
                 validateUser.setName(name.getText().toString());
-                validateUser.setAge(Integer.parseInt(age.getText().toString()));
+                validateUser.setAge(Integer.parseInt(age.getSelectedItem().toString()));
                 validateUser.setGenre(radioM.isChecked());
 
                 if(money.isChecked()){
@@ -119,7 +125,7 @@ public class UpdateInfoActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.update_info, menu);
+        getMenuInflater().inflate(R.menu.my, menu);
         return true;
     }
 
@@ -129,8 +135,35 @@ public class UpdateInfoActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(getApplicationContext(), RegisterActivityFive.class);
+                startActivity(intents);
+                break;
+            case R.id.gotoRestartPlan:
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+
+                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
+                        .setTitle("Reiniciar plan?");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intents = new Intent(getApplicationContext(), RegisterActivityTwo.class);
+                        startActivity(intents);
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

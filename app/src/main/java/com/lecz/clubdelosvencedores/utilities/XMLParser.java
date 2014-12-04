@@ -57,6 +57,7 @@ public class XMLParser {
 		ArrayList<Notice> noticias = new ArrayList<Notice>();
 		DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy kk:mm:ss Z", Locale.ENGLISH);
 		Notice noticia;
+
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document dom = builder.parse(this.url.openConnection().getInputStream());

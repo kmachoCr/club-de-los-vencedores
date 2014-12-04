@@ -1,10 +1,14 @@
 package com.lecz.clubdelosvencedores.register;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.media.Image;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
@@ -30,14 +34,17 @@ import com.lecz.clubdelosvencedores.DatabaseManagers.MotivationsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.PlanDetailsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.SevenPlanDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.ThirtyPlanDataSource;
+import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
+import com.lecz.clubdelosvencedores.general.NotificationMng;
 import com.lecz.clubdelosvencedores.objects.Achievement;
 import com.lecz.clubdelosvencedores.objects.Advice;
 import com.lecz.clubdelosvencedores.objects.ConfigPlan;
 import com.lecz.clubdelosvencedores.objects.Motivations;
 import com.lecz.clubdelosvencedores.objects.PlanDetail;
 import com.lecz.clubdelosvencedores.objects.User;
+import com.lecz.clubdelosvencedores.utilities.AdviceNotificationService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +53,7 @@ import java.util.Random;
 
 public class RegisterActivityTwo extends Activity {
 
+    private SharedPreferences settings;
     private User user;
     private TextView count_cigarettes, textView4;
     private SeekBar dias_q_fumo, cigarettes_per_day;
@@ -55,6 +63,7 @@ public class RegisterActivityTwo extends Activity {
     private Spinner plan_type;
     private UserDataSource userds;
     ArrayList<User> users;
+    private NotificationMng notificationManager;
     private PlanDetailsDataSource dspd;
 
     @Override
@@ -62,7 +71,8 @@ public class RegisterActivityTwo extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_activity_two);
 
-
+        notificationManager = new NotificationMng(this);
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         dspd = new PlanDetailsDataSource(this);
         back = (ImageButton) findViewById(R.id.back1);
@@ -220,20 +230,10 @@ public class RegisterActivityTwo extends Activity {
                             }
                         }
                     }
+
                     if(!plan_type.getSelectedItem().toString().equals("Desde ya")) {
-                        PlanDetail plan = new PlanDetail();
-                        plan.setNumber_day(1);
-                        plan.setTotal_cigarettes(cp.getDayConfig().get(0));
-                        plan.setUsed_cigarettes(0);
-                        plan.setApproved(false);
-                        plan.setCurrent(true);
-                        plan.setCompleted(false);
-                        plan.setDate(c.getTimeInMillis());
-
-                        dspd.createPlanDetail(plan);
-
-                        for (int i = 1; i < cp.getDayConfig().size(); i++) {
-                            plan = new PlanDetail();
+                        for (int i = 0; i < cp.getDayConfig().size(); i++) {
+                            PlanDetail plan = new PlanDetail();
                             plan.setNumber_day(i + 1);
                             plan.setTotal_cigarettes(cp.getDayConfig().get(i));
                             plan.setUsed_cigarettes(0);
@@ -244,8 +244,13 @@ public class RegisterActivityTwo extends Activity {
                             plan.setDate(c.getTimeInMillis());
                             dspd.createPlanDetail(plan);
                         }
+
+                        PlanDetail s = dspd.getPlanDetailByDay(1);
+                        s.setCurrent(true);
+                        dspd.updatePlanDetail(s);
                         dspd.close();
                     }
+
                     if(money.isChecked()){
                         motivations_money = true;
                     }
@@ -259,10 +264,7 @@ public class RegisterActivityTwo extends Activity {
                         motivations_health = true;
                     }
                     MotivationsDataSource mds = new MotivationsDataSource(RegisterActivityTwo.this);
-
-
-
-                    mds.open();
+                     mds.open();
                     Motivations m = mds.getMotivations();
 
                     if(m != null){
@@ -299,6 +301,9 @@ public class RegisterActivityTwo extends Activity {
                     acds.createActivity(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark, System.currentTimeMillis(), list.get(i1).getBody(), "consejo", list.get(i1).getType()));
                     acds.close();
 
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putInt("count", 0);
+                    editor.commit();
 
                     Intent myIntent = new Intent(getApplication(), RegisterActivityFive.class);
                     startActivity(myIntent);

@@ -1,7 +1,9 @@
 package com.lecz.clubdelosvencedores;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +20,8 @@ import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.Game.Game;
 import com.lecz.clubdelosvencedores.general.fragment_slide;
+import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
+import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 
 
 public class NewScoreGameActivity extends Activity {
@@ -29,7 +33,7 @@ public class NewScoreGameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_score_game);
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         TextView leveltv = (TextView)findViewById(R.id.level_game);
         TextView max_scoretv = (TextView)findViewById(R.id.max_score);
         ImageView imagev = (ImageView) findViewById(R.id.score_game);
@@ -107,7 +111,7 @@ public class NewScoreGameActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.score_game, menu);
+        getMenuInflater().inflate(R.menu.my, menu);
         return true;
     }
 
@@ -117,8 +121,35 @@ public class NewScoreGameActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(NewScoreGameActivity.this, UpdateInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(NewScoreGameActivity.this, RegisterActivityFive.class);
+                startActivity(intents);
+                break;
+            case R.id.gotoRestartPlan:
+                AlertDialog.Builder builder = new AlertDialog.Builder(NewScoreGameActivity.this);
+
+                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
+                        .setTitle("Reiniciar plan?");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intents = new Intent(NewScoreGameActivity.this, RegisterActivityTwo.class);
+                        startActivity(intents);
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

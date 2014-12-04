@@ -23,6 +23,9 @@ import android.widget.TextView;
 import com.lecz.clubdelosvencedores.NewScoreGameActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.ScoreGameActivity;
+import com.lecz.clubdelosvencedores.UpdateInfoActivity;
+import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
+import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 
 
 public class Game extends Activity{
@@ -47,6 +50,7 @@ public class Game extends Activity{
         chronometer = (TextView) findViewById(R.id.tv_crono);
         count.setMax(10000);
         reward = 20;
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         chronometer.setText(10000/1000 + " seg");
             ct = new CountDownTimer(10000, 50) {
 
@@ -233,7 +237,7 @@ public class Game extends Activity{
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            ct.cancel();
+
 
             return super.onKeyDown(keyCode, event);
         }
@@ -247,8 +251,38 @@ public class Game extends Activity{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(Game.this, UpdateInfoActivity.class);
+                ct.cancel();
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(Game.this, RegisterActivityFive.class);
+                ct.cancel();
+                startActivity(intents);
+                break;
+            case R.id.gotoRestartPlan:
+                AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
+
+                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
+                        .setTitle("Reiniciar plan?");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intents = new Intent(Game.this, RegisterActivityTwo.class);
+                        ct.cancel();
+                        startActivity(intents);
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

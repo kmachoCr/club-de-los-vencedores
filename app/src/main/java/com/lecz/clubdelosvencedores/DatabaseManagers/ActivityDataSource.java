@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.google.android.youtube.player.internal.o;
 import com.lecz.clubdelosvencedores.objects.Activity;
 
 import java.util.ArrayList;
@@ -66,8 +67,9 @@ public class ActivityDataSource {
 
     public ArrayList<Activity> getActivities() {
         ArrayList<Activity> users = new ArrayList<Activity>();
+        String orderBy =  "date DESC";
         Cursor cursor = database.query("Activity",
-                allColumns, null, null, null, null, null);
+                allColumns, null, null, null, null, orderBy);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

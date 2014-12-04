@@ -137,6 +137,8 @@
                             android:text="Large Text"
                             android:id="@+id/name_contact_2"
                             android:layout_centerVertical="true"
+                            android:visibility="invisible"
+
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"/>
 
@@ -145,6 +147,7 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:text="Medium Text"
+                            android:visibility="invisible"
                             android:textColor="@color/gray_text"
                             android:id="@+id/number_contact_2"
                             android:layout_below="@+id/name_contact_2"
@@ -165,6 +168,7 @@
                             android:background="@android:color/transparent"
                             android:src="@drawable/call_phone"
                             android:id="@+id/call_contact_2"
+                            android:visibility="invisible"
                             android:layout_centerVertical="true"
                             android:layout_centerHorizontal="true" />
                     </RelativeLayout>
@@ -204,6 +208,7 @@
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:text="Large Text"
                             android:id="@+id/name_contact_3"
+                            android:visibility="invisible"
                             android:layout_centerVertical="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"/>
@@ -213,6 +218,7 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:text="Medium Text"
+                            android:visibility="invisible"
                             android:textColor="@color/gray_text"
                             android:id="@+id/number_contact_3"
                             android:layout_below="@+id/name_contact_3"
@@ -234,6 +240,7 @@
                             android:src="@drawable/call_phone"
                             android:id="@+id/call_contact_3"
                             android:layout_centerVertical="true"
+                            android:visibility="invisible"
                             android:layout_centerHorizontal="true" />
                     </RelativeLayout>
 

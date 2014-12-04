@@ -47,6 +47,7 @@ public class Activity_Noticias extends Activity {
 		setContentView(R.layout.activity_noticias);
         rellenarNoticias();
         Log.i("llego", "llego");
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
 	}
 
@@ -75,6 +76,8 @@ public class Activity_Noticias extends Activity {
 	private void rellenarNoticias() {
 		if (isOnline()) {
 			new DescargarNoticias(getBaseContext(), URL).execute();
+        }else{
+            Log.i("Online:","No online");
         }
 	}
 

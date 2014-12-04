@@ -93,8 +93,7 @@ public class HomeThree extends Fragment {
         load_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadmorepb.setVisibility(View.VISIBLE);
-                load_more.setVisibility(View.INVISIBLE);
+
                 loadMOreNotice();
             }
         });
@@ -121,9 +120,12 @@ public class HomeThree extends Fragment {
     }
 
     private void rellenarNoticias() {
+
         if (isOnline()) {
+            Log.i("isOnline", "online");
             new DescargarNoticias(rootView.getContext(), URL).execute();
         }else{
+            Log.i("isOnline", "offline");
             NoticeDataSource nds = new NoticeDataSource(rootView.getContext());
             nds.open();
             Array_Noticias = nds.getNotices();
@@ -132,20 +134,30 @@ public class HomeThree extends Fragment {
     }
 
     private void loadMOreNotice() {
+
         if (isOnline()) {
+            loadmorepb.setVisibility(View.VISIBLE);
+            load_more.setVisibility(View.INVISIBLE);
             new DescargarNoticias(rootView.getContext(), URL).execute();
+        }else{
+            Toast toast = Toast.makeText(rootView.getContext(), "No hay conexión a internet", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
 
     public boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager) rootView.getContext()
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnected()) {
+        ConnectivityManager cm = (ConnectivityManager) rootView.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        Log.i("Status","Llego");
+        // test for connection
+        if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable()
+                && cm.getActiveNetworkInfo().isConnected()) {
+            Log.i("Status","Online");
             return true;
+        } else {
+            Log.i("Status","Offline");
+            return false;
         }
-        return false;
     }
 
     private class DescargarNoticias extends AsyncTask<String, Void, Boolean> {
@@ -172,7 +184,6 @@ public class HomeThree extends Fragment {
                     if(adapter == null){
                         inicializarListView();
                     }else{
-                        Log.i("asasasa", "" + adapter.getData().size());
                         int scrollX = adapter.getData().size();
                         adapter.getData().clear();
                         adapter = new NoticeAdapter(rootView.getContext(), Array_Noticias);

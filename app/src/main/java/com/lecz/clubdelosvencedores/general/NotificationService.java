@@ -182,8 +182,10 @@ public class NotificationService extends Service {
 
                 Calendar morning = Calendar.getInstance();
                 morning.setTimeInMillis(System.currentTimeMillis());
-                morning.set(Calendar.HOUR_OF_DAY, 0);
-                morning.set(Calendar.MINUTE, 20);
+                morning.set(Calendar.HOUR_OF_DAY, 8);
+                morning.set(Calendar.MINUTE, 0
+
+                );
 
                 Calendar evening = Calendar.getInstance();
                 evening.setTimeInMillis(System.currentTimeMillis());
@@ -246,7 +248,6 @@ public class NotificationService extends Service {
                     /*else{
                         notificationManager.createNotification(this, R.drawable.checkmark, "Ya casi", listAchievements.get(i).getTitle(),  result + " minutos", when, MyActivity.class);
                     }*/
-
                 }
             }
 
@@ -254,7 +255,7 @@ public class NotificationService extends Service {
             editor.commit();
         }
 
-        notificationManager.createNotification(this, R.drawable.icn_ahorro, "Ya casi", ""+dateCurrentPlan,  ""+dateNow , when, MyActivity.class);
+        //notificationManager.createNotification(this, R.drawable.icn_ahorro, "Ya casi", ""+dateCurrentPlan,  ""+dateNow , when, MyActivity.class);
 
         return Service.START_NOT_STICKY;
     }

@@ -99,12 +99,9 @@ public class NotificationService extends Service {
                         }
                     }else{
                         plan.setApproved(false);
-                        user.setCigarettes_no_smoked(user.getCigarettes_no_smoked() + (user.getCigarettes_per_day() - used_cigarettes));
-                        user.setMoney_saved(user.getCigarettes_no_smoked() * 200);
+
                     }
-                    userds.open();
-                    userds.updateUser(user);
-                    userds.close();
+
 
                     dspd.open();
                     PlanDetail new_plan = dspd.getPlanDetailByDay(plan.getNumber_day() + 1);
@@ -117,8 +114,21 @@ public class NotificationService extends Service {
                     new_plan.setCurrent(true);
                     dspd.updatePlanDetail(new_plan);
                     dspd.close();
-                }
+                }else{
+                    user.setCigarettes_no_smoked(user.getCigarettes_no_smoked() + (user.getCigarettes_per_day() - used_cigarettes));
+                    user.setMoney_saved(user.getCigarettes_no_smoked() * 200);
+                    if(used_cigarettes == 0){
+                        user.setDays_without_smoking(user.getDays_without_smoking() + 1);
+                        user.setDays_without_smoking_count(user.getDays_without_smoking_count() + 1);
+                    }else{
+                        user.setDays_without_smoking_count(0.0);
+                        user.setDays_with_smoking(user.getDays_with_smoking() + 1);
+                    }
 
+                }
+                userds.open();
+                userds.updateUser(user);
+                userds.close();
 
                 editor.putInt("count", 0);
                 editor.commit();
@@ -251,7 +261,7 @@ public class NotificationService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return  null;
     }
 
     @Override

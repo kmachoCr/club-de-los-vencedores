@@ -2,6 +2,7 @@ package com.lecz.clubdelosvencedores.general;
 
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.provider.SyncStateContract;
+import android.support.v4.app.NotificationCompat;
 import android.text.format.DateFormat;
 import android.util.Log;
 
@@ -255,9 +258,22 @@ public class NotificationService extends Service {
             editor.commit();
         }
 
-        //notificationManager.createNotification(this, R.drawable.icn_ahorro, "Ya casi", ""+dateCurrentPlan,  ""+dateNow , when, MyActivity.class);
+        notificationManager.createNotification(this, R.drawable.icn_ahorro, "Ya casi", ""+dateCurrentPlan,  ""+dateNow , when, MyActivity.class);
 
-        return Service.START_NOT_STICKY;
+        Notification notification = new Notification(R.drawable.pulmones, "Flag", when);
+
+        notification.defaults |= Notification.DEFAULT_SOUND;
+        notification.defaults |= Notification.DEFAULT_VIBRATE;
+
+        Intent notificationIntent = new Intent(this, (Class<?>) MyActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        notification.setLatestEventInfo(this, "Title", "Body", contentIntent);
+
+        startForeground(1337, notification);
+        stopForeground(true);
+        stopSelf();
+
+        return Service.START_STICKY;
     }
 
     @Override

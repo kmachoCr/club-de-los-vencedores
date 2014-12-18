@@ -1,18 +1,29 @@
 package com.lecz.clubdelosvencedores.general;
 
 /**
- * Created by Luis on 9/8/2014.
+ * Created by Luiss on 9/8/2014.
+ *
  */
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class BroadcastService extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent service1 = new Intent(context, NotificationService.class);
-        context.startService(service1);
+        Intent myIntent = new Intent(context, BroadcastNotification.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 10, pendingIntent);
 
     }
+
 }

@@ -96,6 +96,7 @@ public class NotificationService extends Service {
                         if(used_cigarettes == 0){
                             user.setDays_without_smoking(user.getDays_without_smoking() + 1);
                             user.setDays_without_smoking_count(user.getDays_without_smoking_count() + 1);
+                            user.setDays_with_smoking(0);
                         }else{
                             user.setDays_without_smoking_count(0.0);
                             user.setDays_with_smoking(user.getDays_with_smoking() + 1);
@@ -237,6 +238,9 @@ public class NotificationService extends Service {
                     long achievement = listAchievements.get(i).getAmount();
                     long result = different - achievement;
                     DecimalFormat df = new DecimalFormat("#.##");
+
+
+
                     if(result > 0){
                         notificationManager.createNotification(this, R.drawable.pulmones, listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class);
                         listAchievements.get(i).setCompleted(true);
@@ -258,7 +262,7 @@ public class NotificationService extends Service {
             editor.commit();
         }
 
-        notificationManager.createNotification(this, R.drawable.icn_ahorro, "Ya casi", ""+dateCurrentPlan,  ""+dateNow , when, MyActivity.class);
+        notificationManager.createNotification(this, R.drawable.icn_ahorro, "Ya casi", "flag", "flag", when, MyActivity.class);
 
         Notification notification = new Notification(R.drawable.pulmones, "Flag", when);
 

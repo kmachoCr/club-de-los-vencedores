@@ -2,6 +2,7 @@ package com.lecz.clubdelosvencedores.general;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
@@ -36,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
@@ -59,7 +61,7 @@ import java.util.Date;
 /**
  *
  */
-public class HomeTwo extends Fragment implements Animation.AnimationListener {
+public class    HomeTwo extends Fragment implements Animation.AnimationListener {
     private ListView activityLog;
     private TextView textView, money, days, textView4, userName, cigarettes_smoked, tv_smoked, limite, days_to_quit, level;
     private ActivityAdapter adapter;
@@ -151,6 +153,7 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
         Log.i("plan: ", plans.size() + "");
         size = dspd.getPlanDetails().size();
         notCompleted = dspd.getNotCompletedPlanDetail().size();
+
         if(notCompleted == 0){
             tv_smoked.setVisibility(View.INVISIBLE);
             cigarettes_smoked.setVisibility(View.INVISIBLE);
@@ -159,6 +162,27 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
             days_to_quit.setText("Días sin fumar");
             days.setText(((int)Math.round(user.getDays_without_smoking_count()))+"");
             level.setText("Nivel: Vencedor");
+
+            Boolean show = settings.getBoolean("dayZero", true);
+            Log.i("dayZero: ", show+"");
+            if(show){
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean("dayZero", false);
+                editor.apply();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setMessage("Ahora tratá de mantenerte firme, y si sentís la necesidad de fumar oprimí el botón \"Ayuda\"")
+                        .setTitle("¡Terminaste tu plan, ya sos un Vencedor!")
+                        .setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
         }else{
             textView4.setText(plan.getTotal_cigarettes()+"");
             days.setText(""+(size - plan.getNumber_day() + 1));
@@ -170,9 +194,11 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
 
 
 
-        update_interface(used_cigarettes, user, plan, size);
-        call_service();
 
+        update_interface(used_cigarettes, user, plan, size);
+        if(!isMyServiceRunning()){
+            call_service();
+        }
         add_cigarette.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -218,11 +244,12 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
                                 userds.open();
                                 User userR = userds.getUser();
                                 userR.setLast_cigarette(s.getTimeInMillis());
-
+                                userR.setDays_without_smoking_count(0.0);
                                 userds.updateUser(userR);
                                 userds.close();
-
-
+                                if(notCompleted == 0){
+                                    days.setText(((int)Math.round(userR.getDays_without_smoking_count()))+"");
+                                }
                                 SharedPreferences.Editor editor = settings.edit();
                                 editor.putInt("count", ret + 1);
                                 editor.commit();
@@ -306,14 +333,17 @@ public class HomeTwo extends Fragment implements Animation.AnimationListener {
     }
 
 
+    private boolean isMyServiceRunning() {
+        ActivityManager manager = (ActivityManager) rootView.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if ("com.lecz.clubdelosvencedores.general.NotificationService".equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void call_service(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 11);
-        calendar.set(Calendar.MINUTE, 10);
-        calendar.set(Calendar.AM_PM, Calendar.AM);
-
         Intent myIntent = new Intent(rootView.getContext(), BroadcastService.class);
         pendingIntent = PendingIntent.getBroadcast(rootView.getContext(), 0, myIntent, 0);
 

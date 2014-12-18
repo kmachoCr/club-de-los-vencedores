@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.Time;
@@ -34,9 +35,9 @@ public class NotificationMng {
                         .setSmallIcon(R.drawable.pulmones)
                         .setContentTitle(contentTitle)
                         .setContentText(contentText)
-                        .setAutoCancel(true)
                         .setTicker(tickerText)
                         .setWhen(when)
+                        .setDefaults(Notification.DEFAULT_ALL )
                         .setShowWhen(true);
 
 

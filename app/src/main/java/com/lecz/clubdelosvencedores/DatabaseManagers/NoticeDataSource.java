@@ -91,12 +91,14 @@ public class NoticeDataSource {
 
         Cursor cursor = database.query("Notice",
                 allColumns, null, null, null, null, null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Notice notice = cursorToComment(cursor);
-            listNotices.add(notice);
-            cursor.moveToNext();
+        if(cursor.getCount() > 0) {
+        Log.i("COUNT", cursor.getCount()+"");
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Notice notice = cursorToComment(cursor);
+                listNotices.add(notice);
+                cursor.moveToNext();
+            }
         }
         // make sure to close the cursor
         cursor.close();

@@ -28,7 +28,7 @@ public class NotificationMng {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public void createNotification(Context context, Integer icon, String tickerText, String contentTitle, String contentText, long when, Object dopClass){
+    public void createNotification(Context context, Integer icon, String tickerText, String contentTitle, String contentText, long when, Object dopClass, String type){
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
@@ -37,11 +37,18 @@ public class NotificationMng {
                         .setContentText(contentText)
                         .setTicker(tickerText)
                         .setWhen(when)
+                        .setAutoCancel(true)
                         .setDefaults(Notification.DEFAULT_ALL )
                         .setShowWhen(true);
 
 
         Intent openHomePageActivity = new Intent(context, (Class) dopClass);
+        if(type.equals("logro")){
+            openHomePageActivity.putExtra("contentTitle", tickerText);
+            openHomePageActivity.putExtra("contentText", contentText);
+            openHomePageActivity.putExtra("icon", icon);
+        }
+
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addNextIntent(openHomePageActivity);
 

@@ -73,19 +73,13 @@
                     android:layout_width="wrap_content"
                     android:checked="true"
                     android:text=""
-                    android:id="@+id/radioM"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"></RadioButton>
+                    android:id="@+id/radioM" />
 
                 <RadioButton android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_launcher"
                     android:drawableRight="@drawable/icn_mujer"
                     android:layout_width="wrap_content"
                     android:text=""
-                    android:id="@+id/radioF"
-                    android:layout_alignTop="@+id/radioM"
-                    android:layout_centerHorizontal="true"></RadioButton>
+                    android:id="@+id/radioF"/>
 
 
 

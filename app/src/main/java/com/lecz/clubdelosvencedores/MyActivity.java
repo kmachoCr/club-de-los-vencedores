@@ -99,6 +99,26 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
             // this tab is selected.
             actionBar.addTab(
                     actionBar.newTab().setIcon(getPageIcon(i)).setTabListener(this));
+            }
+        if(getIntent().getExtras() != null){
+            String contentTitle = getIntent().getExtras().getString("contentTitle", null);
+            String contentText = getIntent().getExtras().getString("contentText", null);
+            Integer icon =  getIntent().getExtras().getInt("icon", 0);
+                if(contentTitle != null && contentText != null && icon != 0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                    builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    builder.setMessage(contentText).setIcon(icon).setTitle(contentTitle);
+
+
+                    AlertDialog achievement = builder.create();
+                    achievement.show();
+                }
         }
     }
 

@@ -100,12 +100,12 @@ public class XMLParser {
                                 nds.open();
                                 if(nds.getNotice(noticia.getTitle()) == null){
                                     nds.close();
-                                    if(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage)) != null){
-                                        noticia.setImage(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage)));
-                                    }else{
+                                    //if(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage)) != null){
+                                    //    noticia.setImage(getBitmapFromURL(property.getFirstChild().getNodeValue().substring(startdelimiterImage + 5, startdelimiterImage + 5 + enddelimiterImage)));
+                                    //}else{
                                         Drawable d = contextor.getResources().getDrawable(R.drawable.checkmark);
                                         noticia.setImage(((BitmapDrawable) d).getBitmap());
-                                    }
+                                    //}
                                 }
 
                             }

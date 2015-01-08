@@ -124,6 +124,7 @@ public class NotificationService extends Service {
                     if(used_cigarettes == 0){
                         user.setDays_without_smoking(user.getDays_without_smoking() + 1);
                         user.setDays_without_smoking_count(user.getDays_without_smoking_count() + 1);
+                        user.setDays_with_smoking(0);
                     }else{
                         user.setDays_without_smoking_count(0.0);
                         user.setDays_with_smoking(user.getDays_with_smoking() + 1);
@@ -148,7 +149,7 @@ public class NotificationService extends Service {
                             int result = money - achievement;
 
                             if(result > 0){
-                                notificationManager.createNotification(this, R.drawable.pulmones, listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class);
+                                notificationManager.createNotification(this, R.drawable.pulmones, listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class, "logro");
                                 listAchievements.get(i).setCompleted(true);
                                 ads.open();
                                 ads.updateAchievement(listAchievements.get(i));
@@ -242,7 +243,7 @@ public class NotificationService extends Service {
 
 
                     if(result > 0){
-                        notificationManager.createNotification(this, R.drawable.pulmones, listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class);
+                        notificationManager.createNotification(this, R.drawable.pulmones, listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class, "logro");
                         listAchievements.get(i).setCompleted(true);
                         ads.open();
                         ads.updateAchievement(listAchievements.get(i));
@@ -264,16 +265,6 @@ public class NotificationService extends Service {
 
         //notificationManager.createNotification(this, R.drawable.icn_ahorro, "Ya casi", "flag", "flag", when, MyActivity.class);
 
-        Notification notification = new Notification(R.drawable.pulmones, "Flag", when);
-
-        notification.defaults |= Notification.DEFAULT_SOUND;
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
-
-        Intent notificationIntent = new Intent(this, (Class<?>) MyActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-        notification.setLatestEventInfo(this, "Title", "Body", contentIntent);
-
-        startForeground(1337, notification);
         stopForeground(true);
         stopSelf();
 

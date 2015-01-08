@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/register_how_long_smokingv2"
                 android:id="@+id/texstView"
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/register_how_plan_type"
                 android:id="@+id/textViews3"
@@ -177,7 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/motivationsv2"
                 android:id="@+id/text_motiv"

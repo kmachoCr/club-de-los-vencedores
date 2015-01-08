@@ -104,7 +104,11 @@ public class RegisterActivityTwov2 extends Activity {
                 if(progress == 1){
                     textView4.setText(progress + " año");
                 }else{
-                    textView4.setText(progress + " años");
+                    if(progress == 30){
+                        textView4.setText("Más de 30 años");
+                    }else{
+                        textView4.setText(progress + " años");
+                    }
                 }
             }
 

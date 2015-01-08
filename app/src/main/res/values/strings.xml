@@ -11,7 +11,7 @@
     <string name="register_name">Nombre</string>
     <string name="register_age">Edad</string>
     <string name="register_genre">Género</string>
-    <string name="register_status">¿Fuma?:</string>
+    <string name="register_status">¿Fumás?:</string>
     <string name="register_how_many_cigarettesv2">¿Cuántos cigarrillos al día fumabas?</string>
     <string name="register_how_long_no_smoking">¿Hace cuánto dejó de fumar?</string>
     <string name="register_how_long_smoking">¿Cuánto tiempo fumó?</string>

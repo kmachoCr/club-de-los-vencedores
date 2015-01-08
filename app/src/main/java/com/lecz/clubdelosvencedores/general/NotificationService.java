@@ -262,7 +262,7 @@ public class NotificationService extends Service {
             editor.commit();
         }
 
-        notificationManager.createNotification(this, R.drawable.icn_ahorro, "Ya casi", "flag", "flag", when, MyActivity.class);
+        //notificationManager.createNotification(this, R.drawable.icn_ahorro, "Ya casi", "flag", "flag", when, MyActivity.class);
 
         Notification notification = new Notification(R.drawable.pulmones, "Flag", when);
 

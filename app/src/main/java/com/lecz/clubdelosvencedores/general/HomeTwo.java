@@ -88,24 +88,41 @@ public class    HomeTwo extends Fragment implements Animation.AnimationListener 
                              Bundle savedInstanceState) {
 
         rootView =  inflater.inflate(R.layout.fragment_home_two, container, false);
-
-
         activityLog = (ListView) rootView.findViewById(R.id.listActivity);
-        textView = (TextView) rootView.findViewById(R.id.textView);
-        days_to_quit = (TextView) rootView.findViewById(R.id.days_to_quit);
-        limite = (TextView) rootView.findViewById(R.id.limite);
-        tv_smoked = (TextView) rootView.findViewById(R.id.tv_smoked);
-        days = (TextView) rootView.findViewById(R.id.days);
-        money = (TextView) rootView.findViewById(R.id.money);
-        textView4 = (TextView) rootView.findViewById(R.id.textView4);
-        cigarettes_smoked = (TextView) rootView.findViewById(R.id.cigarettes_smoked);
-        userName = (TextView) rootView.findViewById(R.id.name_user);
-        add_cigarette = (ImageButton) rootView.findViewById(R.id.add_cigarette);
         panic = (ImageButton) rootView.findViewById(R.id.add_button);
-        settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-        level = (TextView) rootView.findViewById(R.id.level);
         String fontPath = "fonts/Go 2 Old Western.ttf";
         Typeface tf = Typeface.createFromAsset(rootView.getContext().getAssets(), fontPath);
+
+
+
+        ActivityDataSource ads = new ActivityDataSource(rootView.getContext());
+        ads.open();
+        ArrayList list = ads.getActivities();
+        ads.close();
+
+        adapter = new ActivityAdapter(rootView.getContext(), list);
+
+        View footer = getActivity().getLayoutInflater().inflate(R.layout.footer_actlist, null);
+        View header = getActivity().getLayoutInflater().inflate(R.layout.header_list, null);
+
+        activityLog.addFooterView(footer);
+        activityLog.addHeaderView(header);
+        activityLog.setAdapter(adapter);
+
+
+        textView = (TextView) header.findViewById(R.id.textView);
+        days_to_quit = (TextView) header.findViewById(R.id.days_to_quit);
+        limite = (TextView) header.findViewById(R.id.limite);
+        tv_smoked = (TextView) header.findViewById(R.id.tv_smoked);
+        days = (TextView) header.findViewById(R.id.days);
+        money = (TextView) header.findViewById(R.id.money);
+        textView4 = (TextView) header.findViewById(R.id.textView4);
+        cigarettes_smoked = (TextView) header.findViewById(R.id.cigarettes_smoked);
+        userName = (TextView) header.findViewById(R.id.name_user);
+        add_cigarette = (ImageButton) header.findViewById(R.id.add_cigarette);
+
+        settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
+        level = (TextView) header.findViewById(R.id.level);
 
         money.setTypeface(tf);
         days.setTypeface(tf);
@@ -132,16 +149,8 @@ public class    HomeTwo extends Fragment implements Animation.AnimationListener 
         d.setImageDrawable(drawable);
         add_cigarette_ly.setImageDrawable(svgadd.createPictureDrawable());
         add_slip_ly.setImageDrawable(svgadd.createPictureDrawable());
-        ActivityDataSource ads = new ActivityDataSource(rootView.getContext());
-        ads.open();
-        ArrayList list = ads.getActivities();
-        ads.close();
 
-        adapter = new ActivityAdapter(rootView.getContext(), list);
 
-        View footer = getActivity().getLayoutInflater().inflate(R.layout.footer_actlist, null);
-        activityLog.addFooterView(footer);
-        activityLog.setAdapter(adapter);
 
         dspd = new PlanDetailsDataSource(rootView.getContext());
 
@@ -211,17 +220,31 @@ public class    HomeTwo extends Fragment implements Animation.AnimationListener 
                     msj = "No es tan grave como parece. Muchos vencedores cometen deslices durante su proceso de dejar de fumar. Mantén el buen ánimo y hacé lo posible porque no vuelva a ocurrir. ";
 
                 }else{
-                    msj = "Tranquilo, todavía te encontrás dentro de tu límite para hoy. Sin embargo, recordá que entre menos cigarrillos fumés, mucho mejor.";
+
                     settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
                     int ret = settings.getInt("count", 0);
-                    if((ret) == plan.getTotal_cigarettes() - 1){
-                        msj = "Según tu plan, solamente te queda un cigarrillo más para el día de hoy. No te pasés de tu límite.";
+
+
+                    if((ret) == plan.getTotal_cigarettes()){
+                        msj = "Según tu plan, no te quedan más cigarrillos para hoy. Si sentís ganas de fumar, tratá de hacer algo diferente y divertido hasta que estas pasen. No deberían durar mucho.";
                     }else{
-                        if((ret) == plan.getTotal_cigarettes() ){
-                            msj = "Según tu plan, no te quedan más cigarrillos para hoy. Si sentís ganas de fumar, tratá de hacer algo diferente y divertido hasta que estas pasen. No deberían durar mucho.";
+                        if((ret) == plan.getTotal_cigarettes() - 1){
+                            msj = "Según tu plan, solamente te queda un cigarrillo más para el día de hoy. No te pasés de tu límite.";
                         }else{
                             if((ret) > plan.getTotal_cigarettes() ){
                                 msj = "Has superado tu límite de cigarrillos para hoy. Tratá de que no ocurra mañana. Si sentís que no lo vas a lograr, hacé una lista con todas tus razones para dejar de fumar y llevala siempre contigo.";
+                            }else{
+                                if((ret) == 3){
+                                    msj = "Tranquilo. Todavía vas bien. Intentá analizar que situaciones son las que te producen ganas de fumar y pensá en nuevas estrategias para enfrentarlas.";
+                                }else{
+                                    if((ret) == 6){
+                                        msj = "Recordá que tu objetivo es dejar de fumar. Diariamente tenés que ir reduciendo el número de cigarrillos que consumis. Tratá de ir sustituyendo el fumar con otro tipo de actividades como ejercicios de relajación.";
+                                    }else{
+                                        if((ret) > 6){
+                                            msj = "Tranquilo, todavía te encontrás dentro de tu límite para hoy. Sin embargo, recordá que entre menos cigarrillos fumés, mucho mejor.";
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

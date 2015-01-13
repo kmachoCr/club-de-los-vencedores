@@ -34,9 +34,11 @@ import com.lecz.clubdelosvencedores.DatabaseManagers.MotivationsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.PlanDetailsDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.SevenPlanDataSource;
 import com.lecz.clubdelosvencedores.DatabaseManagers.ThirtyPlanDataSource;
+import com.lecz.clubdelosvencedores.Game.Game;
 import com.lecz.clubdelosvencedores.MyActivity;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
+import com.lecz.clubdelosvencedores.TourActivity;
 import com.lecz.clubdelosvencedores.general.NotificationMng;
 import com.lecz.clubdelosvencedores.objects.Achievement;
 import com.lecz.clubdelosvencedores.objects.Advice;
@@ -124,7 +126,7 @@ public class RegisterActivityTwo extends Activity {
                     user = users.get(0);
                     user.setCigarettes_per_day(cigarettes_per_day.getProgress());
                     user.setPlan_type(1);
-
+                    user.setDays_with_smoking(0);
                     userds.open();
                     userds.updateUser(user);
                     userds.close();
@@ -224,8 +226,6 @@ public class RegisterActivityTwo extends Activity {
                                             }
                                         }
                                     }
-                                }else{
-
                                 }
                             }
                         }
@@ -296,16 +296,44 @@ public class RegisterActivityTwo extends Activity {
                     int i1 = r.nextInt((list.size() - 1) + 1);
 
                     ActivityDataSource acds = new ActivityDataSource(RegisterActivityTwo.this);
+                    int icon = 0;
+                    if(list.get(i1).isMotiv_aesthetic()){
+                        icon = R.drawable.icn_apariencia;
+                    }else{
+                        if(list.get(i1).isMotiv_family()){
+                            icon = R.drawable.icn_familia;
+                        }else{
+                            if(list.get(i1).isMotiv_health()){
+                                icon = R.drawable.icn_logrosalud;
+                            }else{
+                                if(list.get(i1).isMotiv_money()){
+                                    icon = R.drawable.icn_logroahorro;
+                                }
+                            }
+                        }
+                    }
 
                     acds.open();
-                    acds.createActivity(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark, System.currentTimeMillis(), list.get(i1).getBody(), "consejo", list.get(i1).getType()));
+                    acds.createActivity(new com.lecz.clubdelosvencedores.objects.Activity(icon, System.currentTimeMillis(), list.get(i1).getBody(), "consejo", list.get(i1).getType()));
                     acds.close();
 
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putInt("count", 0);
                     editor.commit();
 
-                    Intent myIntent = new Intent(getApplication(), RegisterActivityFive.class);
+                    SharedPreferences mPrefs = getSharedPreferences("label", 0);
+                    Boolean register_completed = mPrefs.getBoolean("register_completed", false);
+
+
+                    Boolean show = mPrefs.getBoolean("first_run", true);
+                    Intent myIntent;
+                    if(show){
+                        final SharedPreferences.Editor mEditor = mPrefs.edit();
+                        mEditor.putBoolean("first_run", false).commit();
+                        myIntent = new Intent(RegisterActivityTwo.this, TourActivity.class);
+                    }else{
+                        myIntent = new Intent(RegisterActivityTwo.this, MyActivity.class);
+                    }
                     startActivity(myIntent);
 
 

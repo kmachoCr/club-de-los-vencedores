@@ -113,9 +113,14 @@ public class RegisterActivityOne extends Activity {
                         userds.close();
                     }
 
+                    if(smoking.isChecked()){
+                        Intent myIntent = new Intent(getApplication(), RegisterActivityTwo.class);
+                        startActivity(myIntent);
+                    }else{
+                        Intent myIntent = new Intent(getApplication(), RegisterActivityTwov2.class);
+                        startActivity(myIntent);
+                    }
 
-                    Intent myIntent = new Intent(getApplication(), RegisterActivityTwo.class);
-                    startActivity(myIntent);
                 }
             });
 

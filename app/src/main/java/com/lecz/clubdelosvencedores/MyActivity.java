@@ -244,6 +244,7 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
                     return new HomeFour();
                 case 2:
                     return new HomeThree();
+
             }
             return null;
         }

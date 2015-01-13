@@ -61,7 +61,7 @@
     /**
      *
      */
-    public class    HomeTwo extends Fragment implements Animation.AnimationListener {
+    public class HomeTwo extends Fragment implements Animation.AnimationListener {
         private ListView activityLog;
         private TextView textView, money, days, textView4, userName, cigarettes_smoked, tv_smoked, limite, days_to_quit, level;
         private ActivityAdapter adapter;
@@ -218,6 +218,7 @@
 
                     String msj ="";
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    Log.i("aasa", user.getDays_with_smoking()+"");
                     if(notCompleted  == 0){
                         if (user.getDays_with_smoking() == 0) {
                             msj = "Según tu plan, ya no deberías fumar. Si necesitás ayuda para controlar las ganas por consumir tabaco consulta nuestra sección de consejos.";

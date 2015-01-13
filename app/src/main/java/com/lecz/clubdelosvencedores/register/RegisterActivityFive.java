@@ -1,6 +1,7 @@
 package com.lecz.clubdelosvencedores.register;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Intent;
@@ -11,9 +12,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,7 +37,7 @@ import com.lecz.clubdelosvencedores.objects.User;
 import java.util.ArrayList;
 
 
-public class RegisterActivityFive extends Activity {
+public class RegisterActivityFive extends Fragment {
 
     private Activity mActivity;
     private ListView mContactsList;
@@ -45,31 +49,32 @@ public class RegisterActivityFive extends Activity {
     private ArrayList<Contact> listFriends = new ArrayList<Contact>();
     private ContactFriendSource cds;
     private ArrayList<Contact> listContacts;
-
+    private View rootView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_activity_five);
-        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-        Activity host = (Activity) this;
+        Activity host = getActivity();
+
+        rootView =  inflater.inflate(R.layout.activity_register_activity_five, container, false);
 
         // Gets the ListView from the View list of the parent activity
-        mContactsList = (ListView) findViewById(R.id.list);
-        countf = (TextView) findViewById(R.id.count_friends);
+        mContactsList = (ListView) rootView.findViewById(R.id.list);
+        countf = (TextView) rootView.findViewById(R.id.count_friends);
+        RelativeLayout rl = (RelativeLayout) rootView.findViewById(R.id.friends);
 
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.friends);
-
-        ImageView iv = new ImageView(this);
+        ImageView iv = new ImageView(rootView.getContext());
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(30, 40);
         params.leftMargin = 50;
         params.topMargin = 60;
         rl.addView(iv, params);
 
-        cds = new ContactFriendSource(getApplicationContext());
+        cds = new ContactFriendSource(rootView.getContext());
         ContentResolver cr = host.getContentResolver(); //Activity/Application android.content.Context
         Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        Log.i("contacts", cursor.getCount() + "");
         if(cursor.moveToFirst())
         {
             alContacts = new ArrayList<Contact>();
@@ -103,7 +108,7 @@ public class RegisterActivityFive extends Activity {
             } while (cursor.moveToNext());
         }
 
-        UserDataSource userds = new UserDataSource(getApplication().getApplicationContext());
+        UserDataSource userds = new UserDataSource(rootView.getContext());
         userds.open();
         User validateUser = userds.getUser();
         userds.close();
@@ -125,10 +130,10 @@ public class RegisterActivityFive extends Activity {
         }
 
 
-        adapter = new ContactsAdapter(getApplicationContext(), alContacts);
+        adapter = new ContactsAdapter(rootView.getContext(), alContacts);
         mContactsList.setAdapter(adapter);
 
-        Button button = (Button) findViewById(R.id.save);
+        Button button = (Button) rootView.findViewById(R.id.save);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -146,17 +151,17 @@ public class RegisterActivityFive extends Activity {
 
                 cds.close();
 
-                SharedPreferences mPrefs = getSharedPreferences("label", 0);
+                SharedPreferences mPrefs = rootView.getContext().getSharedPreferences("label", 0);
                 Boolean register_completed = mPrefs.getBoolean("register_completed", false);
 
                 if(register_completed){
-                    Toast.makeText(RegisterActivityFive.this, "Cambios guardados", Toast.LENGTH_SHORT).show();
-                    Intent myIntent = new Intent(getApplication(), MyActivity.class);
+                    Toast.makeText(rootView.getContext(), "Cambios guardados", Toast.LENGTH_SHORT).show();
+                    Intent myIntent = new Intent(rootView.getContext(), MyActivity.class);
                     startActivity(myIntent);
                 }else {
                     SharedPreferences.Editor mEditor = mPrefs.edit();
                     mEditor.putBoolean("register_completed", true).commit();
-                    Intent myIntent = new Intent(getApplication(), MyActivity.class);
+                    Intent myIntent = new Intent(rootView.getContext(), MyActivity.class);
                     startActivity(myIntent);
                 }
 
@@ -196,20 +201,8 @@ public class RegisterActivityFive extends Activity {
             }
         });
 
-    }
+        return rootView;
 
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.right_in, R.anim.right_out);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.register_activity_five, menu);
-        return true;
     }
 
     @Override

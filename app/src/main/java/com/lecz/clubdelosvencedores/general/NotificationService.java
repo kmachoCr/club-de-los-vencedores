@@ -200,17 +200,50 @@ public class NotificationService extends Service {
                 AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
                 AlarmManager alarmManager2 = (AlarmManager)getSystemService(ALARM_SERVICE);
 
+
+
+
                 Intent myIntent = new Intent(this, AdviceNotificationService.class);
                 myIntent.putExtra("ticket", list.get(i1).getType().toUpperCase());
                 myIntent.putExtra("title", list.get(i1).getType());
                 myIntent.putExtra("body", list.get(i1).getBody());
                 myIntent.putExtra("type", "consejo");
+                if(list.get(i1).isMotiv_aesthetic()){
+                    myIntent.putExtra("icon", R.drawable.icn_apariencia);
+                }else{
+                    if(list.get(i1).isMotiv_family()){
+                        myIntent.putExtra("icon", R.drawable.icn_familia);
+                    }else{
+                        if(list.get(i1).isMotiv_health()){
+                            myIntent.putExtra("icon", R.drawable.icn_logrosalud);
+                        }else{
+                            if(list.get(i1).isMotiv_money()){
+                                myIntent.putExtra("icon", R.drawable.icn_logroahorro);
+                            }
+                        }
+                    }
+                }
 
                 Intent myIntent2 = new Intent(this, AdviceNotificationServiceTwo.class);
                 myIntent2.putExtra("ticket", list.get(i2).getType().toUpperCase());
                 myIntent2.putExtra("title", list.get(i2).getType());
                 myIntent2.putExtra("body", list.get(i2).getBody());
                 myIntent2.putExtra("type", "consejo");
+                if(list.get(i1).isMotiv_aesthetic()){
+                    myIntent2.putExtra("icon", R.drawable.icn_apariencia);
+                }else{
+                    if(list.get(i1).isMotiv_family()){
+                        myIntent2.putExtra("icon", R.drawable.icn_familia);
+                    }else{
+                        if(list.get(i1).isMotiv_health()){
+                            myIntent2.putExtra("icon", R.drawable.icn_logrosalud);
+                        }else{
+                            if(list.get(i1).isMotiv_money()){
+                                myIntent2.putExtra("icon", R.drawable.icn_logroahorro);
+                            }
+                        }
+                    }
+                }
 
                 PendingIntent pendingIntent = PendingIntent.getService(this, 0, myIntent, 0);
                 PendingIntent pendingIntent2 = PendingIntent.getService(this, 0, myIntent2, 0);

@@ -31,6 +31,7 @@ import com.lecz.clubdelosvencedores.general.AchievementsActivity;
 import com.lecz.clubdelosvencedores.general.HomeFour;
 import com.lecz.clubdelosvencedores.general.HomeThree;
 import com.lecz.clubdelosvencedores.general.HomeTwo;
+import com.lecz.clubdelosvencedores.register.ActivityFriends;
 import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 import com.lecz.clubdelosvencedores.register.RegisterActivityOne;
 import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
@@ -171,7 +172,7 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
                 startActivity(intent);
                 break;
             case R.id.gotoUpdateFriends:
-                Intent intents = new Intent(MyActivity.this, RegisterActivityFive.class);
+                Intent intents = new Intent(MyActivity.this, ActivityFriends.class);
                 startActivity(intents);
                 break;
             case R.id.gotoRestartPlan:

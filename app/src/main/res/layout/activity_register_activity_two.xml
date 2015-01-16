@@ -235,16 +235,22 @@
         android:layout_alignTop="@+id/savennext1"
         android:layout_toLeftOf="@+id/textView2" />
 
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/next"
-        android:scaleType="fitCenter"
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
         android:id="@+id/savennext1"
-        android:layout_toEndOf="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2" />
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:layout_margin="15dp"
+        android:textColor="@android:color/white"
+        android:paddingBottom="10dp"
+        android:background="@drawable/start_game"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -110,14 +110,15 @@ public class AdviceDataSource {
         if(health){
             query += "motiv_health = 1 or";
         }
+        Cursor cursor;
         if(query.length() == 0){
-            return new ArrayList<Advice>();
+            cursor = database.query("Advice",
+                    allColumns, query, null, null, null, null);
+        }else{
+            query = query.substring(0, query.length()-3);
+            cursor = database.query("Advice",
+                    allColumns, null, null, null, null, null);
         }
-        query = query.substring(0, query.length()-3);
-        Log.i("size", query);
-        Cursor cursor = database.query("Advice",
-        allColumns, query, null, null, null, null);
-
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Advice advice = cursorToComment(cursor);

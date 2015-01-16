@@ -13,8 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +37,7 @@ import com.lecz.clubdelosvencedores.objects.Motivations;
 import com.lecz.clubdelosvencedores.objects.User;
 import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
+import com.lecz.clubdelosvencedores.utilities.OnSwipeTouchListener;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -43,11 +49,13 @@ public class AdviceActivity extends Activity {
     private ImageView image;
 
     private ViewPager viewPager;
+    private ImageView intruccion_swipe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advice);
         viewPager = (ViewPager) findViewById(R.id.viewAdvice);
+        intruccion_swipe = (ImageView) findViewById(R.id.intruccion_swipe);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         MotivationsDataSource mds = new MotivationsDataSource(AdviceActivity.this);
@@ -55,6 +63,8 @@ public class AdviceActivity extends Activity {
         Motivations m = mds.getMotivations();
         mds.close();
 
+        SVG back_svg = SVGParser.getSVGFromResource(getResources(), R.raw.intruccion_swipe);
+        intruccion_swipe.setImageDrawable(back_svg.createPictureDrawable());
 
         UserDataSource uds = new UserDataSource(AdviceActivity.this);
         uds.open();
@@ -70,6 +80,22 @@ public class AdviceActivity extends Activity {
 
         CustomPagerAdapter cs = new CustomPagerAdapter(AdviceActivity.this, list);
         viewPager.setAdapter(cs);
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i2) {
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+                intruccion_swipe.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     @Override

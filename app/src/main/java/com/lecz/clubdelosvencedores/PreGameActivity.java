@@ -26,7 +26,9 @@ public class PreGameActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         Button gotoGame = (Button) findViewById(R.id.gotoGame);
         final CheckBox no_show_again = (CheckBox) findViewById(R.id.no_show_again);
-
+        GifView gv = (GifView) findViewById(R.id.gifView);
+        gv.setAnimatedGif(R.raw.intro_juego,
+                GifView.TYPE.FIT_CENTER);
         no_show_again.setChecked(false);
         SharedPreferences mPrefs = getSharedPreferences("label", 0);
         final SharedPreferences.Editor mEditor = mPrefs.edit();

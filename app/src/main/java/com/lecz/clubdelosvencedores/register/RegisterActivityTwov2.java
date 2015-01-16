@@ -54,6 +54,7 @@ public class RegisterActivityTwov2 extends Activity {
         setContentView(R.layout.activity_register_activity_two_v2);
 
 
+
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         dspd = new PlanDetailsDataSource(this);
         settings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -70,6 +71,10 @@ public class RegisterActivityTwov2 extends Activity {
         count_cigarettes = (TextView) findViewById(R.id.count_cigarettes);
         cigarettes_per_day = (SeekBar) findViewById(R.id.register_cigarettes_per_day);
         years_not_smoking = (TextView) findViewById(R.id.years_not_smoking);
+
+
+        SVG back_svg = SVGParser.getSVGFromResource(getResources(), R.raw.icn_pag_prev);
+        back.setImageDrawable(back_svg.createPictureDrawable());
 
         userds = new UserDataSource(getApplicationContext());
         userds.open();

@@ -59,7 +59,8 @@ public class RegisterActivityTwo extends Activity {
     private User user;
     private TextView count_cigarettes, textView4;
     private SeekBar dias_q_fumo, cigarettes_per_day;
-    private ImageButton button, back;
+    private Button button;
+    private ImageButton back;
     private CheckBox money, aesthetic, family, health;
     private boolean motivations_money, motivations_aesthetic, motivations_health, motivations_family = false;
     private Spinner plan_type;
@@ -67,6 +68,7 @@ public class RegisterActivityTwo extends Activity {
     ArrayList<User> users;
     private NotificationMng notificationManager;
     private PlanDetailsDataSource dspd;
+    private MotivationsDataSource mds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,7 @@ public class RegisterActivityTwo extends Activity {
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         dspd = new PlanDetailsDataSource(this);
         back = (ImageButton) findViewById(R.id.back1);
-        button = (ImageButton) findViewById(R.id.savennext1);
+        button = (Button) findViewById(R.id.savennext1);
         dias_q_fumo = (SeekBar) findViewById(R.id.days_quit);
         textView4 = (TextView) findViewById(R.id.textView4);
         count_cigarettes = (TextView) findViewById(R.id.count_cigarettes);
@@ -89,15 +91,36 @@ public class RegisterActivityTwo extends Activity {
         family = (CheckBox) findViewById(R.id.register_motivations_family);
         health = (CheckBox) findViewById(R.id.register_motivations_health);
 
-
         userds = new UserDataSource(getApplicationContext());
         userds.open();
         users = userds.getUsers();
-            user = users.get(0);
+        user = users.get(0);
 
-            cigarettes_per_day.setProgress(user.getCigarettes_per_day());
-            plan_type.setSelection(user.getPlan_type());
+        cigarettes_per_day.setProgress(user.getCigarettes_per_day());
+        plan_type.setSelection(user.getPlan_type());
+        if (user.getCigarettes_per_day() == 51) {
+            count_cigarettes.setText("Más de 50");
+        } else {
+            count_cigarettes.setText(user.getCigarettes_per_day() + "");
+        }
 
+        mds = new MotivationsDataSource(RegisterActivityTwo.this);
+        mds.open();
+        Motivations m = mds.getMotivations();
+        mds.close();
+
+        if(m.isMotiv_money()){
+            money.setChecked(true);
+        }
+        if(m.isMotiv_aesthetic()){
+            aesthetic.setChecked(true);
+        }
+        if(m.isMotiv_family()){
+            family.setChecked(true);
+        }
+        if(m.isMotiv_health()){
+            health.setChecked(true);
+        }
         userds.close();
         dias_q_fumo.setMax(30);
         cigarettes_per_day.setMax(51);
@@ -110,8 +133,9 @@ public class RegisterActivityTwo extends Activity {
             }
         });
 
-        SVG next = SVGParser.getSVGFromResource(getResources(), R.raw.icn_pag_next);
-        button.setImageDrawable(next.createPictureDrawable());
+
+        SVG back_svg = SVGParser.getSVGFromResource(getResources(), R.raw.icn_pag_prev);
+        back.setImageDrawable(back_svg.createPictureDrawable());
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -263,7 +287,6 @@ public class RegisterActivityTwo extends Activity {
                     if(health.isChecked()){
                         motivations_health = true;
                     }
-                    MotivationsDataSource mds = new MotivationsDataSource(RegisterActivityTwo.this);
                      mds.open();
                     Motivations m = mds.getMotivations();
 

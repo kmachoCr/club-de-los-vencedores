@@ -33,6 +33,12 @@
             android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
+            android:name=".register.ActivityFriends"
+            android:label=""
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/CustomActionBarThemeNoActionBar" >
+        </activity>
+        <activity
             android:name=".general.MainActivity"
             android:label=""
             android:screenOrientation="sensorPortrait" >

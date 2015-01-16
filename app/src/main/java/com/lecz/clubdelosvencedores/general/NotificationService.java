@@ -149,7 +149,7 @@ public class NotificationService extends Service {
                             int result = money - achievement;
 
                             if(result > 0){
-                                notificationManager.createNotification(this, R.drawable.pulmones, listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class, "logro");
+                                notificationManager.createNotification(this, listAchievements.get(i).getImage(), listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class, "logro");
                                 listAchievements.get(i).setCompleted(true);
                                 ads.open();
                                 ads.updateAchievement(listAchievements.get(i));
@@ -273,10 +273,8 @@ public class NotificationService extends Service {
                     long result = different - achievement;
                     DecimalFormat df = new DecimalFormat("#.##");
 
-
-
                     if(result > 0){
-                        notificationManager.createNotification(this, R.drawable.pulmones, listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class, "logro");
+                        notificationManager.createNotification(this, listAchievements.get(i).getImage(), listAchievements.get(i).getTitle(), listAchievements.get(i).getTitle(),  listAchievements.get(i).getDescription(), when, MyActivity.class, "logro");
                         listAchievements.get(i).setCompleted(true);
                         ads.open();
                         ads.updateAchievement(listAchievements.get(i));

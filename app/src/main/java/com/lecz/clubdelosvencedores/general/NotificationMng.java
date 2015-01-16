@@ -32,7 +32,7 @@ public class NotificationMng {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.pulmones)
+                        .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(contentTitle)
                         .setContentText(contentText)
                         .setTicker(tickerText)

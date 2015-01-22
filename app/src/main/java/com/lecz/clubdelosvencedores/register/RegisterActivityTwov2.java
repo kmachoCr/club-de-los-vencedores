@@ -97,6 +97,7 @@ public class RegisterActivityTwov2 extends Activity {
 
         SVG next = SVGParser.getSVGFromResource(getResources(), R.raw.icn_pag_next);
         button.setImageDrawable(next.createPictureDrawable());
+
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 userds.open();
@@ -197,14 +198,7 @@ public class RegisterActivityTwov2 extends Activity {
                 SharedPreferences mPrefs = getSharedPreferences("label", 0);
                 Boolean register_completed = mPrefs.getBoolean("register_completed", false);
                 Boolean show = mPrefs.getBoolean("first_run", true);
-                Intent myIntent;
-                if(show){
-                    final SharedPreferences.Editor mEditor = mPrefs.edit();
-                    mEditor.putBoolean("first_run", false).commit();
-                    myIntent = new Intent(RegisterActivityTwov2.this, TourActivity.class);
-                }else{
-                    myIntent = new Intent(RegisterActivityTwov2.this, MyActivity.class);
-                }
+                Intent myIntent = new Intent(RegisterActivityTwov2.this, ActivityFriends.class);
                 startActivity(myIntent);
 
             }

@@ -214,9 +214,16 @@
 
         <activity
             android:name=".TourActivity"
-            android:label="@string/title_activity_tour"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label=""
+            android:screenOrientation="sensorPortrait"
             android:theme="@style/CustomActionBarThemeNoActionBar" >
-
+        </activity>
+        <activity
+            android:name=".UpdatePlanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="sensorPortrait"
+            android:label="" >
         </activity>
     </application>
 

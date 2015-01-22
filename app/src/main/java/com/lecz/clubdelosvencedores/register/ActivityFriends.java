@@ -159,7 +159,14 @@ public class ActivityFriends extends Activity {
                 }else {
                     SharedPreferences.Editor mEditor = mPrefs.edit();
                     mEditor.putBoolean("register_completed", true).commit();
-                    Intent myIntent = new Intent(ActivityFriends.this, MyActivity.class);
+                    Boolean show = mPrefs.getBoolean("first_run", true);
+                    Intent myIntent;
+                    if(show){
+                        mEditor.putBoolean("first_run", false).commit();
+                        myIntent = new Intent(ActivityFriends.this, TourActivity.class);
+                    }else{
+                        myIntent = new Intent(ActivityFriends.this, MyActivity.class);
+                    }
                     startActivity(myIntent);
                 }
 

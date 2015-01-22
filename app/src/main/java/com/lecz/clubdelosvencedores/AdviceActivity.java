@@ -35,6 +35,7 @@ import com.lecz.clubdelosvencedores.objects.Achievement;
 import com.lecz.clubdelosvencedores.objects.Advice;
 import com.lecz.clubdelosvencedores.objects.Motivations;
 import com.lecz.clubdelosvencedores.objects.User;
+import com.lecz.clubdelosvencedores.register.ActivityFriends;
 import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 import com.lecz.clubdelosvencedores.utilities.OnSwipeTouchListener;
@@ -118,17 +119,17 @@ public class AdviceActivity extends Activity {
                 startActivity(intent);
                 break;
             case R.id.gotoUpdateFriends:
-                Intent intents = new Intent(getApplicationContext(), RegisterActivityFive.class);
+                Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
                 startActivity(intents);
                 break;
             case R.id.gotoRestartPlan:
-                AlertDialog.Builder builder = new AlertDialog.Builder(AdviceActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 
                 builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
                         .setTitle("Reiniciar plan?");
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intents = new Intent(getApplicationContext(), RegisterActivityTwo.class);
+                        Intent intents = new Intent(getApplicationContext(), UpdatePlanActivity.class);
                         startActivity(intents);
                     }
                 });

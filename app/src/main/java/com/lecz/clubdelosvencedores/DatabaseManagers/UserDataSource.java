@@ -16,7 +16,7 @@ public class UserDataSource {
     private SQLiteDatabase database;
     private SqliteHelper dbHelper;
     private String[] allColumns = {
-            "id", "name", "age", "genre", "days_without_smoking", "days_without_smoking_count", "plan_type", "cigarettes_no_smoked", "money_saved", "smoking", "cigarettes_day", "last_cigarette", "days_with_smoking"};
+            "id", "name", "age", "genre", "days_without_smoking", "days_without_smoking_count", "plan_type", "cigarettes_no_smoked", "money_saved", "smoking", "cigarettes_day", "last_cigarette", "days_with_smoking", "years_smoking"};
 
     public UserDataSource(Context context) {
         dbHelper = new SqliteHelper(context);
@@ -44,6 +44,7 @@ public class UserDataSource {
         values.put("money_saved", user.getMoney_saved());
         values.put("last_cigarette", user.getLast_cigarette());
         values.put("days_with_smoking", user.getDays_with_smoking());
+        values.put("years_smoking", user.getYears_smoking());
 
         long insertId = database.insert("User", null,
                 values);
@@ -71,6 +72,7 @@ public class UserDataSource {
         values.put("money_saved", user.getMoney_saved());
         values.put("last_cigarette", user.getLast_cigarette());
         values.put("days_with_smoking", user.getDays_with_smoking());
+        values.put("years_smoking", user.getYears_smoking());
         database.update("User", values, "id =" + user.getId(), null);
 
     }
@@ -128,6 +130,7 @@ public class UserDataSource {
         user.setCigarettes_per_day(cursor.getInt(10));
         user.setLast_cigarette(cursor.getLong(11));
         user.setDays_with_smoking(cursor.getInt(12));
+        user.setYears_smoking(cursor.getInt(13));
         return user;
     }
 }

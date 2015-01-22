@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.lecz.clubdelosvencedores.Game.Game;
+import com.lecz.clubdelosvencedores.register.ActivityFriends;
 import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 
@@ -68,21 +69,21 @@ public class PreGameActivity extends Activity {
 
         switch (id) {
             case R.id.gotoUpdateInfo:
-                Intent intent = new Intent(PreGameActivity.this, UpdateInfoActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.gotoUpdateFriends:
-                Intent intents = new Intent(PreGameActivity.this, RegisterActivityFive.class);
+                Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
                 startActivity(intents);
                 break;
             case R.id.gotoRestartPlan:
-                AlertDialog.Builder builder = new AlertDialog.Builder(PreGameActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 
                 builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
                         .setTitle("Reiniciar plan?");
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intents = new Intent(PreGameActivity.this, RegisterActivityTwo.class);
+                        Intent intents = new Intent(getApplicationContext(), UpdatePlanActivity.class);
                         startActivity(intents);
                     }
                 });

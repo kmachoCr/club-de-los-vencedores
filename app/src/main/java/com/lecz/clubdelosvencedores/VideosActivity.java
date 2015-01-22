@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.lecz.clubdelosvencedores.objects.Video;
+import com.lecz.clubdelosvencedores.register.ActivityFriends;
 import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 import com.lecz.clubdelosvencedores.utilities.GetYouTubeUserVideosTask;
@@ -62,24 +63,24 @@ public class VideosActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         switch (id) {
             case R.id.gotoUpdateInfo:
                 Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.gotoUpdateFriends:
-                Intent intents = new Intent(getApplicationContext(), RegisterActivityFive.class);
+                Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
                 startActivity(intents);
                 break;
             case R.id.gotoRestartPlan:
                 AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 
-                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.ic_launcher)
+                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
                         .setTitle("Reiniciar plan?");
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intents = new Intent(getApplicationContext(), RegisterActivityTwo.class);
+                        Intent intents = new Intent(getApplicationContext(), UpdatePlanActivity.class);
                         startActivity(intents);
                     }
                 });

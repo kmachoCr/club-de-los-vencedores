@@ -1,0 +1,109 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout3"
+        android:layout_above="@+id/savennext1"
+        android:id="@+id/scrollView">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_horizontal_margin">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/register_how_many_cigarettes_v2"
+                android:id="@+id/count_friends"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+
+            <SeekBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/register_cigarettes_per_day"
+                android:layout_below="@+id/count_friends"
+                android:layout_toEndOf="@+id/count_cigarettes"
+                android:layout_toRightOf="@+id/count_cigarettes"
+                android:layout_alignEnd="@+id/count_friends"
+                android:layout_alignRight="@+id/count_friends"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/register_how_plan_type"
+                android:id="@+id/textViews3"
+                android:layout_below="@+id/register_cigarettes_per_day"
+                android:layout_alignStart="@+id/count_cigarettes"
+                android:layout_alignLeft="@+id/count_cigarettes" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/register_how_plan_type_p2"
+                android:id="@+id/textView3"
+                android:layout_below="@+id/textViews3"
+                android:layout_alignStart="@+id/textViews3"
+                android:layout_alignLeft="@+id/textViews3"
+                android:layout_alignEnd="@+id/register_cigarettes_per_day"
+                android:layout_alignRight="@+id/register_cigarettes_per_day" />
+
+            <TextView
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="1"
+                android:gravity="center_horizontal|center"
+                android:id="@+id/count_cigarettes"
+                android:layout_toEndOf="@+id/count_friends"
+                android:layout_toRightOf="@+id/count_friends"
+                android:layout_alignTop="@+id/register_cigarettes_per_day"
+                android:layout_alignStart="@+id/count_friends"
+                android:layout_alignLeft="@+id/count_friends"
+                android:layout_alignBottom="@+id/register_cigarettes_per_day" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/plan_type"
+                android:entries="@array/all"
+                android:layout_below="@+id/textView3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+    </ScrollView>
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/savennext1"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:textColor="@android:color/white"
+        android:layout_margin="10dp"
+        android:background="@drawable/start_game"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+
+</RelativeLayout>

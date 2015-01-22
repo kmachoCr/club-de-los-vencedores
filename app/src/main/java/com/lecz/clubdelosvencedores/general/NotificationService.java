@@ -219,6 +219,8 @@ public class NotificationService extends Service {
                         }else{
                             if(list.get(i1).isMotiv_money()){
                                 myIntent.putExtra("icon", R.drawable.icn_logroahorro);
+                            }else{
+                                myIntent.putExtra("icon", R.drawable.icn_general);
                             }
                         }
                     }
@@ -240,6 +242,8 @@ public class NotificationService extends Service {
                         }else{
                             if(list.get(i1).isMotiv_money()){
                                 myIntent2.putExtra("icon", R.drawable.icn_logroahorro);
+                            }else{
+                                myIntent2.putExtra("icon", R.drawable.icn_general);
                             }
                         }
                     }

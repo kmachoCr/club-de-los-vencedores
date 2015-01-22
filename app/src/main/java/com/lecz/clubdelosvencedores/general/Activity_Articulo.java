@@ -11,11 +11,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.UpdateInfoActivity;
+import com.lecz.clubdelosvencedores.UpdatePlanActivity;
 import com.lecz.clubdelosvencedores.objects.Notice;
+import com.lecz.clubdelosvencedores.register.ActivityFriends;
 import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 
@@ -42,8 +45,10 @@ public class Activity_Articulo extends Activity {
 
 	private void populateWebView() {
 		WebView webview = (WebView) findViewById(R.id.articulo_Webview);
-		webview.loadDataWithBaseURL(null, "<!DOCTYPE HTML>"
-				+ populateHTML(R.raw.htmlnoticia), "text/html", "UTF-8", null);
+
+		webview.loadDataWithBaseURL(null, "<!DOCTYPE HTML>" + populateHTML(R.raw.htmlnoticia) + "<script></script>", "text/html", "UTF-8", null);
+        webview.setWebChromeClient(new WebChromeClient());
+        webview.getSettings().setJavaScriptEnabled(true);
 	}
 
 	private String populateHTML(int resourceID) {
@@ -92,7 +97,7 @@ public class Activity_Articulo extends Activity {
                 startActivity(intent);
                 break;
             case R.id.gotoUpdateFriends:
-                Intent intents = new Intent(getApplicationContext(), RegisterActivityFive.class);
+                Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
                 startActivity(intents);
                 break;
             case R.id.gotoRestartPlan:
@@ -102,7 +107,7 @@ public class Activity_Articulo extends Activity {
                         .setTitle("Reiniciar plan?");
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intents = new Intent(getApplicationContext(), RegisterActivityTwo.class);
+                        Intent intents = new Intent(getApplicationContext(), UpdatePlanActivity.class);
                         startActivity(intents);
                     }
                 });

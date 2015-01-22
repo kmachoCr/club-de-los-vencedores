@@ -12,7 +12,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,15 +23,22 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.lecz.clubdelosvencedores.UpdateInfoActivity;
+import com.lecz.clubdelosvencedores.UpdatePlanActivity;
 import com.lecz.clubdelosvencedores.objects.Notice;
 
 import com.lecz.clubdelosvencedores.R;
+import com.lecz.clubdelosvencedores.register.ActivityFriends;
+import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 import com.lecz.clubdelosvencedores.utilities.XMLParser;
 
 public class Activity_Noticias extends Activity {
@@ -115,7 +124,51 @@ public class Activity_Noticias extends Activity {
 		}
 
 	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.my, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
+                startActivity(intents);
+                break;
+            case R.id.gotoRestartPlan:
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+
+                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
+                        .setTitle("Reiniciar plan?");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intents = new Intent(getApplicationContext(), UpdatePlanActivity.class);
+                        startActivity(intents);
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 	public boolean isOnline() {

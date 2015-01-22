@@ -182,7 +182,7 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
                         .setTitle("Reiniciar plan?");
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intents = new Intent(MyActivity.this, RegisterActivityTwo.class);
+                        Intent intents = new Intent(MyActivity.this, UpdatePlanActivity.class);
                         startActivity(intents);
                     }
                 });

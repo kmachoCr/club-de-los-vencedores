@@ -29,7 +29,9 @@ import com.lecz.clubdelosvencedores.DatabaseManagers.ContactFriendSource;
 import com.lecz.clubdelosvencedores.Game.Game;
 import com.lecz.clubdelosvencedores.R;
 import com.lecz.clubdelosvencedores.UpdateInfoActivity;
+import com.lecz.clubdelosvencedores.UpdatePlanActivity;
 import com.lecz.clubdelosvencedores.objects.Contact;
+import com.lecz.clubdelosvencedores.register.ActivityFriends;
 import com.lecz.clubdelosvencedores.register.ContactsAdapter;
 import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
@@ -213,7 +215,7 @@ public class CallFiendsActivity extends Activity {
                 startActivity(intent);
                 break;
             case R.id.gotoUpdateFriends:
-                Intent intents = new Intent(getApplicationContext(), RegisterActivityFive.class);
+                Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
                 startActivity(intents);
                 break;
             case R.id.gotoRestartPlan:
@@ -223,7 +225,7 @@ public class CallFiendsActivity extends Activity {
                         .setTitle("Reiniciar plan?");
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intents = new Intent(getApplicationContext(), RegisterActivityTwo.class);
+                        Intent intents = new Intent(getApplicationContext(), UpdatePlanActivity.class);
                         startActivity(intents);
                     }
                 });

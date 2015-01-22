@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -17,9 +18,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.general.HomeFour;
 import com.lecz.clubdelosvencedores.general.HomeThree;
 import com.lecz.clubdelosvencedores.general.HomeTwo;
@@ -104,8 +108,7 @@ public class TourActivity extends Activity {
                     return PlaceholderFragment.newInstance(3);
                 case 3:
                     return PlaceholderFragment.newInstance(4);
-                case 4:
-                    return new RegisterActivityFive();
+
             }
             return null;
             // getItem is called to instantiate the fragment for the given page.
@@ -115,7 +118,7 @@ public class TourActivity extends Activity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 5;
+            return 4;
         }
 
         @Override
@@ -163,6 +166,7 @@ public class TourActivity extends Activity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_tour, container, false);
             ImageView img = (ImageView)rootView.findViewById(R.id.section_label);
+            ImageButton btn = (ImageButton)rootView.findViewById(R.id.gotoApp);
 
             int s = getArguments().getInt("section_number", 0);
 
@@ -177,10 +181,24 @@ public class TourActivity extends Activity {
                     }else{
                         if(s== 4){
                             img.setImageResource(R.drawable.tour_4);
+                            btn.setVisibility(View.VISIBLE);
+                            SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.btn_gotoapp);
+                            btn.setImageDrawable(svg.createPictureDrawable());
+
+                            btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent app = new Intent(getActivity(), MyActivity.class);
+                                    startActivity(app);
+                                }
+                            });
+
                         }
                     }
                 }
             }
+
+
             return rootView;
         }
     }

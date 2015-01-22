@@ -59,8 +59,7 @@ public class RegisterActivityTwo extends Activity {
     private User user;
     private TextView count_cigarettes, textView4;
     private SeekBar dias_q_fumo, cigarettes_per_day;
-    private Button button;
-    private ImageButton back;
+    private ImageButton button, back;
     private CheckBox money, aesthetic, family, health;
     private boolean motivations_money, motivations_aesthetic, motivations_health, motivations_family = false;
     private Spinner plan_type;
@@ -80,7 +79,7 @@ public class RegisterActivityTwo extends Activity {
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         dspd = new PlanDetailsDataSource(this);
         back = (ImageButton) findViewById(R.id.back1);
-        button = (Button) findViewById(R.id.savennext1);
+        button = (ImageButton) findViewById(R.id.savennext1);
         dias_q_fumo = (SeekBar) findViewById(R.id.days_quit);
         textView4 = (TextView) findViewById(R.id.textView4);
         count_cigarettes = (TextView) findViewById(R.id.count_cigarettes);
@@ -95,6 +94,7 @@ public class RegisterActivityTwo extends Activity {
         userds.open();
         users = userds.getUsers();
         user = users.get(0);
+        dias_q_fumo.setProgress(user.getYears_smoking());
 
         cigarettes_per_day.setProgress(user.getCigarettes_per_day());
         plan_type.setSelection(user.getPlan_type());
@@ -109,17 +109,19 @@ public class RegisterActivityTwo extends Activity {
         Motivations m = mds.getMotivations();
         mds.close();
 
-        if(m.isMotiv_money()){
-            money.setChecked(true);
-        }
-        if(m.isMotiv_aesthetic()){
-            aesthetic.setChecked(true);
-        }
-        if(m.isMotiv_family()){
-            family.setChecked(true);
-        }
-        if(m.isMotiv_health()){
-            health.setChecked(true);
+        if(m != null){
+            if(m.isMotiv_money()){
+                money.setChecked(true);
+            }
+            if(m.isMotiv_aesthetic()){
+                aesthetic.setChecked(true);
+            }
+            if(m.isMotiv_family()){
+                family.setChecked(true);
+            }
+            if(m.isMotiv_health()){
+                health.setChecked(true);
+            }
         }
         userds.close();
         dias_q_fumo.setMax(30);
@@ -137,6 +139,9 @@ public class RegisterActivityTwo extends Activity {
         SVG back_svg = SVGParser.getSVGFromResource(getResources(), R.raw.icn_pag_prev);
         back.setImageDrawable(back_svg.createPictureDrawable());
 
+        SVG next = SVGParser.getSVGFromResource(getResources(), R.raw.icn_pag_next);
+        button.setImageDrawable(next.createPictureDrawable());
+
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 userds.open();
@@ -149,6 +154,7 @@ public class RegisterActivityTwo extends Activity {
                 if(!users.isEmpty()){
                     user = users.get(0);
                     user.setCigarettes_per_day(cigarettes_per_day.getProgress());
+                    user.setYears_smoking(dias_q_fumo.getProgress());
                     user.setPlan_type(1);
                     user.setDays_with_smoking(0);
                     userds.open();
@@ -331,6 +337,8 @@ public class RegisterActivityTwo extends Activity {
                             }else{
                                 if(list.get(i1).isMotiv_money()){
                                     icon = R.drawable.icn_logroahorro;
+                                }else{
+                                    icon = R.drawable.icn_general;
                                 }
                             }
                         }
@@ -347,16 +355,8 @@ public class RegisterActivityTwo extends Activity {
                     SharedPreferences mPrefs = getSharedPreferences("label", 0);
                     Boolean register_completed = mPrefs.getBoolean("register_completed", false);
 
+                    Intent myIntent = new Intent(RegisterActivityTwo.this, ActivityFriends.class);
 
-                    Boolean show = mPrefs.getBoolean("first_run", true);
-                    Intent myIntent;
-                    if(show){
-                        final SharedPreferences.Editor mEditor = mPrefs.edit();
-                        mEditor.putBoolean("first_run", false).commit();
-                        myIntent = new Intent(RegisterActivityTwo.this, TourActivity.class);
-                    }else{
-                        myIntent = new Intent(RegisterActivityTwo.this, MyActivity.class);
-                    }
                     startActivity(myIntent);
 
 

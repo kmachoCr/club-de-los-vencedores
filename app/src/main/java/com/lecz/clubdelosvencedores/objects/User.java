@@ -19,8 +19,10 @@ public class User {
     private int cigarettes_no_smoked;
     private int money_saved;
     private Long last_cigarette;
+    private int years_smoking;
 
     public User(){}
+
 
 
 
@@ -33,6 +35,15 @@ public class User {
         this.plan_type = plan_type;
         this.cigarettes_no_smoked = 0;
         this.money_saved = 0;
+        this.years_smoking = 0;
+    }
+
+    public int getYears_smoking() {
+        return years_smoking;
+    }
+
+    public void setYears_smoking(int years_smoking) {
+        this.years_smoking = years_smoking;
     }
 
     public int getCigarettes_per_day() {

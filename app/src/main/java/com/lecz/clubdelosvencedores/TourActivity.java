@@ -27,6 +27,7 @@ import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.general.HomeFour;
 import com.lecz.clubdelosvencedores.general.HomeThree;
 import com.lecz.clubdelosvencedores.general.HomeTwo;
+import com.lecz.clubdelosvencedores.register.ActivityFriends;
 import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 
 
@@ -67,7 +68,7 @@ public class TourActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_tour, menu);
+        getMenuInflater().inflate(R.menu.intern, menu);
         return true;
     }
 
@@ -78,11 +79,17 @@ public class TourActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
+                startActivity(intents);
+                break;
 
+        }
         return super.onOptionsItemSelected(item);
     }
 

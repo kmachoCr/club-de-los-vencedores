@@ -89,7 +89,7 @@ public class CallContactActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my, menu);
+        getMenuInflater().inflate(R.menu.intern, menu);
         return true;
     }
 
@@ -109,25 +109,7 @@ public class CallContactActivity extends Activity {
                 Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
                 startActivity(intents);
                 break;
-            case R.id.gotoRestartPlan:
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 
-                builder.setMessage("Está seguro que desea reiniciar el plan de fumado?").setIcon(R.drawable.pulmones)
-                        .setTitle("Reiniciar plan?");
-                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent intents = new Intent(getApplicationContext(), UpdatePlanActivity.class);
-                        startActivity(intents);
-                    }
-                });
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

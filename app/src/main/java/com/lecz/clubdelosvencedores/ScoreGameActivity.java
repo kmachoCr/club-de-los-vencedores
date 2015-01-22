@@ -20,6 +20,8 @@ import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
 import com.lecz.clubdelosvencedores.Game.Game;
 import com.lecz.clubdelosvencedores.general.fragment_slide;
+import com.lecz.clubdelosvencedores.register.ActivityFriends;
+import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
 
 
 public class ScoreGameActivity extends Activity {
@@ -77,14 +79,6 @@ public class ScoreGameActivity extends Activity {
         });
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.score_game, menu);
-        return true;
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -120,13 +114,29 @@ public class ScoreGameActivity extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.intern, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
+                startActivity(intents);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

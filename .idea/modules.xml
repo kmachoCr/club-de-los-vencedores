@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ClubdelosVencedores.iml" filepath="$PROJECT_DIR$/ClubdelosVencedores.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/club-de-los-vencedores.iml" filepath="$PROJECT_DIR$/club-de-los-vencedores.iml" />
     </modules>

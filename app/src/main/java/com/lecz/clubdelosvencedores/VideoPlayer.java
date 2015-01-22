@@ -1,6 +1,7 @@
 package com.lecz.clubdelosvencedores;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.lecz.clubdelosvencedores.register.ActivityFriends;
 
 
 public class VideoPlayer extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
@@ -30,7 +32,7 @@ public class VideoPlayer extends YouTubeBaseActivity implements YouTubePlayer.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.video_player, menu);
+        getMenuInflater().inflate(R.menu.intern, menu);
         return true;
     }
 
@@ -40,8 +42,17 @@ public class VideoPlayer extends YouTubeBaseActivity implements YouTubePlayer.On
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
+                startActivity(intents);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

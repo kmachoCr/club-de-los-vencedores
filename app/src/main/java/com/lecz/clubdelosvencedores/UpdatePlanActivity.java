@@ -283,7 +283,7 @@ public class UpdatePlanActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.register_activity_two, menu);
+        getMenuInflater().inflate(R.menu.intern, menu);
         return true;
     }
 
@@ -293,8 +293,17 @@ public class UpdatePlanActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.gotoUpdateInfo:
+                Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoUpdateFriends:
+                Intent intents = new Intent(getApplicationContext(), ActivityFriends.class);
+                startActivity(intents);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

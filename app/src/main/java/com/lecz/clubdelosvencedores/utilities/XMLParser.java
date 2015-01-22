@@ -27,7 +27,6 @@ import android.util.Log;
 
 import com.lecz.clubdelosvencedores.DatabaseManagers.NoticeDataSource;
 import com.lecz.clubdelosvencedores.R;
-import com.lecz.clubdelosvencedores.general.Activity_Noticias;
 import com.lecz.clubdelosvencedores.objects.Notice;
 
 public class XMLParser {

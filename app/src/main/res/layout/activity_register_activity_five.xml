@@ -43,7 +43,7 @@
         android:textSize="22sp"
         customAttrs:customFont="futura_heavy"
         android:textColor="@color/blue_title"
-        android:text="ESCOGE 6 AMIGOS: "
+        android:text="ESCOGE 3 AMIGOS: "
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"

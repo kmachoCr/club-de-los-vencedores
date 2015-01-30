@@ -145,7 +145,6 @@ public class NotificationService extends Service {
                         if(listAchievements.get(i).getType().equals("money")){
                             int money = user.getMoney_saved();
                             int achievement = Integer.parseInt(String.valueOf(listAchievements.get(i).getAmount()));
-
                             int result = money - achievement;
 
                             if(result > 0){
@@ -208,6 +207,7 @@ public class NotificationService extends Service {
                 myIntent.putExtra("title", list.get(i1).getType());
                 myIntent.putExtra("body", list.get(i1).getBody());
                 myIntent.putExtra("type", "consejo");
+
                 if(list.get(i1).isMotiv_aesthetic()){
                     myIntent.putExtra("icon", R.drawable.icn_apariencia);
                 }else{

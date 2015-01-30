@@ -22,10 +22,11 @@ public class AdviceNotificationServiceTwo extends Service {
         String ticket = (String) extras.get("ticket");
         String title = (String) extras.get("title");
         String body = (String) extras.get("body");
+        int icon = (Integer) extras.get("icon");
 
         ActivityDataSource acds = new ActivityDataSource(this);
         acds.open();
-        acds.createActivity(new com.lecz.clubdelosvencedores.objects.Activity(R.drawable.checkmark, System.currentTimeMillis(), body, "consejo", title));
+        acds.createActivity(new com.lecz.clubdelosvencedores.objects.Activity(icon, System.currentTimeMillis(), body, "consejo", title));
         acds.close();
 
         NotificationMng notificationManager = new NotificationMng(this);

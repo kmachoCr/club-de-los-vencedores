@@ -43,11 +43,10 @@ public class NotificationMng {
 
 
         Intent openHomePageActivity = new Intent(context, (Class) dopClass);
-        if(type.equals("logro")){
-            openHomePageActivity.putExtra("contentTitle", tickerText);
-            openHomePageActivity.putExtra("contentText", contentText);
-            openHomePageActivity.putExtra("icon", icon);
-        }
+        openHomePageActivity.putExtra("contentTitle", tickerText);
+        openHomePageActivity.putExtra("contentText", contentText);
+        openHomePageActivity.putExtra("icon", icon);
+
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addNextIntent(openHomePageActivity);

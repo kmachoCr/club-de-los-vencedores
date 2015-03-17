@@ -215,26 +215,50 @@
 
                 @Override
                 public void onClick(View v) {
+                    settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
+                    int ret = settings.getInt("count", 0);
 
                     String msj ="";
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     Log.i("aasa", user.getDays_with_smoking()+"");
                     if(notCompleted  == 0){
                         if (user.getDays_with_smoking() == 0) {
-                            msj = "Según tu plan, ya no deberías fumar. Si necesitás ayuda para controlar las ganas por consumir tabaco consulta nuestra sección de consejos.";
+                            if(ret == 0 ){
+                                msj = "Según tu plan, ya no deberías fumar. Si necesitás ayuda para controlar las ganas por consumir tabaco consulta nuestra sección de consejos.";
+                            }
                         }else{
                             if (user.getDays_with_smoking() == 1) {
-                                msj = "Ya tuviste un desliz esta semana. Tratá de evitar fumar a toda costa. Ni un solo cigarrillo más.";
+                                if(ret == 0 ){
+                                    msj = "Ya tuviste un desliz esta semana. Tratá de evitar fumar a toda costa. Ni un solo cigarrillo más.";
+                                }
+
                             }else{
                                 if (user.getDays_with_smoking() == 2) {
-                                    msj = "Ya has tenido dos deslices esta semana. Estás cerca de sufrir una recaída. Reflexioná sobre lo que ha salido mal y mantente firme.";
+                                    if(ret == 0 ){
+                                        msj = "Ya has tenido dos deslices esta semana. Estás cerca de sufrir una recaída. Reflexioná sobre lo que ha salido mal y mantente firme.";
+                                    }
                                 }
                             }
                         }
-                    }else{
 
-                        settings = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-                        int ret = settings.getInt("count", 0);
+
+                        if(ret == 1 || ret == 2 ){
+                            msj += " Ya tuviste un desliz hoy. Tratá de evitar fumar a toda costa. Ni un solo cigarrillo más.";
+                        }else{
+                            if(ret == 3){
+                                msj += " Ya tuviste varios deslices el día de hoy. Hacé lo posible por fumar más. ¿Qué te parece si mejor cambiás de ambiente o te despejás un rato haciendo algo diferente?";
+                            }else{
+                                if(ret == 4){
+                                    msj += " Ya has fumado cuatro cigarrillos el día de hoy. Estás cerca de sufrir una recaída. Reflexioná sobre lo que ha salido mal y mantente firme.";
+                                }else{
+                                    if(ret > 4){
+                                        msj += " Ya has fumado 5 o más cigarrillos el día de hoy. Estás cerca de sufrir una recaída. Reflexioná sobre lo que ha salido mal y mantente firme.";
+                                    }
+                                }
+                            }
+                        }
+
+                    }else{
 
 
                         if((ret) == plan.getTotal_cigarettes()){
@@ -275,16 +299,6 @@
                                     Calendar s = Calendar.getInstance();
                                     s.setTimeInMillis(System.currentTimeMillis());
 
-
-                                    userds.open();
-                                    User userR = userds.getUser();
-                                    userR.setLast_cigarette(s.getTimeInMillis());
-                                    userR.setDays_without_smoking_count(0.0);
-                                    userds.updateUser(userR);
-                                    userds.close();
-                                    if(notCompleted == 0){
-                                        days.setText(((int)Math.round(userR.getDays_without_smoking_count()))+"");
-                                    }
                                     SharedPreferences.Editor editor = settings.edit();
                                     editor.putInt("count", ret + 1);
                                     editor.commit();
@@ -292,26 +306,39 @@
                                         String msj = "";
                                         AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());
                                         if (user.getDays_with_smoking() == 0) {
-                                             msj = "Según tu plan, ya no deberías fumar. Si necesitás ayuda para controlar las ganas por consumir tabaco consulta nuestra sección de consejos.";
-
+                                            if ((ret + 1) == 1) {
+                                                msj = "Según tu plan, ya no deberías fumar. Si necesitás ayuda para controlar las ganas por consumir tabaco consulta nuestra sección de consejos.";
+                                            }
                                             builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int id) {
                                                     // User cancelled the dialog
                                                 }
                                             });
-                                        }else{
+                                        } else {
                                             if (user.getDays_with_smoking() == 1) {
-                                                 msj = "Ya tuviste un desliz esta semana. Tratá de evitar fumar a toda costa. Ni un solo cigarrillo más.";
-
+                                                if ((ret + 1) == 1) {
+                                                    msj = "Ya tuviste un desliz esta semana. Tratá de evitar fumar a toda costa. Ni un solo cigarrillo más.";
+                                                }
                                                 builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int id) {
                                                         // User cancelled the dialog
                                                     }
                                                 });
-                                            }else{
+                                            } else {
                                                 if (user.getDays_with_smoking() == 2) {
-                                                      msj = "Ya has tenido dos deslices esta semana. Estás cerca de sufrir una recaída. Reflexioná sobre lo que ha salido mal y mantente firme.";
-                                                        builder.setPositiveButton("Cambiar plan (Reiniciar)", new DialogInterface.OnClickListener() {
+                                                    msj = "Ya has tenido dos deslices esta semana. Estás cerca de sufrir una recaída. Reflexioná sobre lo que ha salido mal y mantente firme.";
+
+                                                    userds.open();
+                                                    User userR = userds.getUser();
+                                                    userR.setLast_cigarette(s.getTimeInMillis());
+                                                    userR.setDays_without_smoking_count(0.0);
+                                                    userds.updateUser(userR);
+                                                    userds.close();
+                                                    if (notCompleted == 0) {
+                                                        days.setText(((int) Math.round(userR.getDays_without_smoking_count())) + "");
+                                                    }
+
+                                                    builder.setPositiveButton("Cambiar plan (Reiniciar)", new DialogInterface.OnClickListener() {
                                                         public void onClick(DialogInterface dialog, int id) {
                                                             Intent intents = new Intent(rootView.getContext(), RegisterActivityTwo.class);
                                                             startActivity(intents);
@@ -326,14 +353,48 @@
                                                 }
                                             }
                                         }
-                                        userR.setDays_with_smoking(userR.getDays_with_smoking() + 1);
+                                        ret++;
+                                        if (ret == 2 || ret == 3) {
+                                            msj += " Sé precavido, no te arriesgués a sufrir una recaída. Tené cuidado. ¡Vos podés!";
+                                        } else {
+                                            if (ret == 4) {
+                                                msj += " Estás muy cerca de sufrir una recaída.  Evitá fumar ni un solo cigarrillo más. No perdás todo lo que has avanzado al día de hoy.";
+                                            } else {
+                                                if (ret > 4) {
+                                                    msj += " Es muy probable que estés experimentando una recaída. Tu conteo de días sin fumar se reiniciará. Pero no te deprimas, podés intentarlo de nuevo o si crées que necesitás ayuda, podés contactar al IAFA al 800-4232-80.";
+
+                                                    userds.open();
+                                                    User userR = userds.getUser();
+                                                    userR.setLast_cigarette(s.getTimeInMillis());
+                                                    userR.setDays_without_smoking_count(0.0);
+                                                    userds.updateUser(userR);
+                                                    userds.close();
+                                                    if (notCompleted == 0) {
+                                                        days.setText(((int) Math.round(userR.getDays_without_smoking_count())) + "");
+                                                    }
+
+                                                    builder.setPositiveButton("Cambiar plan (Reiniciar)", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            Intent intents = new Intent(rootView.getContext(), RegisterActivityTwo.class);
+                                                            startActivity(intents);
+                                                        }
+                                                    });
+
+                                                    builder.setNegativeButton("Seguir con este plan", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            // User cancelled the dialog
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
 
 
-                                            builder.setMessage(msj).setIcon(R.drawable.pulmones).setTitle("¿Fumaste un cigarrillo?");
+                                        builder.setMessage(msj).setIcon(R.drawable.pulmones).setTitle("¿Fumaste un cigarrillo?");
 
 
-                                            AlertDialog diadlog = builder.create();
-                                            diadlog.show();
+                                        AlertDialog diadlog = builder.create();
+                                        diadlog.show();
 
                                     }
                                 }

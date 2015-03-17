@@ -32,7 +32,6 @@ public class AdviceNotificationService extends Service {
         NotificationMng notificationManager = new NotificationMng(this);
         notificationManager.createNotification(this, R.drawable.pulmones, ticket, title, body, System.currentTimeMillis(), MyActivity.class, "consejo");
 
-
         return Service.START_NOT_STICKY;
     }
 

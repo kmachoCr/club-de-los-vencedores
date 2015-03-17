@@ -41,6 +41,7 @@ import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
 import com.lecz.clubdelosvencedores.utilities.OnSwipeTouchListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
@@ -78,7 +79,8 @@ public class AdviceActivity extends Activity {
         ads.close();
 
 
-
+        long seed = System.nanoTime();
+        Collections.shuffle(list, new Random(seed));
         CustomPagerAdapter cs = new CustomPagerAdapter(AdviceActivity.this, list);
         viewPager.setAdapter(cs);
 
@@ -155,13 +157,28 @@ public class AdviceActivity extends Activity {
         public Object instantiateItem(ViewGroup container, int position) {
             View itemView = mLayoutInflater.inflate(R.layout.item_advice, container, false);
 
-            SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.consejo_fumado);
-
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
             TextView type = (TextView) itemView.findViewById(R.id.type);
             TextView body = (TextView) itemView.findViewById(R.id.body);
 
-            imageView.setImageDrawable(svg.createPictureDrawable());
+            if(arrayList.get(position).isMotiv_aesthetic()){
+                imageView.setImageResource(R.drawable.icn_consejo_apariencia);
+            }else{
+                if(arrayList.get(position).isMotiv_family()){
+                    imageView.setImageResource(R.drawable.icn_consejo_familia);
+                }else{
+                    if(arrayList.get(position).isMotiv_health()){
+                        imageView.setImageResource(R.drawable.icn_consejo_salud);
+                    }else{
+                        if(arrayList.get(position).isMotiv_money()){
+                            imageView.setImageResource(R.drawable.icn_consejo_ahorro);
+                        }else{
+                            imageView.setImageResource(R.drawable.icn_consejo_general);
+                        }
+                    }
+                }
+            }
+
             type.setText(arrayList.get(position).getType().toUpperCase());
             body.setText(arrayList.get(position).getBody());
 

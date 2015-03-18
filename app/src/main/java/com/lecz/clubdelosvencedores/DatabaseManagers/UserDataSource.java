@@ -16,7 +16,7 @@ public class UserDataSource {
     private SQLiteDatabase database;
     private SqliteHelper dbHelper;
     private String[] allColumns = {
-            "id", "name", "age", "genre", "days_without_smoking", "days_without_smoking_count", "plan_type", "cigarettes_no_smoked", "money_saved", "smoking", "cigarettes_day", "last_cigarette", "days_with_smoking", "years_smoking"};
+            "id", "name", "age", "genre", "days_without_smoking", "days_without_smoking_count", "plan_type", "cigarettes_no_smoked", "money_saved", "smoking", "cigarettes_day", "last_cigarette", "days_with_smoking", "years_smoking", "registered"};
 
     public UserDataSource(Context context) {
         dbHelper = new SqliteHelper(context);
@@ -45,6 +45,7 @@ public class UserDataSource {
         values.put("last_cigarette", user.getLast_cigarette());
         values.put("days_with_smoking", user.getDays_with_smoking());
         values.put("years_smoking", user.getYears_smoking());
+        values.put("registered", user.getRegistered());
 
         long insertId = database.insert("User", null,
                 values);
@@ -73,7 +74,9 @@ public class UserDataSource {
         values.put("last_cigarette", user.getLast_cigarette());
         values.put("days_with_smoking", user.getDays_with_smoking());
         values.put("years_smoking", user.getYears_smoking());
+        values.put("registered", user.getRegistered());
         database.update("User", values, "id =" + user.getId(), null);
+
 
     }
     public void deleteUser(User user) {
@@ -131,6 +134,7 @@ public class UserDataSource {
         user.setLast_cigarette(cursor.getLong(11));
         user.setDays_with_smoking(cursor.getInt(12));
         user.setYears_smoking(cursor.getInt(13));
+        user.setRegistered(cursor.getInt(14) != 0);
         return user;
     }
 }

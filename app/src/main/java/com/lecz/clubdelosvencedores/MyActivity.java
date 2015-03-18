@@ -1,6 +1,11 @@
 package com.lecz.clubdelosvencedores;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -11,31 +16,37 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TabHost;
-import android.widget.TabWidget;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.larvalabs.svgandroid.SVG;
-import com.larvalabs.svgandroid.SVGParser;
-import com.lecz.clubdelosvencedores.general.AchievementsActivity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
 import com.lecz.clubdelosvencedores.general.HomeFour;
+import com.lecz.clubdelosvencedores.general.HomeOne;
 import com.lecz.clubdelosvencedores.general.HomeThree;
 import com.lecz.clubdelosvencedores.general.HomeTwo;
+import com.lecz.clubdelosvencedores.objects.User;
 import com.lecz.clubdelosvencedores.register.ActivityFriends;
-import com.lecz.clubdelosvencedores.register.RegisterActivityFive;
-import com.lecz.clubdelosvencedores.register.RegisterActivityOne;
-import com.lecz.clubdelosvencedores.register.RegisterActivityTwo;
-import com.lecz.clubdelosvencedores.utilities.RelativeLayoutFragment;
 
 
 public class MyActivity extends Activity implements ActionBar.TabListener {
@@ -50,6 +61,8 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
     private static final String LIST_FRAGMENT_TAG = "list_fragment";
+    private UserDataSource userds;
+    private User user;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -59,7 +72,6 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-
         fragment = (HomeTwo) getFragmentManager().findFragmentById(R.id.fragment_home_two);
 
 
@@ -121,8 +133,51 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
                     achievement.show();
                 }
         }
+
+
+        userds = new UserDataSource(getApplication().getApplicationContext());
+        userds.open();
+        user = userds.getUsers().get(0);
+        userds.close();
+
+        if(!user.getRegistered()){
+            new Insertar(MyActivity.this).execute();
+        }
+
     }
 
+    private boolean insertar(){
+        HttpClient httpclient;
+        List<NameValuePair> nameValuePairs;
+        HttpPost httppost;
+        httpclient=new DefaultHttpClient();
+        httppost= new HttpPost("http://www.clubdelosvencedores.com/wp-content/uploads/docs/insert.php"); // Url del Servidor
+        //Añadimos nuestros datos
+
+
+        nameValuePairs = new ArrayList<NameValuePair>(4);
+        nameValuePairs.add(new BasicNameValuePair("name", user.getName()));
+        nameValuePairs.add(new BasicNameValuePair("age", user.getAge()+""));
+        nameValuePairs.add(new BasicNameValuePair("genre", user.getGenre()? "Masculino": "Femenino"));
+        nameValuePairs.add(new BasicNameValuePair("cigarettes_by_day", user.getCigarettes_per_day()+""));
+        nameValuePairs.add(new BasicNameValuePair("years_smoking", user.getYears_smoking()+""));
+
+        try {
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpclient.execute(httppost);
+            return true;
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public int getPageIcon(int position) {
         Locale l = Locale.getDefault();
@@ -133,6 +188,8 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
                 return  R.drawable.copa;
             case 2:
                 return  R.drawable.articulo;
+            case 3:
+                return  R.drawable.icn_ubicacion;
         }
         return R.drawable.articulo;
     }
@@ -245,6 +302,8 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
                     return new HomeFour();
                 case 2:
                     return new HomeThree();
+                case 3:
+                    return new HomeOne();
 
             }
             return null;
@@ -252,7 +311,7 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Override
@@ -307,6 +366,39 @@ public class MyActivity extends Activity implements ActionBar.TabListener {
         }
     }
 
+    //AsyncTask para insertar Personas
+    class Insertar extends AsyncTask<String,String,String> {
 
+        private Activity context;
+
+        Insertar(Activity context){
+            this.context=context;
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            // TODO Auto-generated method stub
+            if(insertar())
+                context.runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        userds.open();
+                        user = userds.getUsers().get(0);
+                        user.setRegistered(true);
+                        userds.updateUser(user);
+                        userds.close();
+                    }
+                });
+            else
+                context.runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                    }
+                });
+            return null;
+        }
+    }
 
 }
+

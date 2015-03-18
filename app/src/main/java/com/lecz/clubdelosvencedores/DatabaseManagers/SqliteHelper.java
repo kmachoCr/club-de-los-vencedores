@@ -27,7 +27,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + "cigarettes_day numeric not null, "
             + "last_cigarette numeric not null, "
             + "days_with_smoking numeric not null, "
-            + "years_smoking numeric not null"
+            + "years_smoking numeric not null,"
+            + "registered numeric not null"
             + ");";
 
     private static final String DATATABLE_PLAN_DETAIL = "create table PlanDetail ( id integer primary key autoincrement, "

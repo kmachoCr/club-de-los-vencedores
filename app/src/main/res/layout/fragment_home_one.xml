@@ -1,0 +1,25 @@
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Si creés necesitar la ayuda y el consejo de profesionales, el IAFA  te ofrece varios Centros de Atención Integra alrededor del país. Buscá el más próximo a tu casa o trabajo y contactanos para proporcionarte más información al respecto."
+        android:id="@+id/textView21"
+        android:layout_margin="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <WebView
+        android:layout_width="match_parent"
+        android:id="@+id/goolge_map"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView21">
+
+    </WebView>
+
+</RelativeLayout>

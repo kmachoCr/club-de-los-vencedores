@@ -21,6 +21,9 @@ public class User {
     private Long last_cigarette;
     private int years_smoking;
 
+
+    private boolean registered;
+
     public User(){}
 
 
@@ -35,8 +38,18 @@ public class User {
         this.plan_type = plan_type;
         this.cigarettes_no_smoked = 0;
         this.money_saved = 0;
+        this.registered = false;
         this.years_smoking = 0;
     }
+
+    public boolean getRegistered () {
+        return registered;
+    }
+
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
+    }
+
 
     public int getYears_smoking() {
         return years_smoking;

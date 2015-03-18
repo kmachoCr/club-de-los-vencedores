@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        html, body, #map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+        var locations = [
+          ['CAID Limón',  10.00075, -83.028697, 'Hospital Tony Facio, segundo piso consulta externa', '2758-2222, ext. 2319', 'Lunes, miércoles y viernes de 8:00a.m. a 4:00p.m.'],
+          ['CAID San carlos', 10.333477, -84.431269, 'Del Hospital de San Carlos, 400 mts norte, contiguo restaurante Kleaver', '2460-3367', 'Lunes a viernes de 8 a.m. a 4 p.m.'],
+          ['CAID Santa Cruz',  10.2564,  -85.587589, 'Santa Cruz, 300 m sur del Palacio Municipal, antiguas instalaciones del MOPT, contiguo a Coopetortillas.', '2680-4764', 'Lunes a viernes de 8 a.m. a 4 p.m.'],
+          ['CAID Puntarenas', 9.978353,  -84.833206, 'Puntarenas, 50 mts al Norte de la Agencia del INS – Bulevar de la Casa de la Cultura', '2661-1544', 'Lunes a viernes de 7:30 am. a 3:30 p.m.'],
+          ['CAID Quepos', 9.429573,  -84.16092, 'Del Palí 50m norte', '2777-4089', 'Lunes a viernes de 7:30 am. a 3:30 p.m.'],
+          ['CAID Brunca', 8.821987, -82.974328, 'Área de Salud de CCSS en San Vito de Coto Brus', '2773-4751', 'Lunes a viernes de 7:00a.m. a 3:00 p.m.'],
+          ['IAFA San pedro', 9.927989,  -84.050474, 'Barrio La Granja, de la Escuela Roosevelt 300 este y 75 sur, San Pedro de Montes de Oca', '2224-6122', 'Lunes a viernes de 7:00a .m. a 3:00 p.m.'],
+          ['CAID San Ramón', 10.088497,  -84.471113, 'Del costado sur del Parque de San Ramón (Alajuela), 400 m oeste, casa color anaranajado a mano derecha.', '2445-5314', 'Lunes a viernes 8 a.m. a 4 p.m.'],
+          ['Clínica Cesación fumado Moravia', 10.30308,  -84.80822, '100 metros al sur de la Escuela Saint Joseph´s en Barrio La Guaria de Moravia.', '2224-6122 Ext. 144', 'Lunes a viernes de 7 a.m. a 2:30 p.m']
+      ];
+
+        var map;
+        function initialize() {
+          var mapOptions = {
+            zoom: 9,
+            center: new google.maps.LatLng(9.8223759,-83.7869215),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          map = new google.maps.Map(document.getElementById('map-canvas'),
+              mapOptions);
+              var marker, i;
+        var infowindow = new google.maps.InfoWindow();
+        for (i = 0; i < locations.length; i++) {
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: map
+          });
+
+          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+              infowindow.setContent("<h2>" + locations[i][0] + "</h2><p>Dirección: " + locations[i][3] + "</p><p>Teléfono: " + locations[i][4] + "</p><p>Horario: " + locations[i][5] + "</p>");
+              infowindow.open(map, marker);
+            }
+          })(marker, i));
+        }
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+</head>
+<body>
+<div id="map-canvas"></div>
+</body>
+</html>

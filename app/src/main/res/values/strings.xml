@@ -127,5 +127,6 @@
     <string name="title_activity_introductory_tour">IntroductoryTourActivity</string>
     <string name="title_activity_tour">TourActivity</string>
     <string name="title_activity_update_plan">Actualizar plan</string>
+    <string name="title_activity_google_maps">Map</string>
 
 </resources>

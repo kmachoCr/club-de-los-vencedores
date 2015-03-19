@@ -76,8 +76,8 @@
         android:layout_alignLeft="@+id/count_friends"/>
 
     <TextView
-        android:layout_width="55dp"
-        android:layout_height="35dp"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:gravity="center_horizontal|center"
         android:text="1 año"
@@ -97,8 +97,8 @@
         android:layout_alignRight="@+id/register_cigarettes_per_day" />
 
     <TextView
-        android:layout_width="55dp"
-        android:layout_height="35dp"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:gravity="center_horizontal|center"
         android:text="1 año"

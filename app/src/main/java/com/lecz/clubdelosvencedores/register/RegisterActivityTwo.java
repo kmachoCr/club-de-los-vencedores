@@ -381,6 +381,10 @@ public class RegisterActivityTwo extends Activity {
 
                 }
 
+                if(progress == 0){
+                    textView4.setText("Menos de un año");
+                }
+
 
             }
 

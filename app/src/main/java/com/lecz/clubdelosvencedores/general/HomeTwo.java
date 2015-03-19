@@ -235,7 +235,19 @@
                             }else{
                                 if (user.getDays_with_smoking() == 2) {
                                     if(ret == 0 ){
-                                        msj = "Ya has tenido dos deslices esta semana. Estás cerca de sufrir una recaída. Reflexioná sobre lo que ha salido mal y mantente firme.";
+                                        msj = "Ya tuviste un desliz esta semana. Tratá de evitar fumar a toda costa. Ni un solo cigarrillo más.";
+                                    }
+                                }else{
+                                    if (user.getDays_with_smoking() == 3 || user.getDays_with_smoking() == 4 ) {
+                                        if(ret == 0 ){
+                                            msj = "Ya has tenido dos deslices esta semana. Estás cerca de sufrir una recaída. Reflexioná sobre lo que ha salido mal y mantente firme.";
+                                        }
+                                    }else{
+                                        if (user.getDays_with_smoking() >= 5) {
+                                            if(ret == 0 ){
+                                                msj = "No fumés más. Si necesitás ayuda para controlar las ganas de consumir tabaco, podés buscar el apoyo de algún familiar o amigo, hacer actividad física o, bien, llamar al Centro de Atención Integral del IAFA más cercano.";
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -328,28 +340,53 @@
                                                 if (user.getDays_with_smoking() == 2) {
                                                     msj = "Ya has tenido dos deslices esta semana. Estás cerca de sufrir una recaída. Reflexioná sobre lo que ha salido mal y mantente firme.";
 
-                                                    userds.open();
-                                                    User userR = userds.getUser();
-                                                    userR.setLast_cigarette(s.getTimeInMillis());
-                                                    userR.setDays_without_smoking_count(0.0);
-                                                    userds.updateUser(userR);
-                                                    userds.close();
-                                                    if (notCompleted == 0) {
-                                                        days.setText(((int) Math.round(userR.getDays_without_smoking_count())) + "");
-                                                    }
 
-                                                    builder.setPositiveButton("Cambiar plan (Reiniciar)", new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialog, int id) {
-                                                            Intent intents = new Intent(rootView.getContext(), RegisterActivityTwo.class);
-                                                            startActivity(intents);
-                                                        }
-                                                    });
 
-                                                    builder.setNegativeButton("Seguir con este plan", new DialogInterface.OnClickListener() {
+                                                    builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
                                                         public void onClick(DialogInterface dialog, int id) {
                                                             // User cancelled the dialog
                                                         }
                                                     });
+                                                }else{
+                                                    if (user.getDays_with_smoking() == 3 || user.getDays_with_smoking() == 4    ) {
+                                                        msj = "Es muy probable que estés experimentando una recaída. Pero no te deprimas, podés intentarlo de nuevo o si crées que necesitás ayuda, podés contactar al IAFA al 800-4232-80.";
+
+
+
+                                                        builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                // User cancelled the dialog
+                                                            }
+                                                        });
+                                                    }else{
+                                                        if (user.getDays_with_smoking() >= 5) {
+                                                            msj = "Una recaída no equivale a un fracaso. Seguí intentándolo una y otra vez hasta que logrés vencer. Reiniciá tu plan en la sección de ajustes y empezá de nuevo.";
+
+                                                            userds.open();
+                                                            User userR = userds.getUser();
+                                                            userR.setLast_cigarette(s.getTimeInMillis());
+                                                            userR.setDays_without_smoking_count(0.0);
+                                                            userds.updateUser(userR);
+                                                            userds.close();
+                                                            if (notCompleted == 0) {
+                                                                days.setText(((int) Math.round(userR.getDays_without_smoking_count())) + "");
+                                                            }
+
+                                                            builder.setPositiveButton("Cambiar plan (Reiniciar)", new DialogInterface.OnClickListener() {
+                                                                public void onClick(DialogInterface dialog, int id) {
+                                                                    Intent intents = new Intent(rootView.getContext(), RegisterActivityTwo.class);
+                                                                    startActivity(intents);
+                                                                }
+                                                            });
+
+                                                            builder.setNegativeButton("Seguir con este plan", new DialogInterface.OnClickListener() {
+                                                                public void onClick(DialogInterface dialog, int id) {
+                                                                    // User cancelled the dialog
+                                                                }
+                                                            });
+                                                        }
+
+                                                    }
                                                 }
                                             }
                                         }

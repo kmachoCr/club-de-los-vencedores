@@ -88,36 +88,39 @@ public class UpdateInfoActivity extends Activity {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if( name.getText().toString().trim().length() > 0){
+                    validateUser.setName(name.getText().toString());
+                    validateUser.setAge(Integer.parseInt(age.getSelectedItem().toString()));
+                    validateUser.setGenre(radioM.isChecked());
 
-                validateUser.setName(name.getText().toString());
-                validateUser.setAge(Integer.parseInt(age.getSelectedItem().toString()));
-                validateUser.setGenre(radioM.isChecked());
+                    if(money.isChecked()){
+                        motivations_money = true;
+                    }
+                    if(aesthetic.isChecked()){
+                        motivations_aesthetic = true;
+                    }
+                    if(family.isChecked()){
+                        motivations_family = true;
+                    }
+                    if(health.isChecked()){
+                        motivations_health = true;
+                    }
 
-                if(money.isChecked()){
-                    motivations_money = true;
+                    mds.open();
+                    mds.deleteMotivation(motivations);
+                    mds.createMotivation(new Motivations(motivations_health, motivations_family, motivations_aesthetic, motivations_money));
+                    mds.close();
+
+                    userds.open();
+                    userds.updateUser(validateUser);
+                    userds.close();
+
+                    Toast.makeText(UpdateInfoActivity.this, "Cambios guardados", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UpdateInfoActivity.this, MyActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(UpdateInfoActivity.this, "El campo de nombre es obligarorio", Toast.LENGTH_LONG).show();
                 }
-                if(aesthetic.isChecked()){
-                    motivations_aesthetic = true;
-                }
-                if(family.isChecked()){
-                    motivations_family = true;
-                }
-                if(health.isChecked()){
-                    motivations_health = true;
-                }
-
-                mds.open();
-                mds.deleteMotivation(motivations);
-                mds.createMotivation(new Motivations(motivations_health, motivations_family, motivations_aesthetic, motivations_money));
-                mds.close();
-
-                userds.open();
-                userds.updateUser(validateUser);
-                userds.close();
-
-                Toast.makeText(UpdateInfoActivity.this, "Cambios guardados", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UpdateInfoActivity.this, MyActivity.class);
-                startActivity(intent);
             }
         });
     }

@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
@@ -83,6 +84,8 @@ public class RegisterActivityOne extends Activity {
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+    if( name.getText().toString().trim().length() > 0){
+
 
                     if(validateUser != null){
                         validateUser.setName(name.getText().toString());
@@ -120,6 +123,9 @@ public class RegisterActivityOne extends Activity {
                         Intent myIntent = new Intent(getApplication(), RegisterActivityTwov2.class);
                         startActivity(myIntent);
                     }
+}else{
+    Toast.makeText(RegisterActivityOne.this, "El campo de nombre es obligarorio", Toast.LENGTH_LONG).show();
+}
 
                 }
             });

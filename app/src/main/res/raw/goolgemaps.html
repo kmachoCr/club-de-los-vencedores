@@ -5,11 +5,28 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
-        html, body, #map-canvas {
-        margin: 0;
-        padding: 0;
-        height: 100%;
+        @font-face {
+            font-family: 'futura_book';
+            src: url('file:///android_asset/fonts/Futura_Book.ttf') format('truetype')
         }
+
+        html, body, #map-canvas {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'futura_book';
+        }
+
+        h2{
+            color: #4EB3E4;
+        }
+
+        p{
+            color: #808080;
+        }
+
+
+
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
@@ -28,8 +45,8 @@
         var map;
         function initialize() {
           var mapOptions = {
-            zoom: 9,
-            center: new google.maps.LatLng(9.8223759,-83.7869215),
+            zoom: 7,
+            center: new google.maps.LatLng(9.8223759,-84.2869215),
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
           map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -39,12 +56,13 @@
         for (i = 0; i < locations.length; i++) {
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            map: map
+            map: map,
+            icon: 'file:///android_asset/indicador.png'
           });
 
           google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-              infowindow.setContent("<h2>" + locations[i][0] + "</h2><p>Dirección: " + locations[i][3] + "</p><p>Teléfono: " + locations[i][4] + "</p><p>Horario: " + locations[i][5] + "</p>");
+              infowindow.setContent("<h2>" + locations[i][0] + "</h2><p><strong>Dirección: </strong>" + locations[i][3] + "</p><p><strong>Teléfono: </strong>" + locations[i][4] + "</p><p><strong>Horario: </strong>" + locations[i][5] + "</p>");
               infowindow.open(map, marker);
             }
           })(marker, i));

@@ -255,6 +255,8 @@ public class HomeFour extends Fragment implements TabHost.OnTabChangeListener {
                         }
                     });
 
+                    builder.setIcon(R.drawable.ic_launcher);
+
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }

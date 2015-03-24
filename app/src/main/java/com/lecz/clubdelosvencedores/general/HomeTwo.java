@@ -46,6 +46,7 @@
     import com.lecz.clubdelosvencedores.DatabaseManagers.PlanDetailsDataSource;
     import com.lecz.clubdelosvencedores.DatabaseManagers.UserDataSource;
     import com.lecz.clubdelosvencedores.R;
+    import com.lecz.clubdelosvencedores.UpdatePlanActivity;
     import com.lecz.clubdelosvencedores.objects.Achievement;
     import com.lecz.clubdelosvencedores.objects.PlanDetail;
     import com.lecz.clubdelosvencedores.objects.User;
@@ -298,7 +299,7 @@
                         }
                     }
 
-                    builder.setMessage(msj).setTitle("¿Fumaste un cigarrillo?")
+                    builder.setMessage(msj).setIcon(R.drawable.ic_launcher).setTitle("¿Fumaste un cigarrillo?")
                             .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     int ret = settings.getInt("count", 0);
@@ -362,19 +363,16 @@
                                                         if (user.getDays_with_smoking() >= 5) {
                                                             msj = "Una recaída no equivale a un fracaso. Seguí intentándolo una y otra vez hasta que logrés vencer. Reiniciá tu plan en la sección de ajustes y empezá de nuevo.";
 
+
                                                             userds.open();
                                                             User userR = userds.getUser();
                                                             userR.setLast_cigarette(s.getTimeInMillis());
-                                                            userR.setDays_without_smoking_count(0.0);
                                                             userds.updateUser(userR);
                                                             userds.close();
-                                                            if (notCompleted == 0) {
-                                                                days.setText(((int) Math.round(userR.getDays_without_smoking_count())) + "");
-                                                            }
 
                                                             builder.setPositiveButton("Cambiar plan (Reiniciar)", new DialogInterface.OnClickListener() {
                                                                 public void onClick(DialogInterface dialog, int id) {
-                                                                    Intent intents = new Intent(rootView.getContext(), RegisterActivityTwo.class);
+                                                                    Intent intents = new Intent(rootView.getContext(), UpdatePlanActivity.class);
                                                                     startActivity(intents);
                                                                 }
                                                             });
@@ -384,6 +382,7 @@
                                                                     // User cancelled the dialog
                                                                 }
                                                             });
+
                                                         }
 
                                                     }
@@ -398,21 +397,18 @@
                                                 msj += " Estás muy cerca de sufrir una recaída.  Evitá fumar ni un solo cigarrillo más. No perdás todo lo que has avanzado al día de hoy.";
                                             } else {
                                                 if (ret > 4) {
-                                                    msj += " Es muy probable que estés experimentando una recaída. Tu conteo de días sin fumar se reiniciará. Pero no te deprimas, podés intentarlo de nuevo o si crées que necesitás ayuda, podés contactar al IAFA al 800-4232-80.";
+                                                    msj += "Una recaída no equivale a un fracaso. Seguí intentándolo una y otra vez hasta que logrés vencer. Reiniciá tu plan en la sección de ajustes y empezá de nuevo.";
 
                                                     userds.open();
                                                     User userR = userds.getUser();
                                                     userR.setLast_cigarette(s.getTimeInMillis());
-                                                    userR.setDays_without_smoking_count(0.0);
                                                     userds.updateUser(userR);
                                                     userds.close();
-                                                    if (notCompleted == 0) {
-                                                        days.setText(((int) Math.round(userR.getDays_without_smoking_count())) + "");
-                                                    }
+
 
                                                     builder.setPositiveButton("Cambiar plan (Reiniciar)", new DialogInterface.OnClickListener() {
                                                         public void onClick(DialogInterface dialog, int id) {
-                                                            Intent intents = new Intent(rootView.getContext(), RegisterActivityTwo.class);
+                                                            Intent intents = new Intent(rootView.getContext(), UpdatePlanActivity.class);
                                                             startActivity(intents);
                                                         }
                                                     });
@@ -427,7 +423,7 @@
                                         }
 
 
-                                        builder.setMessage(msj).setIcon(R.drawable.pulmones).setTitle("¿Fumaste un cigarrillo?");
+                                        builder.setMessage(msj).setIcon(R.drawable.ic_launcher).setTitle("¿Fumaste un cigarrillo?");
 
 
                                         AlertDialog diadlog = builder.create();

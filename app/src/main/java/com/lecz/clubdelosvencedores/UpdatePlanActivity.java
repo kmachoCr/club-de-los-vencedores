@@ -50,12 +50,16 @@ public class UpdatePlanActivity extends Activity {
     private Spinner plan_type;
     private UserDataSource userds;
     ArrayList<User> users;
+    private Calendar s;
     private PlanDetailsDataSource dspd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_plan);
+
+        s = Calendar.getInstance();
+        s.setTimeInMillis(System.currentTimeMillis());
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
         dspd = new PlanDetailsDataSource(this);
@@ -91,6 +95,8 @@ public class UpdatePlanActivity extends Activity {
                     user = users.get(0);
                     user.setCigarettes_per_day(cigarettes_per_day.getProgress());
                     user.setPlan_type(1);
+                    user.setLast_cigarette(s.getTimeInMillis());
+                    user.setDays_without_smoking_count(0.0);
                     user.setDays_with_smoking(0);
                     userds.open();
                     userds.updateUser(user);
